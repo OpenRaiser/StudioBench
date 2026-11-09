@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StudioBench 制作画布</title>
+<link rel="stylesheet" href="app.css?v=20261108020329">
+</head>
+<body>
+<header id="bar">
+  <div class="brand"><span class="eb">STUDIOBENCH · PROCESS CANVAS · <b id="batch"></b></span><b>STUDIO<em>制作画布</em></b></div>
+  <nav id="cases" aria-label="选择题目"></nav>
+  <div class="tools">
+    <div class="seg" id="modes" role="group" aria-label="视图">
+      <button type="button" data-mode="overview" title="所有题目的成片胶片墙（键 1）">总览</button>
+      <button type="button" data-mode="stage" title="模型 × 制作阶段（键 2）">阶段</button>
+      <button type="button" data-mode="timeline" title="按调用顺序排开（键 3）">时间线</button>
+      <button type="button" data-mode="board" title="成片里每个镜头、字幕、旁白落在哪一秒（键 4）">成片分镜</button>
+      <button type="button" data-mode="sim" title="跨模型相似度、检索与泄题线索（键 5）">一致性</button>
+    </div>
+    <label class="search" for="q"><input id="q" type="search" placeholder="搜 prompt、旁白、检索结果…" autocomplete="off"><span class="n" id="qn"></span></label>
+    <button type="button" id="foldall" class="tog" title="阶段看板：展开 / 折叠这道题的全部格子（键 E）" hidden>全部展开</button>
+    <label class="tog opt" for="showqa"><input id="showqa" type="checkbox" checked>质检卡</label>
+    <label class="tog opt" for="showthink"><input id="showthink" type="checkbox" checked>思考</label>
+    <label class="tog opt" for="wheelzoom" title="关掉后滚轮平移、Ctrl/⌘+滚轮缩放（适合触控板）"><input id="wheelzoom" type="checkbox" checked>滚轮缩放</label>
+  </div>
+</header>
+<div id="sub"><div class="brief" id="brief"></div><div id="legend"></div><div id="filters" aria-label="按领域 / 题型筛选题目"></div></div>
+<main id="viewport" aria-label="画布：拖动平移，滚轮缩放">
+  <div id="world"></div>
+</main>
+<div id="loading" hidden>载入中…</div>
+<aside id="panel" hidden aria-label="详情">
+  <div class="ph"><h2 id="ptitle"></h2><button type="button" id="pzoom" title="在画布上定位">定位</button><button type="button" id="pclose" title="关闭（Esc）">关闭</button></div>
+  <div class="pb" id="pbody"></div>
+</aside>
+<div id="zoombox">
+  <button type="button" id="zout" title="缩小（-）">−</button>
+  <span class="pct" id="zpct">100%</span>
+  <button type="button" id="zin" title="放大（+）">+</button>
+  <button type="button" id="zfit" title="全部放进视野（F）">适配</button>
+</div>
+<canvas id="minimap" width="440" height="300" aria-label="小地图：点击跳转"></canvas>
+<div id="tip" hidden></div>
+<script src="data/index.js?v=20261108020329"></script>
+<script src="app.js?v=20261108020329"></script>
+</body>
+</html>
