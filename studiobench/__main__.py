@@ -14,6 +14,7 @@
   eval          给一次运行打分（框架文档 §4）
   aggregate     汇总多次运行的分数
   leaderboard   把 eval 快照汇总成静态排行榜
+  leaderboard-import  把人评/机评 CSV 合并成静态排行榜
   monitor       运行树 Web 监控面板
   explorer      生成静态案例浏览器
   site          生成可发布到 GitHub Pages 的静态站点
@@ -34,6 +35,7 @@ COMMANDS = {
     "eval": "studiobench.eval.run",
     "aggregate": "studiobench.eval.aggregate",
     "leaderboard": "studiobench.leaderboard.build",
+    "leaderboard-import": "studiobench.leaderboard.import_csv",
     "monitor": "studiobench.monitor.server",
     "explorer": "studiobench.explorer.build",
     "site": "studiobench.site.build",

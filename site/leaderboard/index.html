@@ -1,1 +1,29 @@
-<!doctype html><meta charset="utf-8"><body style="background:#0f1115;color:#e6e9ee;font-family:system-ui;padding:22px"><h1>Leaderboard</h1><p>No eval snapshots were found for the selected runs. Run <code>sb eval</code> on the selected runs and rebuild this site.</p><p><a style="color:#6ea8fe" href="../">← home</a></p>
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1"><title>StudioBench leaderboard</title>
+<style>
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#0f1115;color:#e6e9ee;margin:0}
+header{padding:22px;border-bottom:1px solid #262c35}main{padding:22px;max-width:1100px;margin:0 auto}
+h1{font-size:20px;margin:0 0 6px}a{color:#6ea8fe;text-decoration:none}a:hover{text-decoration:underline}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:14px}
+th,td{padding:8px 10px;border-bottom:1px solid #20262f;text-align:right}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+th{background:#12161c;color:#8b93a1;font-weight:600}
+tr:hover td{background:#131820}.muted{color:#8b93a1;font-size:12px}
+</style></head><body>
+<header><h1>StudioBench leaderboard</h1>
+<p class="muted">machine v406 (160 tasks) · human 1106 · 160 tasks · ranked by machine score. A dash means the model was not
+rated on that board.</p>
+<p class="muted"><a href="../">← process canvas</a></p></header>
+<main><table>
+<thead><tr><th>Rank</th><th>Model</th><th>Machine score</th><th>Rank interval</th>
+<th>Submitted</th><th>Human score</th><th>Rated cells</th><th>Human rank</th></tr></thead>
+<tbody><tr><td>1</td><td>Gemini 4 Argon</td><td>88.14</td><td>1–2</td><td>159</td><td>86.62</td><td>72</td><td>2</td></tr>
+<tr><td>2</td><td>Claude Opus 5.5</td><td>86.59</td><td>1–5</td><td>156</td><td>88.64</td><td>77</td><td>1</td></tr>
+<tr><td>3</td><td>GPT-6 Astra</td><td>86.20</td><td>2–5</td><td>160</td><td>86.44</td><td>79</td><td>3</td></tr>
+<tr><td>4</td><td>Doubao Seed 2.1 Pro</td><td>85.12</td><td>3–5</td><td>160</td><td>82.85</td><td>79</td><td>4</td></tr>
+<tr><td>5</td><td>DeepSeek V4.1 Flash</td><td>84.82</td><td>2–6</td><td>156</td><td>80.07</td><td>62</td><td>6</td></tr>
+<tr><td>6</td><td>Qwen3.8 Max</td><td>82.43</td><td>4–6</td><td>152</td><td>80.89</td><td>79</td><td>5</td></tr>
+<tr><td>7</td><td>Hy4</td><td>67.75</td><td>7–8</td><td>158</td><td>63.80</td><td>66</td><td>7</td></tr>
+<tr><td>8</td><td>MiMo v2.6 Pro</td><td>63.20</td><td>7–8</td><td>120</td><td>59.32</td><td>78</td><td>8</td></tr></tbody></table>
+<p class="muted">Machine: machine v406 (160 tasks). Human: human 1106. Scores are on the published 0–100 scale; rank
+intervals come from paired bootstrap over tasks.</p></main></body></html>

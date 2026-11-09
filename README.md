@@ -107,8 +107,8 @@ size limits are in `docs/pages.md`.
 ## Leaderboard
 
 `studiobench.leaderboard` turns a snapshot directory of evaluation results into a static site.
-The repository ships the generator and the schema, not production data. See
-`docs/leaderboard.md`.
+Existing machine/human CSV exports can be merged with `sb leaderboard-import`. The repository
+ships the generator and the schema, not production data. See `docs/leaderboard.md`.
 
 ## License
 

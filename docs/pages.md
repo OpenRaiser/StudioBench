@@ -55,6 +55,16 @@ gh api -X POST repos/OWNER/REPO/pages -f build_type=workflow
 
 ## Notes
 
-The quantitative leaderboard is generated from `eval/eval.json` snapshots. Runs without an
-eval snapshot still appear in the explorer, but the leaderboard page stays empty until those
-runs are scored.
+The quantitative leaderboard is generated either from `eval/eval.json` snapshots
+(`sb leaderboard`) or from existing machine/human CSV exports (`sb leaderboard-import`).
+The currently published board is imported from the v406 machine board (160 tasks, 8 models)
+and the 1106 human board; `qwen3.8-27b` is not covered by either and is only shown in the
+canvas.
+
+```bash
+./sb leaderboard-import \
+  --machine exports/.../leaderboard160_v406.csv \
+  --human exports/.../human_leaderboard.csv \
+  --out site/leaderboard \
+  --machine-label "machine v406 (160 tasks)" --human-label "human 1106"
+```
