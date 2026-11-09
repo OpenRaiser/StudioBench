@@ -76,9 +76,13 @@ def run_demo(task_path: Path, out_root: Path, model: str = "mock-agent") -> Path
     mixed = script.call("mix_audio", video=cut["file"], audio=voice["file"], out="mixed_vo.mp4")
     mixed2 = script.call("mix_audio", video=mixed["file"], audio=music["file"], gain=0.35,
                          out="mixed_all.mp4")
-    final_work = script.call("overlay", video=mixed2["file"],
-                             subtitles=[{"start": 0.5, "end": 3.5, "text": "一杯咖啡"}],
-                             out="final_work.mp4")
+    try:
+        final_work = script.call("overlay", video=mixed2["file"],
+                                 subtitles=[{"start": 0.5, "end": 3.5, "text": "一杯咖啡"}],
+                                 out="final_work.mp4")
+    except RuntimeError as exc:      # no CJK font on minimal CI images: ship the cut without subtitles
+        print("skip subtitle overlay: %s" % exc)
+        final_work = mixed2
     script.call("export", src=final_work["file"])
 
     final = run_dir / "final.mp4"
@@ -91,7 +95,8 @@ def run_demo(task_path: Path, out_root: Path, model: str = "mock-agent") -> Path
         "mock": True, "submitted": submitted, "final": str(final) if submitted else None,
         "video": probe, "returncode": 0, "timed_out": False,
         "seconds": round(sum(c["sec"] for c in script.calls), 2),
-        "tool_calls": len(script.calls), "tool_errors": 0,
+        "tool_calls": len(script.calls),
+        "tool_errors": sum(1 for c in script.calls if not c["ok"]),
         "valid_for_bench": False,
         "invalid_reasons": ["mock backends (demo run)"],
         "demo": True, "created_at": time.time(),
