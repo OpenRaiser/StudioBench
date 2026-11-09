@@ -25,6 +25,14 @@ jobs:
         run: pytest -q
       - name: CLI smoke
         run: python -m studiobench --help
+      - name: Mock end-to-end demo
+        run: |
+          ./sb demo --out /tmp/sb-runs
+          test -f /tmp/sb-runs/DEMO-TINY/mock-agent/final.mp4
+          ./sb monitor --runs /tmp/sb-runs --once > /dev/null
+          ./sb explorer --runs /tmp/sb-runs --out /tmp/sb-site
+          test -f /tmp/sb-site/index.html
+          ./sb leaderboard --runs /tmp/sb-runs --out /tmp/sb-board --include-invalid
       - name: Task schema
         run: |
           python - <<'PY'

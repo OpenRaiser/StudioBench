@@ -41,8 +41,9 @@ def summarize(rows: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         for label in LABELS:
             vals = [r.get("scores", {}).get("audio") for r in mine if label in (r.get("_profile") or [])]
             by_label[label] = {"score": _mean(vals), "n": sum(v is not None for v in vals)}
+        overall = _mean([scores[k] for k in MAIN if scores[k] is not None])
         out.append({"model": model, "tasks": len(mine), "scores": scores,
-                    "coverage": coverage, "audio_by_profile": by_label})
+                    "coverage": coverage, "audio_by_profile": by_label, "overall": overall})
     return out
 
 
@@ -51,11 +52,11 @@ def _fmt(value: Optional[float]) -> str:
 
 
 def to_markdown(summary: List[Dict[str, Any]]) -> str:
-    head = ["模型", "题数", "成片分", "画面分", "声音分", "声画分", "声音·speech", "声音·music",
+    head = ["模型", "题数", "总分", "成片分", "画面分", "声音分", "声画分", "声音·speech", "声音·music",
             "声音·sfx", "声音·dialogue"]
     lines = ["| " + " | ".join(head) + " |", "|" + " --- |" * len(head)]
     for row in summary:
-        cells = [row["model"], str(row["tasks"])]
+        cells = [row["model"], str(row["tasks"]), _fmt(row["overall"])]
         cells += [_fmt(row["scores"][k]) for k in MAIN]
         cells += [_fmt(row["audio_by_profile"][l]["score"]) for l in LABELS]
         lines.append("| " + " | ".join(cells) + " |")
@@ -63,11 +64,11 @@ def to_markdown(summary: List[Dict[str, Any]]) -> str:
 
 
 def to_html(summary: List[Dict[str, Any]], title: str) -> str:
-    head = ["Model", "Tasks", "Film", "Visual", "Audio", "A/V", "Audio·speech", "Audio·music",
-            "Audio·sfx", "Audio·dialogue"]
+    head = ["Model", "Tasks", "Overall", "Film", "Visual", "Audio", "A/V", "Audio·speech",
+            "Audio·music", "Audio·sfx", "Audio·dialogue"]
     rows = []
     for row in summary:
-        cells = [html.escape(row["model"]), str(row["tasks"])]
+        cells = [html.escape(row["model"]), str(row["tasks"]), _fmt(row["overall"])]
         cells += [_fmt(row["scores"][k]) for k in MAIN]
         cells += [_fmt(row["audio_by_profile"][l]["score"]) for l in LABELS]
         rows.append("<tr>" + "".join("<td>%s</td>" % c for c in cells) + "</tr>")
@@ -85,7 +86,7 @@ def to_html(summary: List[Dict[str, Any]], title: str) -> str:
  tr:hover td{background:#fcfcfc}
 </style></head><body>
 <h1>%s</h1>
-<p class="note">Generated from published eval snapshots. A dash means no task produced a score for that column.</p>
+<p class="note">Generated from published eval snapshots. Overall is the equal-weight mean of the available main scores. A dash means no task produced a score for that column.</p>
 <table><thead><tr>%s</tr></thead><tbody>%s</tbody></table>
 </body></html>
 """ % (html.escape(title), html.escape(title),

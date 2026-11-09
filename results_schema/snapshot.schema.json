@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/OpenRaiser/StudioBench/results_schema/snapshot.schema.json",
+  "title": "StudioBench leaderboard snapshot",
+  "type": "object",
+  "required": ["runs"],
+  "properties": {
+    "source": {"type": "string", "description": "Where the snapshot was produced from (informational)"},
+    "runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["task", "model"],
+        "properties": {
+          "task": {"type": "string"},
+          "model": {"type": "string"},
+          "valid_for_bench": {"type": "boolean"},
+          "submitted": {"type": "boolean"},
+          "scores": {
+            "type": "object",
+            "properties": {
+              "film": {"type": ["number", "null"]},
+              "visual": {"type": ["number", "null"]},
+              "audio": {"type": ["number", "null"]},
+              "av": {"type": ["number", "null"]}
+            },
+            "additionalProperties": true
+          },
+          "judge": {
+            "type": ["object", "null"],
+            "properties": {"model": {"type": "string"}, "version": {"type": "string"}},
+            "additionalProperties": true
+          },
+          "harness_version": {"type": ["string", "null"]},
+          "budget": {"type": ["object", "null"]},
+          "seconds": {"type": ["number", "null"]},
+          "cost_usd": {"type": ["number", "null"]},
+          "tool_calls": {"type": ["integer", "null"]},
+          "tool_errors": {"type": ["integer", "null"]}
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

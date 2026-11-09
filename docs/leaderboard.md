@@ -31,7 +31,10 @@ Rules:
 - only `valid_for_bench=true` runs are published by default;
 - null means "not scored", never zero; a submitted-but-failed metric is reported as `null`
   with a coverage count;
-- the overall score formula and the judge version are part of the leaderboard version.
+- the overall score is the equal-weight mean of the available main scores (film, visual,
+  audio, A/V); if a score is null it is excluded from that model's mean and the coverage is
+  reported next to each column. Changing the formula is a leaderboard version change;
+- the judge version and harness version are part of the leaderboard version.
 
 ## Build
 

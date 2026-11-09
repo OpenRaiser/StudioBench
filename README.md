@@ -17,7 +17,11 @@ studiobench/
   harness/      isolated runs, batch queue, resume, preflight, selftest
   tools/        MCP server + 33 atomic media tools + model backends (mock included)
   eval/         hard gates, checklist judge, VBench, audio / A-V sync, aggregation
+  leaderboard/  snapshot aggregation and static leaderboard
+  monitor/      read-only web dashboard for a run tree
+  explorer/     static case pages (calls, files, final cut)
   pool/         optional multi-GPU tool pool planner
+  results.py    run discovery and the snapshot row format
   sp.md         system prompt used by the evaluated model
 tasks/          task format and demo tasks
 docs/           protocol, tool contract, metrics, leaderboard
@@ -39,8 +43,13 @@ pip install -e ".[frames,ffmpeg]"
 # 2. Exercise every tool through the MCP server with mock generation backends
 ./sb selftest --mock
 
-# 3. Score a completed run (metrics only; judge backends can be mocked)
-./sb eval --help
+# 3. Run the scripted mock pipeline end to end (tools -> final.mp4 -> hard-gate eval)
+./sb demo --out ./runs
+
+# 4. Inspect the run tree
+./sb monitor --runs ./runs --port 8132       # web dashboard
+./sb explorer --runs ./runs --out ./site     # static case pages
+./sb leaderboard --runs ./runs --out ./site  # static leaderboard
 ```
 
 Running a task end-to-end (`sb run`) drives an evaluated model through the Claude Code CLI

@@ -1,0 +1,21 @@
+{
+  "id": "DEMO-TINY",
+  "domain": "commercial",
+  "task": "open",
+  "audio_profile": ["music"],
+  "wish": "做一支 10 秒左右的咖啡品牌概念短片，16:9 横屏。两个镜头：清晨窗边的手冲咖啡特写，然后推近到杯口的热气，最后出现品牌名。不需要旁白，配轻快的原声吉他。",
+  "duration_sec": [8, 12],
+  "aspect": "16:9",
+  "smoke": true,
+  "must": ["成片中出现一杯咖啡"],
+  "forbid": [],
+  "constraints": [],
+  "plot_beats": [],
+  "facts": [],
+  "assets": [],
+  "references": [],
+  "given_audio": null,
+  "source": {
+    "note": "synthetic tiny task used by the mock demo; no third-party media"
+  }
+}
