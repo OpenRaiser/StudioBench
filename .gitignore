@@ -18,6 +18,9 @@ models/
 *.wav
 *.flac
 
+# GitHub Pages demo media is intentionally tracked
+!site/media/**/*.mp4
+
 # Secrets / local config
 *.env
 !config.example.env
