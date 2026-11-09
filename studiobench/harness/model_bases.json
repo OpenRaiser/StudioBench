@@ -1,0 +1,5 @@
+{
+ "Hy4-A49B-1008-merge-prod-long-agent-rl_step_600": "http://127.0.0.1:8789",
+ "deepseek-v4.1-flash-1017": "http://127.0.0.1:8790",
+ "mimo-v2.6-pro": "http://127.0.0.1:8791"
+}

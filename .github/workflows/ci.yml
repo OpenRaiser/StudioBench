@@ -1,0 +1,37 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Unit tests
+        run: pytest -q
+      - name: CLI smoke
+        run: python -m studiobench --help
+      - name: Task schema
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          from studiobench.harness import taskspec
+          for p in pathlib.Path("tasks").rglob("*.json"):
+              issues = [m for lvl, m in taskspec.validate(json.loads(p.read_text())) if lvl == "error"]
+              assert not issues, (p, issues)
+          print("tasks ok")
+          PY

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+
+# Local state and artifacts (never commit runs, weights or caches)
+runs/
+.cache/
+.toolbox/
+models/
+*.mp4
+*.mov
+*.wav
+*.flac
+
+# Secrets / local config
+*.env
+!config.example.env
+.env.*
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/

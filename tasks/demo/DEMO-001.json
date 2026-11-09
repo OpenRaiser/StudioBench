@@ -1,0 +1,25 @@
+{
+  "id": "DEMO-001",
+  "domain": "commercial",
+  "task": "open",
+  "audio_profile": ["music", "sfx"],
+  "wish": "做一支 1 分钟左右的温暖咖啡品牌概念短片，16:9 横屏。清晨的窗边、手冲咖啡的特写、热气与阳光的光斑，最后落在品牌名和一句品牌语上。不需要旁白和对白，用轻快的原声吉他配乐和少量环境音效。",
+  "duration_sec": [60, 75],
+  "aspect": "16:9",
+  "must": [
+    "成片中出现一杯咖啡的特写",
+    "结尾出现品牌名与品牌语"
+  ],
+  "forbid": [
+    "出现真实存在的品牌 logo"
+  ],
+  "constraints": [],
+  "plot_beats": [],
+  "facts": [],
+  "assets": [],
+  "references": [],
+  "given_audio": null,
+  "source": {
+    "note": "synthetic demo task for the public repository; no third-party media"
+  }
+}

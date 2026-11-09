@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# StudioBench 命令入口：./sb <命令> [参数]，等价于 python -m studiobench <命令>。
+# 跑 run / batch 的解释器只需要标准库；MCP server 的解释器另由 --python / STUDIO_PYTHON 指定。
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export PYTHONPATH="$HERE${PYTHONPATH:+:$PYTHONPATH}"
+exec "${STUDIO_RUNNER_PYTHON:-python3}" -m studiobench "$@"
