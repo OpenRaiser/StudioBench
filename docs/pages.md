@@ -1,24 +1,39 @@
 # GitHub Pages
 
-The public demo site is a static build of the leaderboard and case explorer plus a curated
-set of final cuts. It is served from the `site/` directory on `main` through GitHub Actions.
+The public demo site is the process canvas (stage / timeline / shot board / similarity views)
+for a curated set of cases, plus the leaderboard. It is served from `site/` on `main` through
+GitHub Actions.
+
+Layout:
+
+```
+site/_canvas/            canvas app, data/*.js and thumbnails
+site/<task>/<model>/     assets referenced by the canvas
+site/leaderboard/        quantitative leaderboard
+site/index.html          redirects to _canvas/index.html
+```
 
 ## Build
 
+The canvas bundle is produced by the process-canvas tooling (`build.py` +
+`make_share.py` in the canvas project) from a built `_canvas` directory:
+
 ```bash
-./sb site --runs /path/to/runs \
-  --out site \
-  --cases COM-AST-002,NAR-REF-007,MUS-AST-001 \
-  --models claude-opus-5-5,gemini-4-argon,gpt-6-astra,qwen3.8-27b \
-  --media-from /path/to/720p-exports \
-  --profile 540 --max-size-mb 900
+python make_share.py --canvas /path/to/runs/_canvas \
+  --cases COM-AST-002,NAR-REF-007 \
+  --out site --final-dir /path/to/720p-exports --profile slim --jobs 8
 ```
 
-- `--media-from` may be a comma-separated list of trees shaped
-  `<root>/<task>/<model>/final_720p.mp4`; without it the builder transcodes `run/final.mp4`.
-- The builder copies/transcodes only the selected runs, stops before `--max-size-mb`, and
-  records skipped runs in `site/site.json`.
-- Output: `index.html`, `leaderboard/`, `explorer/`, `media/<task>/<model>/final.mp4`.
+`--final-dir` is a tree shaped `<dir>/<task>/<model>/final_720p.mp4`; models without a
+pre-encoded cut are transcoded from the run directory. The script copies only referenced
+assets, rewrites media references in `data/<case>.js`, and keeps the whole bundle near the
+slim profile target.
+
+After packaging, sanitize machine paths and internal arm names from `_canvas/data/*.js`,
+add the root redirect and `.nojekyll`, keep `leaderboard/` from `sb site`, then commit.
+
+The simpler `sb site` builder (landing + leaderboard + per-run explorer pages) is still
+available for metadata-only builds; it writes `explorer/` instead of `_canvas/`.
 
 ## Publish
 

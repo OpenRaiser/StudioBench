@@ -99,9 +99,10 @@ Metric definitions and aggregation rules are in `docs/metrics.md`.
 
 ## Public demo
 
-A curated static build (leaderboard + case explorer + selected final cuts) is published with
-GitHub Pages from `site/`. Build and publishing steps, media curation and size limits are in
-`docs/pages.md`.
+The process canvas for two curated cases is published with GitHub Pages from `site/`
+(<https://openraiser.github.io/StudioBench/>). The canvas app lives under `site/_canvas/`,
+referenced assets under `site/<task>/<model>/`. Build and publishing steps, media curation and
+size limits are in `docs/pages.md`.
 
 ## Leaderboard
 
