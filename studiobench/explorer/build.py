@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import re
 import json
 import os
 import time
@@ -40,8 +41,16 @@ video{max-width:min(900px,100%);border-radius:10px;border:1px solid #262c35;back
 """
 
 
+_ABS_PATH = re.compile(r"(?:/taijifs\S*|/apdcephfs\S*|/data/workspace\S*|/root/\S*|/home/\S*)")
+
+
+def redact(text: Any) -> str:
+    """Hide machine-specific absolute paths in published pages."""
+    return _ABS_PATH.sub("<path>", "" if text is None else str(text))
+
+
 def esc(value: Any) -> str:
-    return html.escape("" if value is None else str(value), quote=True)
+    return html.escape(redact(value), quote=True)
 
 
 def _page(title: str, body: str) -> str:
@@ -118,13 +127,14 @@ def build_run_page(run: RunInfo, media_base: str) -> str:
     card_html = "".join("<div class=\"card\">%s<b>%s</b></div>" % (esc(k), esc(v if v is not None else "—"))
                         for k, v in cards)
     body = ("<header><a href=\"index.html\">← all runs</a><h1>%s · %s</h1>"
-            "<span class=\"muted\">%s</span></header><main>"
+            "<span class=\"muted\">%s · %s</span></header><main>"
             "<section class=\"cards\">%s</section>%s"
             "<section><h2>Final cut</h2>%s</section>"
             "<section><h2>Tool summary</h2>%s</section>"
             "<section><h2>Calls</h2>%s</section>"
             "<section><h2>Files in work/</h2>%s</section>"
-            "</main>") % (esc(run.task_id), esc(run.model), esc(run.run_dir), card_html,
+            "</main>") % (esc(run.task_id), esc(run.model), esc(run.status),
+                          esc(run.task_id + "/" + run.model), card_html,
                           "", video, _tool_summary(run), _calls_table(run), _files(run))
     return _page("%s · %s" % (run.task_id, run.model), body)
 

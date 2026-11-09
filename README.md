@@ -48,8 +48,9 @@ pip install -e ".[frames,ffmpeg]"
 
 # 4. Inspect the run tree
 ./sb monitor --runs ./runs --port 8132       # web dashboard
-./sb explorer --runs ./runs --out ./site     # static case pages
-./sb leaderboard --runs ./runs --out ./site  # static leaderboard
+./sb explorer --runs ./runs --out ./explorer_site   # static case pages
+./sb leaderboard --runs ./runs --out ./board_site    # static leaderboard
+./sb site --runs ./runs --out ./site --cases DEMO-TINY  # combined Pages build
 ```
 
 Running a task end-to-end (`sb run`) drives an evaluated model through the Claude Code CLI
@@ -95,6 +96,12 @@ enabled unless the corresponding variables are set; unavailable tools are marked
 Four main scores: film (checklist + hard duration rule), visual (VBench), audio, and audio-visual
 sync. Hard gates (decodable, duration, aspect, audio track, not silent) are computed first.
 Metric definitions and aggregation rules are in `docs/metrics.md`.
+
+## Public demo
+
+A curated static build (leaderboard + case explorer + selected final cuts) is published with
+GitHub Pages from `site/`. Build and publishing steps, media curation and size limits are in
+`docs/pages.md`.
 
 ## Leaderboard
 
