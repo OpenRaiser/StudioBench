@@ -56,15 +56,19 @@ gh api -X POST repos/OWNER/REPO/pages -f build_type=workflow
 ## Notes
 
 The quantitative leaderboard is generated either from `eval/eval.json` snapshots
-(`sb leaderboard`) or from existing machine/human CSV exports (`sb leaderboard-import`).
-The currently published board is imported from the v406 machine board (160 tasks, 8 models)
-and the 1106 human board; `qwen3.8-27b` is not covered by either and is only shown in the
-canvas.
+(`sb leaderboard`) or from a published board CSV (`sb leaderboard-import`). The official board
+is the v4.1.0 checklist-grade machine evaluation: 160 tasks, grade mode (1–3 converted with
+development-set cut points), with AUD/SEM/VIS/AV board means. `qwen3.8-27b` is intentionally
+excluded from the leaderboard (it remains visible in the canvas as a case study).
 
 ```bash
 ./sb leaderboard-import \
-  --machine exports/.../leaderboard160_v406.csv \
+  --board outputs/.../leaderboard160_grade_r01.csv \
   --human exports/.../human_leaderboard.csv \
+  --exclude qwen3.8-27b \
   --out site/leaderboard \
-  --machine-label "machine v406 (160 tasks)" --human-label "human 1106"
+  --label "machine v4.1.0 · grade mode · 160 tasks"
 ```
+
+Ranks are renumbered after exclusion; the 95% rank interval and board means come from the
+original published board. The human 1106 score is shown as a reference column only.

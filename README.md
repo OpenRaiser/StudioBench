@@ -107,7 +107,8 @@ size limits are in `docs/pages.md`.
 ## Leaderboard
 
 `studiobench.leaderboard` turns a snapshot directory of evaluation results into a static site.
-Existing machine/human CSV exports can be merged with `sb leaderboard-import`. The repository
+A published board CSV can be imported with `sb leaderboard-import` (the official board is the
+v4.1.0 checklist-grade machine evaluation with AUD/SEM/VIS/AV breakdowns). The repository
 ships the generator and the schema, not production data. See `docs/leaderboard.md`.
 
 ## License

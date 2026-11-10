@@ -36,6 +36,19 @@ Rules:
   reported next to each column. Changing the formula is a leaderboard version change;
 - the judge version and harness version are part of the leaderboard version.
 
+## Importing a published board
+
+If the board was produced by an external evaluation pipeline, import its CSV directly:
+
+```bash
+sb leaderboard-import --board board_grade.csv --human human_board.csv \
+  --exclude qwen3.8-27b --out site/leaderboard
+```
+
+The board CSV needs `rank, model, submitted, score, rank_lo, rank_hi, AUD, SEM, VIS, AV`.
+Ranks are renumbered after excluded models are dropped; the human CSV is optional and is
+shown as a reference column.
+
 ## Build
 
 ```bash

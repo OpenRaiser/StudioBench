@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-"""Import existing machine and human leaderboard CSVs into a static page.
+"""Import a published board CSV (v410-style) into a static leaderboard page.
 
-    python -m studiobench leaderboard-import \
-        --machine exports/.../leaderboard160_v406.csv \
-        --human exports/.../human_leaderboard.csv \
+    python -m studiobench leaderboard-import \\
+        --board outputs/.../leaderboard160_grade_r01.csv \\
+        --human exports/.../human_leaderboard.csv \\
+        --exclude qwen3.8-27b \\
         --out site/leaderboard
 
-The two boards are merged on the model name. Machine rows carry rank, score, submitted
-counts and a rank interval; human rows carry the human score, rated cells and rank.
+Board CSV columns: rank, model, submitted, score, rank_lo, rank_hi, lead_next, AUD, SEM,
+VIS, AV. The human CSV is optional and only shown as a reference column.
 """
 from __future__ import annotations
 
@@ -18,7 +19,6 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-# CSV short names -> (canonical id, display name)
 MODELS = {
     "gemini": ("gemini-4-argon", "Gemini 4 Argon"),
     "claude": ("claude-opus-5-5", "Claude Opus 5.5"),
@@ -27,14 +27,15 @@ MODELS = {
     "deepseek": ("deepseek-v4.1-flash-1017", "DeepSeek V4.1 Flash"),
     "qwen": ("qwen3.8-max-0902", "Qwen3.8 Max"),
     "qwen-max": ("qwen3.8-max-0902", "Qwen3.8 Max"),
+    "qwen-27b": ("qwen3.8-27b", "Qwen3.8 27B"),
     "hy4": ("hy4", "Hy4"),
     "mimo": ("mimo-v2.6-pro", "MiMo v2.6 Pro"),
 }
+BOARDS = ("AUD", "SEM", "VIS", "AV")
 
 
 def norm(name: str) -> tuple:
-    key = name.strip().lower()
-    return MODELS.get(key, (key, name.strip()))
+    return MODELS.get(name.strip().lower(), (name.strip().lower(), name.strip()))
 
 
 def read_csv(path: Path) -> List[dict]:
@@ -49,84 +50,102 @@ def number(value):
         return None
 
 
-def build(machine_csv: Path, human_csv: Path) -> List[dict]:
+def build(board_csv: Path, human_csv: Path | None, exclude: set) -> List[dict]:
     rows: Dict[str, dict] = {}
-    for row in read_csv(machine_csv):
+    for row in read_csv(board_csv):
         cid, display = norm(row["model"])
-        rows[cid] = {"model": cid, "name": display,
-                     "machine": {"rank": int(float(row["rank"])),
-                                 "score": number(row.get("score")),
-                                 "submitted": int(float(row.get("submitted") or 0)),
-                                 "rank_lo": number(row.get("rank_lo")),
-                                 "rank_hi": number(row.get("rank_hi")),
-                                 "lead_next": number(row.get("lead_next"))},
-                     "human": None}
-    for row in read_csv(human_csv):
-        cid, display = norm(row["model"])
-        item = rows.setdefault(cid, {"model": cid, "name": display, "machine": None, "human": None})
-        item["human"] = {"rank": int(float(row["rank"])),
-                         "score": number(row.get("human_score")),
-                         "cells": int(float(row.get("cells") or 0))}
-    return sorted(rows.values(), key=lambda r: (r["machine"] or {}).get("rank", 999))
+        if cid in exclude:
+            continue
+        rows[cid] = {
+            "model": cid, "name": display,
+            "rank": int(float(row["rank"])), "score": number(row.get("score")),
+            "submitted": int(float(row.get("submitted") or 0)),
+            "rank_lo": number(row.get("rank_lo")), "rank_hi": number(row.get("rank_hi")),
+            "lead_next": number(row.get("lead_next")),
+            "boards": {b: number(row.get(b)) for b in BOARDS},
+            "human": None,
+        }
+    if human_csv:
+        for row in read_csv(human_csv):
+            cid, _ = norm(row["model"])
+            if cid in rows:
+                rows[cid]["human"] = {"rank": int(float(row["rank"])),
+                                      "score": number(row.get("human_score")),
+                                      "cells": int(float(row.get("cells") or 0))}
+    ordered = sorted(rows.values(), key=lambda r: (-(r["score"] or 0), r["rank"]))
+    for display_rank, row in enumerate(ordered, 1):
+        row["display_rank"] = display_rank
+    return ordered
 
 
-def _fmt(value, digits=2):
-    return "—" if value is None else ("%.*f" % (digits, value))
+def _f(value, digits=2):
+    return "—" if value is None else (("%.*f" % (digits, value)) if isinstance(value, float) else str(value))
 
 
-def to_html(rows: List[dict], title: str, machine_label: str, human_label: str) -> str:
+def to_html(rows: List[dict], title: str, label: str, human_label: str | None) -> str:
     body = []
     for row in rows:
-        m, h = row.get("machine") or {}, row.get("human") or {}
-        interval = ("%d–%d" % (int(m["rank_lo"]), int(m["rank_hi"]))
-                    if m.get("rank_lo") and m.get("rank_hi") else "—")
-        body.append(
-            "<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td>"
-            "<td>%s</td><td>%s</td><td>%s</td></tr>" % (
-                m.get("rank", "—"), html.escape(row["name"]), _fmt(m.get("score")),
-                interval, m.get("submitted", "—"), _fmt(h.get("score")),
-                h.get("cells", "—"), h.get("rank", "—")))
+        interval = ("%d–%d" % (int(row["rank_lo"]), int(row["rank_hi"]))
+                    if row.get("rank_lo") is not None and row.get("rank_hi") is not None else "—")
+        human = row.get("human") or {}
+        cells = [str(row["display_rank"]), html.escape(row["name"]), _f(row["score"]),
+                 interval, str(row["submitted"])]
+        cells += [_f(row["boards"][b], 1) for b in BOARDS]
+        if human_label:
+            cells += [_f(human.get("score")), human.get("cells", "—"), human.get("rank", "—")]
+        body.append("<tr>" + "".join("<td>%s</td>" % c for c in cells) + "</tr>")
+    heads = ["Rank", "Model", "Score", "95% rank interval", "Submitted"]
+    heads += BOARDS
+    if human_label:
+        heads += ["Human score", "Rated cells", "Human rank"]
+    note = ("Human column is shown as a reference only; ranking and scores come from the "
+            "published machine board." if human_label else "")
     return """<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1"><title>%s</title>
 <style>
 body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#0f1115;color:#e6e9ee;margin:0}
-header{padding:22px;border-bottom:1px solid #262c35}main{padding:22px;max-width:1100px;margin:0 auto}
+header{padding:22px;border-bottom:1px solid #262c35}main{padding:22px;max-width:1180px;margin:0 auto}
 h1{font-size:20px;margin:0 0 6px}a{color:#6ea8fe;text-decoration:none}a:hover{text-decoration:underline}
 table{width:100%%;border-collapse:collapse;font-size:13px;margin-top:14px}
-th,td{padding:8px 10px;border-bottom:1px solid #20262f;text-align:right}
+th,td{padding:8px 10px;border-bottom:1px solid #20262f;text-align:right;white-space:nowrap}
 th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
 th{background:#12161c;color:#8b93a1;font-weight:600}
 tr:hover td{background:#131820}.muted{color:#8b93a1;font-size:12px}
 </style></head><body>
 <header><h1>%s</h1>
-<p class="muted">%s · %s · 160 tasks · ranked by machine score. A dash means the model was not
-rated on that board.</p>
+<p class="muted">%s · 160 tasks · grades are 1–3 converted with development-set cut points; a
+missing cut counts as 0. %s</p>
 <p class="muted"><a href="../">← process canvas</a></p></header>
-<main><table>
-<thead><tr><th>Rank</th><th>Model</th><th>Machine score</th><th>Rank interval</th>
-<th>Submitted</th><th>Human score</th><th>Rated cells</th><th>Human rank</th></tr></thead>
-<tbody>%s</tbody></table>
-<p class="muted">Machine: %s. Human: %s. Scores are on the published 0–100 scale; rank
-intervals come from paired bootstrap over tasks.</p></main></body></html>
-""" % (html.escape(title), html.escape(title), html.escape(machine_label), html.escape(human_label),
-       "\n".join(body), html.escape(machine_label), html.escape(human_label))
+<main><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table>
+<p class="muted">Ranks are renumbered after omitting models excluded from this page; 95%%
+intervals come from the original published board (paired bootstrap over tasks). AUD/SEM/VIS/AV
+are board means on the same 0–100 scale.</p></main></body></html>
+""" % (html.escape(title), html.escape(title), html.escape(label), html.escape(note),
+       "".join("<th>%s</th>" % html.escape(h) for h in heads), "\n".join(body))
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description="Import machine + human leaderboard CSVs")
-    ap.add_argument("--machine", required=True)
-    ap.add_argument("--human", required=True)
+    ap = argparse.ArgumentParser(description="Import a published board CSV")
+    ap.add_argument("--board", required=True)
+    ap.add_argument("--human", default="", help="optional human board CSV (reference only)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--title", default="StudioBench leaderboard")
-    ap.add_argument("--machine-label", default="machine v406")
-    ap.add_argument("--human-label", default="human 1106")
+    ap.add_argument("--label", default="machine v4.1.0 · grade mode")
+    ap.add_argument("--human-label", default="human 1106",
+                    help="label for the reference human column; empty to hide it")
+    ap.add_argument("--exclude", default="qwen3.8-27b",
+                    help="comma-separated canonical model ids to omit")
     args = ap.parse_args()
-    rows = build(Path(args.machine), Path(args.human))
+    exclude = {x.strip() for x in args.exclude.split(",") if x.strip()}
+    rows = build(Path(args.board), Path(args.human) if args.human else None, exclude)
+    if not rows:
+        print("no rows after filtering")
+        return 1
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     (out / "data.json").write_text(json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
-    (out / "index.html").write_text(to_html(rows, args.title, args.machine_label, args.human_label),
-                                    encoding="utf-8")
+    (out / "index.html").write_text(
+        to_html(rows, args.title, args.label, args.human_label or None), encoding="utf-8")
     print("wrote %d models to %s" % (len(rows), out))
     return 0
 

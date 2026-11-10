@@ -22,3 +22,17 @@ def test_markdown_has_row_per_model():
     md = to_markdown(summarize(rows))
     assert "| a |" in md
     assert md.count("\n") >= 2
+
+
+def test_import_csv_board_and_exclusion(tmp_path):
+    from studiobench.leaderboard.import_csv import build
+
+    board = tmp_path / "board.csv"
+    board.write_text(
+        "rank,model,submitted,score,rank_lo,rank_hi,lead_next,AUD,SEM,VIS,AV\n"
+        "1,Claude,156,92.22,1,3,0.5,95,96,86,89\n"
+        "2,Qwen-27b,160,82.80,6,7,1.0,90,92,63,81\n"
+        "3,Hy4,158,68.35,8,9,0.9,49,90,76,45\n", encoding="utf-8")
+    rows = build(board, None, {"qwen3.8-27b"})
+    assert [r["name"] for r in rows] == ["Claude Opus 5.5", "Hy4"]
+    assert [r["display_rank"] for r in rows] == [1, 2]
