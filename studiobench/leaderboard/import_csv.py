@@ -113,8 +113,8 @@ th{background:#12161c;color:#8b93a1;font-weight:600}
 tr:hover td{background:#131820}.muted{color:#8b93a1;font-size:12px}
 </style></head><body>
 <header><h1>%s</h1>
-<p class="muted">%s · 160 tasks · grades are 1–3 converted with development-set cut points; a
-missing cut counts as 0. %s</p>
+<p class="muted">%s · grades are 1–3 converted with development-set cut points; a missing
+cut counts as 0. %s</p>
 <p class="muted"><a href="../">← process canvas</a></p></header>
 <main><table><thead><tr>%s</tr></thead><tbody>%s</tbody></table>
 <p class="muted">Ranks are renumbered after omitting models excluded from this page; 95%%
