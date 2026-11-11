@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://openraiser.github.io/StudioBench/"><img src="https://img.shields.io/badge/Demo-Process%20Canvas-1f8acb?style=flat-square" alt="Demo"></a>
-  <a href="https://openraiser.github.io/StudioBench/leaderboard/"><img src="https://img.shields.io/badge/Leaderboard-8%20MLLMs-f0a020?style=flat-square" alt="Leaderboard"></a>
+  <a href="https://openraiser.github.io/StudioBench/leaderboard/"><img src="https://img.shields.io/badge/Leaderboard-7%20MLLMs-f0a020?style=flat-square" alt="Leaderboard"></a>
   <img src="https://img.shields.io/badge/Tasks-160-5b9e47?style=flat-square" alt="Tasks">
   <img src="https://img.shields.io/badge/Tools-33%20atomic-8c6bb1?style=flat-square" alt="Tools">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-blue?style=flat-square" alt="License"></a>
@@ -35,7 +35,7 @@ reconstruct a *workflow graph* from each run to explain how the film turned out 
 
 ## 🔥 News
 
-- **[2026.11.10]** 🏆 The leaderboard of **8 MLLMs × 160 tasks** (1,280 runs) is online.
+- **[2026.11.10]** 🏆 The leaderboard of **7 MLLMs × 160 tasks** (1,120 runs) is online.
 - **[2026.11.09]** 🎞️ The [process canvas demo](https://openraiser.github.io/StudioBench/) is live: browse every tool call, generated asset and the final cut of curated runs.
 - **[2026.11.09]** 🚀 Initial release of the harness, the 33-tool MCP layer with mock backends, the evaluator and the leaderboard generator.
 
@@ -47,7 +47,7 @@ reconstruct a *workflow graph* from each run to explain how the film turned out 
 | 🧰 **Atomic tools only** | Image, video, speech, music, SFX, lip-sync, code rendering, editing, audio processing, inspection and delivery — the model must compose them into a workflow itself. |
 | 🎥 **Whole-film evaluation** | 13 whole-film metrics over four dimensions — semantics (**SEM**), visual quality (**VIS**), audio quality (**AUD**) and audiovisual alignment (**AV**) — plus a 1,686-item requirement checklist and objective measurements of production defects. |
 | 🕸️ **Workflow graphs** | Nodes are tool calls; an edge means one call consumed a file another call wrote. Graphs explain the score and never enter it. |
-| ⚙️ **Fully automatic** | Running, scoring and trace analysis need no human in the loop. Automated judge rankings match human raters across all eight models (Spearman ρ = 1.00 on 97 human-rated tasks). |
+| ⚙️ **Fully automatic** | Running, scoring and trace analysis need no human in the loop. Automated judge rankings match human raters across all evaluated models (Spearman ρ = 1.00 on 97 human-rated tasks). |
 
 ### Benchmark composition
 
@@ -94,7 +94,7 @@ model is averaged over all 160 tasks.
 
 ## 🏆 Leaderboard
 
-Eight MLLMs, 160 tasks each, one run per task–model pair. Scores are 0–100; **Delivered** counts
+Seven MLLMs, 160 tasks each, one run per task–model pair. Scores are 0–100; **Delivered** counts
 films out of 160; **Cost** is the median LLM cost per task.
 
 | # | Model | Overall | SEM | VIS | AUD | AV | Delivered | Cost |
@@ -105,32 +105,23 @@ films out of 160; **Cost** is the median LLM cost per task.
 | 4 | DeepSeek V4.1 Flash | 88.3 | 95.1 | 76.5 | 91.8 | 86.5 | 156 | \$3.29 |
 | 5 | Doubao Seed 2.1 Pro | 86.9 | 94.2 | 71.6 | 92.8 | 85.0 | **160** | **\$0.75** |
 | 6 | Qwen3.8 Max | 83.9 | 92.5 | 69.6 | 87.0 | 83.0 | 152 | \$2.59 |
-| 7 | Hy4 | 68.4 | 90.1 | 76.6 | 49.2 | 45.4 | 158 | \$1.58 |
-| 8 | MiMo v2.6 Pro | 63.4 | 71.0 | 51.8 | 67.3 | 60.9 | 120 | \$3.01 |
+| 7 | MiMo v2.6 Pro | 63.4 | 71.0 | 51.8 | 67.3 | 60.9 | 120 | \$3.01 |
 
-Claude Opus 5.5 and Gemini 4 Argon are statistically tied (95% bootstrap rank intervals over tasks).
-Hy4's AUD and AV scores are pulled down by 76 silent films; MiMo v2.6 Pro delivers 75% of its tasks.
-The interactive board, with human ratings as a reference column, is at
-**[openraiser.github.io/StudioBench/leaderboard](https://openraiser.github.io/StudioBench/leaderboard/)**.
-
-<details>
-<summary><b>Figure: results and quality–cost trade-off</b></summary>
-<p align="center"><img src="docs/assets/leaderboard.png" width="100%" alt="Leaderboard and quality-cost trade-off"></p>
-
-Gemini 4 Argon scores 92.0 at \$2.86, only 0.2 points below Claude Opus 5.5 at \$8.80; Doubao Seed
-2.1 Pro reaches 86.9 at \$0.75. The Pareto frontier spans Doubao, GPT-6, Gemini and Claude.
-
-</details>
+Claude Opus 5.5 and Gemini 4 Argon are statistically tied (95% bootstrap rank intervals over tasks),
+but Gemini costs about a third as much per task; Doubao Seed 2.1 Pro reaches 86.9 at \$0.75.
+MiMo v2.6 Pro delivers 75% of its tasks. The interactive board, with human ratings as a reference
+column, is at **[openraiser.github.io/StudioBench/leaderboard](https://openraiser.github.io/StudioBench/leaderboard/)**.
 
 ## 🔍 Key Findings
 
 **1. Explicit requirements are nearly saturated; craft separates the models.**
-Across 12,866 requirement judgments the mean item score is 96.8%, and 78% of films meet every
-checklist item. The gaps lie in clarity and composition, body and object structure, motion,
-background audio, cross-shot consistency and lip sync.
+A delivered film meets 98% of its checklist items on average, and 81% of films meet every item.
+The models differ most in clarity and composition, body and object structure, motion,
+background audio, cross-shot consistency and lip sync. On the same brief, Claude Opus 5.5 keeps
+its characters across shots, while Doubao Seed 2.1 Pro and MiMo v2.6 Pro let them drift:
 
 <p align="center">
-  <img src="docs/assets/where_models_differ.png" width="100%" alt="Where models differ">
+  <img src="docs/assets/consistency_cases.png" width="80%" alt="Cross-shot consistency on the same task">
 </p>
 
 **2. A production workflow emerges without any template.**
@@ -144,21 +135,17 @@ character locking ranges from 19% to 90% of runs and re-exporting after review f
 </p>
 
 <details>
-<summary><b>Paired workflow graphs on the same task</b></summary>
+<summary><b>Two workflow graphs on the same task</b></summary>
 <p align="center"><img src="docs/assets/workflow_cases.png" width="100%" alt="Workflow graphs of paired runs"></p>
 </details>
 
 **3. The quality loop is the bottleneck.**
-Models recover from 80–90% of reported tool errors, yet often miss perceptual defects that raise
-no error: in one model, every silent film comes from a single mixing call with gain set to 0,
-and the follow-up checks only confirm that an audio track exists. More tool calls show little
-association with quality (ρ = +0.11 within a model), whereas stronger models keep a smaller
-share of what they produce (ρ = −0.71 across models) — they explore, select and revise rather
-than simply do more.
-
-<p align="center">
-  <img src="docs/assets/quality_loop.png" width="50%" alt="The missing quality loop">
-</p>
+Models recover from most reported tool errors, yet often miss perceptual defects that raise no
+error: a check that only confirms a file or an audio track exists cannot tell a silent or
+damaged result from a good one. More tool calls show only a weak association with quality within a model, whereas
+stronger models keep a smaller share of what they produce (Spearman ρ = −0.64 across models)
+and build deeper workflows (ρ = +0.75) — they explore, select and revise rather than simply do
+more.
 
 <a id="quick-start"></a>
 

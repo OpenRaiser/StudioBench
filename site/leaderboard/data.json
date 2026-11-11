@@ -132,28 +132,6 @@
     "display_rank": 6
   },
   {
-    "model": "hy4",
-    "name": "Hy4",
-    "rank": 8,
-    "score": 68.35,
-    "submitted": 158,
-    "rank_lo": 8.0,
-    "rank_hi": 9.0,
-    "lead_next": 0.923,
-    "boards": {
-      "AUD": 49.2,
-      "SEM": 90.1,
-      "VIS": 76.6,
-      "AV": 45.4
-    },
-    "human": {
-      "rank": 7,
-      "score": 63.8,
-      "cells": 66
-    },
-    "display_rank": 7
-  },
-  {
     "model": "mimo-v2.6-pro",
     "name": "MiMo v2.6 Pro",
     "rank": 9,
@@ -169,10 +147,10 @@
       "AV": 60.9
     },
     "human": {
-      "rank": 8,
+      "rank": 7,
       "score": 59.32,
       "cells": 78
     },
-    "display_rank": 8
+    "display_rank": 7
   }
 ]

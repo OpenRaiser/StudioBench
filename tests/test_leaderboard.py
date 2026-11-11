@@ -32,7 +32,7 @@ def test_import_csv_board_and_exclusion(tmp_path):
         "rank,model,submitted,score,rank_lo,rank_hi,lead_next,AUD,SEM,VIS,AV\n"
         "1,Claude,156,92.22,1,3,0.5,95,96,86,89\n"
         "2,Qwen-27b,160,82.80,6,7,1.0,90,92,63,81\n"
-        "3,Hy4,158,68.35,8,9,0.9,49,90,76,45\n", encoding="utf-8")
+        "3,MiMo,120,63.35,8,9,,67,71,52,61\n", encoding="utf-8")
     rows = build(board, None, {"qwen3.8-27b"})
-    assert [r["name"] for r in rows] == ["Claude Opus 5.5", "Hy4"]
+    assert [r["name"] for r in rows] == ["Claude Opus 5.5", "MiMo v2.6 Pro"]
     assert [r["display_rank"] for r in rows] == [1, 2]

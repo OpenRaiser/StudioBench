@@ -379,7 +379,7 @@ def run_task(args: argparse.Namespace) -> Dict[str, Any]:
         args.max_calls, args.wall_hours = prev["budget"]["calls_max"], prev["budget"]["wall_hours"]
     if not args.task:
         return {"task": None, "error": "要给 --task 或 --resume-run", "code": 2}
-    if prev is None:                         # 按模型改走专用网关（如经 nexus 接入的 Hy4），见 model_bases.json
+    if prev is None:                         # 按模型改走专用网关（如经网关接入的自部署模型），见 model_bases.json
         args.base = model_base(args.model, args.base)
     task_path = Path(args.task).resolve()
     task = taskspec.load(task_path)

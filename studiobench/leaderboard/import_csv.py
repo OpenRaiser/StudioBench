@@ -28,7 +28,6 @@ MODELS = {
     "qwen": ("qwen3.8-max-0902", "Qwen3.8 Max"),
     "qwen-max": ("qwen3.8-max-0902", "Qwen3.8 Max"),
     "qwen-27b": ("qwen3.8-27b", "Qwen3.8 27B"),
-    "hy4": ("hy4", "Hy4"),
     "mimo": ("mimo-v2.6-pro", "MiMo v2.6 Pro"),
 }
 BOARDS = ("AUD", "SEM", "VIS", "AV")
@@ -75,6 +74,9 @@ def build(board_csv: Path, human_csv: Path | None, exclude: set) -> List[dict]:
     ordered = sorted(rows.values(), key=lambda r: (-(r["score"] or 0), r["rank"]))
     for display_rank, row in enumerate(ordered, 1):
         row["display_rank"] = display_rank
+    rated = sorted((r for r in ordered if r["human"]), key=lambda r: r["human"]["rank"])
+    for human_rank, row in enumerate(rated, 1):
+        row["human"]["rank"] = human_rank
     return ordered
 
 
