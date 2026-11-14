@@ -20,6 +20,7 @@ models/
 
 # GitHub Pages demo media and canvas assets are intentionally tracked
 !site/**/*.mp4
+!docs/assets/cases/**/*.mp4
 !site/**/*.m4a
 !site/**/*.mp3
 

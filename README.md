@@ -33,6 +33,37 @@ no shell, no file system, no workflow template. It must plan, generate assets, e
 own work, retry and export a **1–3 minute finished film**. We score only the delivered film, and
 reconstruct a *workflow graph* from each run to explain how the film turned out good or bad.
 
+## 🎞️ Showcase
+
+### A workflow graph emerges
+
+<p align="center">
+  <img src="docs/assets/workflow_emergence.gif" width="94%" alt="A workflow graph emerging from a 158-call StudioBench run">
+</p>
+
+One Claude Opus 5.5 run on `COM-AST-002` (158 tool calls). The model is given only atomic tools
+and a brief — no workflow template. Each node is a tool type, the number is how many times it was
+called, and an edge means one call consumed a file produced by another. The graph is
+reconstructed from the run log and grows as the model plans, generates, reviews and edits.
+
+### Same brief, different models
+
+<p align="center">
+  <img src="docs/assets/model_cases.gif" width="94%" alt="Six models generating the same commercial brief">
+</p>
+
+Six models, one brief (`COM-AST-002`), the same 1.6-second window. The animation loops the
+generated footage; the table links to a 6-second excerpt from each delivered film.
+
+| Model | Overall | 6-second clip |
+|---|:-:|---|
+| Claude Opus 5.5 | 92.2 | [▶ play](docs/assets/cases/claude.mp4) |
+| Gemini 4 Argon | 92.0 | [▶ play](docs/assets/cases/gemini.mp4) |
+| GPT-6 Astra | 88.8 | [▶ play](docs/assets/cases/gpt6.mp4) |
+| DeepSeek V4.1 Flash | 88.3 | [▶ play](docs/assets/cases/deepseek.mp4) |
+| Doubao Seed 2.1 Pro | 86.9 | [▶ play](docs/assets/cases/doubao.mp4) |
+| Qwen3.8 Max | 83.9 | [▶ play](docs/assets/cases/qwenmax.mp4) |
+
 ## 🔥 News
 
 - **[2026.11.10]** 🏆 The leaderboard of **7 MLLMs × 160 tasks** (1,120 runs) is online.
