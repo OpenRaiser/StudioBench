@@ -50,6 +50,17 @@ STAGES = [
 ]
 TOOL_STAGE = {t: i for i, (_, _, ts) in enumerate(STAGES) for t in ts}
 STAGE_COLORS = [s[1] for s in STAGES]
+ICONS = {'search': '⌕', 'fetch_url': '↧', 't2i': '▧', 'image_edit': '✎',
+         'keyframe_pair': '◫', 'character_sheet': '☺', 'prop_sheet': '◇', 'scene_sheet': '▤',
+         'render_html': '</>', 'render_three': '◈', 'render_blender': '⬡', 'remove_bg': '◌',
+         't2v': '▶', 'i2v': '▶', 'ref_video': '↻', 'ken_burns': '◐', 'pose_flip': '⇄',
+         'parallax_shot': '▱', 'shot_retake': '↺', 'tts': '◉', 'music': '♪', 'sfx': '≈',
+         'lipsync': '▭', 'asr': '⌁', 'beat_detect': '♩', 'beat_grid': '♬',
+         'trim': '✂', 'concat': '⇥', 'transition': '⇢', 'overlay': '≡', 'composite': '▣',
+         'mix_audio': '≋', 'audio_mix': '≋', 'audio_edit': '≈', 'color': '◑', 'reframe': '□',
+         'speed': '»', 'scene_detect': '⌗', 'sample_frames': '▤', 'inspect': '◉',
+         'motion_audit': '↯', 'pacing_report': '⌁', 'sequence_audit': '☷',
+         'take_compare': '⇆', 'sound_audit': '♬', 'export': '↗'}
 LABELS = {'claude-opus-5-5': 'Claude Opus 5.5', 'gemini-4-argon': 'Gemini 4 Argon',
           'gpt-6-astra': 'GPT-6 Astra', 'deepseek-v4.1-flash-1017': 'DeepSeek V4.1 Flash',
           'doubao-seed-2-1-pro-260915': 'Doubao Seed 2.1 Pro', 'qwen3.8-max-0902': 'Qwen3.8 Max',
@@ -200,12 +211,14 @@ def precompute_assets(calls: list[dict], task: str, model: str):
 
 def layout(counts):
     pos = {}
+    lane_top, lane_h, step, node_h = 160, 636, 48, 40
     for si, (_, _, tools) in enumerate(STAGES):
         present = [t for t in tools if counts.get(t)]
-        start_y = 172
+        total = len(present) * step
+        start_y = lane_top + max(0, (lane_h - total) // 2)
         x = GRAPH_X + si * (COL_W + COL_GAP)
         for j, tool in enumerate(present):
-            pos[tool] = (x, start_y + j * 44, COL_W, 36)
+            pos[tool] = (x, start_y + j * step, COL_W, node_h)
     return pos
 
 
@@ -228,7 +241,7 @@ def truncate(draw, s: str, f, max_w: float) -> str:
     return s + '…'
 
 
-def render(calls, assets, *, task, model, frame_i, out):
+def render(calls, assets, all_counts, *, task, model, frame_i, out):
     visible_calls = calls[:frame_i + 1]
     visible_assets = [a for a in assets if a['i'] <= frame_i]
     counts = Counter(c['tool'] for c in visible_calls)
@@ -243,7 +256,7 @@ def render(calls, assets, *, task, model, frame_i, out):
             src = produced.get(f)
             if src and src != c['tool']:
                 edges[(src, c['tool'])] = edges.get((src, c['tool']), 0) + 1
-    pos = layout(counts)
+    pos = layout(all_counts)
     im = Image.new('RGB', (W, H), BG)
     d = ImageDraw.Draw(im)
     text(d, 54, 30, 'STUDIOBENCH · WORKFLOW EMERGENCE', font(FONT_B, 15), CYAN)
@@ -252,8 +265,10 @@ def render(calls, assets, *, task, model, frame_i, out):
          font(FONT, 14), MUTED)
     for si, (name, color, _) in enumerate(STAGES):
         x = GRAPH_X + si * (COL_W + COL_GAP)
+        if si:
+            d.line((x - 9, 154, x - 9, 800), fill=(29, 36, 47), width=1)
         d.rectangle((x, 142, x + COL_W, 146), fill=color)
-        text(d, x, 120, name, font(FONT_M, 13), color)
+        text(d, x, 120, f'0{si + 1}  {name}', font(FONT_M, 13), color)
     for (a, b), n in edges.items():
         if a not in pos or b not in pos:
             continue
@@ -261,24 +276,44 @@ def render(calls, assets, *, task, model, frame_i, out):
         p0 = (xa + wa, ya + ha / 2); p3 = (xb, yb + hb / 2)
         dx = max(40, abs(p3[0] - p0[0]) * 0.55)
         pts = bezier(p0, (p0[0] + dx, p0[1]), (p3[0] - dx, p3[1]), p3)
-        col = (74, 91, 116) if n < 3 else (102, 125, 156)
+        base = STAGE_COLORS[TOOL_STAGE.get(a, 4)]
+        col = tuple(int(BG[i] * 0.62 + base[i] * 0.38) for i in range(3))
         d.line(pts, fill=col, width=1, joint='curve')
         (x1, y1), (x2, y2) = pts[-3], pts[-1]
         ang = math.atan2(y2 - y1, x2 - x1)
         ah = 7
         d.polygon([(x2, y2), (x2 - ah * math.cos(ang - 0.45), y2 - ah * math.sin(ang - 0.45)),
                    (x2 - ah * math.cos(ang + 0.45), y2 - ah * math.sin(ang + 0.45))], fill=col)
-    current = visible_calls[-1]['tool'] if visible_calls else ''
+    is_final = frame_i == len(calls) - 1
+    current = 'export' if is_final else (visible_calls[-1]['tool'] if visible_calls else '')
+    latest = {}
+    for a in visible_assets:
+        latest[a['tool']] = a
     for tool, (x, y, w, h) in pos.items():
         c = STAGE_COLORS[TOOL_STAGE.get(tool, 4)]
+        active = bool(counts.get(tool))
         hot = tool == current
-        rounded(d, (x, y, x + w, y + h), 8, (30, 41, 55) if not hot else (38, 58, 82),
-                c if hot else (48, 60, 78), 2 if hot else 1)
-        label = truncate(d, tool, font(FONT_M, 13), w - 42)
-        text(d, x + 9, y + 9, label, font(FONT_M, 13), TEXT)
-        cnt = str(counts[tool])
-        tw = d.textlength(cnt, font=font(FONT_B, 13))
-        text(d, x + w - 9 - tw, y + 9, cnt, font(FONT_B, 13), c)
+        fill = (30, 41, 55) if not hot else (38, 58, 82)
+        outline = c if hot else (48, 60, 78)
+        if not active:
+            fill, outline = (20, 26, 34), (36, 45, 59)
+        rounded(d, (x, y, x + w, y + h), 8, fill, outline, 2 if hot else 1)
+        d.rectangle((x + 1, y + 7, x + 5, y + h - 7), fill=c if active else (44, 54, 68))
+        asset = latest.get(tool) if active else None
+        if asset:
+            thumb = asset['image'].resize((32, 18), Image.LANCZOS)
+            im.paste(thumb, (x + 9, y + 11))
+            text(d, x + 47, y + 11, truncate(d, tool, font(FONT_M, 11), w - 68),
+                 font(FONT_M, 11), TEXT)
+        else:
+            text(d, x + 10, y + 11, ICONS.get(tool, '·'), font(FONT_M, 12),
+                 c if active else (72, 84, 102))
+            text(d, x + 28, y + 11, truncate(d, tool, font(FONT_M, 11), w - 64),
+                 font(FONT_M, 11), TEXT if active else (92, 105, 124))
+        if active:
+            cnt = str(counts[tool])
+            tw = d.textlength(cnt, font=font(FONT_B, 11))
+            text(d, x + w - 8 - tw, y + 11, cnt, font(FONT_B, 11), c)
 
     # materials panel
     rounded(d, (PANEL_X, 112, PANEL_X + PANEL_W, 792), 12, PANEL, LINE, 1)
@@ -316,8 +351,10 @@ def render(calls, assets, *, task, model, frame_i, out):
     last = visible_calls[-1] if visible_calls else {}
     outs = last.get('outputs') or []
     out_s = ', '.join(Path(str(x)).name for x in outs[:2]) or '—'
+    tick_tool = 'export' if is_final else last.get('tool', '—')
+    tick_out = 'final.mp4' if is_final else out_s
     text(d, 54, H - 36, f'call {frame_i + 1:03d} / {len(calls):03d}', font(FONT_M, 14), MUTED)
-    text(d, 226, H - 36, f"{last.get('tool', '—')}  →  {out_s}", font(FONT_M, 14), TEXT)
+    text(d, 226, H - 36, f'{tick_tool}  →  {tick_out}', font(FONT_M, 14), TEXT)
     text(d, W - 360, H - 36, f"nodes {len(counts)} · edges {len(edges)}", font(FONT_M, 13), MUTED)
 
     if frame_i == len(calls) - 1:
@@ -337,6 +374,7 @@ def main():
     args = ap.parse_args()
     calls = load_calls(args.task, args.model)
     assets = precompute_assets(calls, args.task, args.model)
+    all_counts = Counter(c["tool"] for c in calls)
     print('assets', len(assets), flush=True)
     step = max(1, args.step)
     frames_dir = Path('/tmp/workflow_gif_frames')
@@ -348,7 +386,7 @@ def main():
         indices.append(len(calls) - 1)
     for n, i in enumerate(indices):
         p = frames_dir / f'f{n:04d}.png'
-        render(calls, assets, task=args.task, model=args.model, frame_i=i, out=str(p))
+        render(calls, assets, all_counts, task=args.task, model=args.model, frame_i=i, out=str(p))
         if n % 10 == 0:
             print(n, len(indices), flush=True)
     imgs = [Image.open(frames_dir / f'f{n:04d}.png').convert('RGB') for n in range(len(indices))]
