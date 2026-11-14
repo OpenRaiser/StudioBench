@@ -48,21 +48,21 @@ reconstructed from the run log and grows as the model plans, generates, reviews 
 
 ### Same brief, different models
 
-<p align="center">
-  <img src="docs/assets/model_cases.gif" width="94%" alt="Six models generating the same commercial brief">
-</p>
+<table>
+<tr>
+<td width="33%" align="center"><img src="docs/assets/cases/claude.gif" width="100%" alt="Claude Opus 5.5 generated film"><br><b>Claude Opus 5.5</b><br>Overall 92.2</td>
+<td width="33%" align="center"><img src="docs/assets/cases/gemini.gif" width="100%" alt="Gemini 4 Argon generated film"><br><b>Gemini 4 Argon</b><br>Overall 92.0</td>
+<td width="33%" align="center"><img src="docs/assets/cases/gpt6.gif" width="100%" alt="GPT-6 Astra generated film"><br><b>GPT-6 Astra</b><br>Overall 88.8</td>
+</tr>
+<tr>
+<td width="33%" align="center"><img src="docs/assets/cases/deepseek.gif" width="100%" alt="DeepSeek V4.1 Flash generated film"><br><b>DeepSeek V4.1 Flash</b><br>Overall 88.3</td>
+<td width="33%" align="center"><img src="docs/assets/cases/doubao.gif" width="100%" alt="Doubao Seed 2.1 Pro generated film"><br><b>Doubao Seed 2.1 Pro</b><br>Overall 86.9</td>
+<td width="33%" align="center"><img src="docs/assets/cases/qwenmax.gif" width="100%" alt="Qwen3.8 Max generated film"><br><b>Qwen3.8 Max</b><br>Overall 83.9</td>
+</tr>
+</table>
 
-Six models, one brief (`COM-AST-002`), the same 1.6-second window. The animation loops the
-generated footage; the table links to a 6-second excerpt from each delivered film.
-
-| Model | Overall | 6-second clip |
-|---|:-:|---|
-| Claude Opus 5.5 | 92.2 | [▶ play](docs/assets/cases/claude.mp4) |
-| Gemini 4 Argon | 92.0 | [▶ play](docs/assets/cases/gemini.mp4) |
-| GPT-6 Astra | 88.8 | [▶ play](docs/assets/cases/gpt6.mp4) |
-| DeepSeek V4.1 Flash | 88.3 | [▶ play](docs/assets/cases/deepseek.mp4) |
-| Doubao Seed 2.1 Pro | 86.9 | [▶ play](docs/assets/cases/doubao.mp4) |
-| Qwen3.8 Max | 83.9 | [▶ play](docs/assets/cases/qwenmax.mp4) |
+Six models, one brief (`COM-AST-002`), the same 2.4-second window. The clips loop inline;
+longer excerpts are in `docs/assets/cases/`.
 
 ## 🔥 News
 
