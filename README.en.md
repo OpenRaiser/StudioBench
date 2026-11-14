@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="README.md">简体中文</a> · <b>English</b> · <a href="README.ja.md">日本語</a>
+  <a href="README.md">简体中文</a> · <b>English</b>
 </p>
 
 <h1 align="center">🎬 StudioBench</h1>
