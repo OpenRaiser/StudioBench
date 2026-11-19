@@ -436,9 +436,9 @@ a:hover{text-decoration-thickness:2px}
 }
 .gap-card.verif .gap-chip{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
 
-/* ─── Act 5: 5-Genre Side-by-Side Audiovisual Screening Room ─── */
+/* ─── Act 5: 4-Genre Side-by-Side Audiovisual Screening Room ─── */
 .screen-tabs{
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;
   background:var(--booth-line);border-bottom:1px solid var(--booth-line);
 }
 .screen-tab{
@@ -612,8 +612,7 @@ section[id]{scroll-margin-top:68px}
 @media (max-width:960px){
   .hero-reel-grid,.env-split,.rq1-grid,.wf-pair,.loop-split,.duel-grid,.fold-two{grid-template-columns:minmax(0,1fr)}
   .reel-player-col{border-right:0;border-bottom:1px solid var(--booth-line)}
-  .stat-row,.genre-grid,.scope-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .screen-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .stat-row,.genre-grid,.scope-grid,.screen-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .topbar-in{flex-wrap:wrap;gap:10px}
   .top-nav{margin-left:0;width:100%}
   .top-nav a{font-size:12.5px;padding:7px 10px}
@@ -1082,46 +1081,10 @@ section[id]{scroll-margin-top:68px}
   <div class="chap-head">
     <p class="chap-eyebrow">Side-by-Side Audiovisual Screening Room</p>
     <h2 id="scr-h">Same production brief, same 33 tools &mdash; watch and hear the craft gap.</h2>
-    <p class="chap-lede">Switch across five distinct genres from StudioBench. Each pairing plays 20-second audiovisual excerpts directly from delivered 720p films (playing one automatically pauses the other) so you can compare pacing, consistency, voice, and sound design firsthand.</p>
+    <p class="chap-lede">Switch across four distinct genres from StudioBench. Each pairing plays 20-second audiovisual excerpts directly from delivered 720p films (playing one automatically pauses the other) so you can compare pacing, consistency, voice, and sound design firsthand.</p>
   </div>
 
-  <div class="booth-shell" id="screening-booth" style="margin-top:0"><div class="screen-tabs" role="tablist" aria-label="Five multi-genre side-by-side film comparisons"><button type="button" role="tab" class="screen-tab" id="stab-0" aria-controls="span-0" aria-selected="true" tabindex="0"><span class="st-genre">Product</span><span class="st-name">Aervane 3D Shaver Ad</span><span class="st-id">PRO-CON-026</span></button><button type="button" role="tab" class="screen-tab" id="stab-1" aria-controls="span-1" aria-selected="false" tabindex="-1"><span class="st-genre">Dialogue</span><span class="st-name">Renaissance Balcony</span><span class="st-id">DIA-AUD-001</span></button><button type="button" role="tab" class="screen-tab" id="stab-2" aria-controls="span-2" aria-selected="false" tabindex="-1"><span class="st-genre">Music</span><span class="st-name">Retro NYC Funk MV</span><span class="st-id">MUS-REF-004</span></button><button type="button" role="tab" class="screen-tab" id="stab-3" aria-controls="span-3" aria-selected="false" tabindex="-1"><span class="st-genre">Documentary</span><span class="st-name">Dragon-Boat Rituals</span><span class="st-id">DOC-OPN-013</span></button><button type="button" role="tab" class="screen-tab" id="stab-4" aria-controls="span-4" aria-selected="false" tabindex="-1"><span class="st-genre">Narrative</span><span class="st-name">Prince &amp; Dragon Comedy</span><span class="st-id">NAR-AST-004</span></button></div><div class="screen-panel" role="tabpanel" id="span-0" aria-labelledby="stab-0">
-  <div class="screen-body">
-    <div class="screen-brief-bar">
-      <p class="screen-brief-txt"><b>PRO-CON-026</b>A 60s 3D commercial for fictional brand Aervane in a futuristic dark-metal &amp; electric-blue lab: an electric shaver self-assembles from parts, highlights its magnetic rotary head, demonstrates a contour shave, and finishes with a high-pressure waterproof spray test (synth + mechanical SFX, no voice-over).</p>
-      <span class="screen-dur-tag">60–65s brief · 22s highlight</span>
-    </div>
-    <div class="duel-grid"><div class="film-card winner">
-  <div class="film-hd">
-    <img src="assets/logos/claude.png" alt="" width="20" height="20" aria-hidden="true">
-    <span class="film-model">Claude Opus 5.5</span>
-    <span class="film-calls">&middot; 82 calls</span>
-    <span class="film-score">100.0</span>
-  </div>
-  <div class="film-vid-wrap">
-    <video class="film-vid" poster="assets/videos/pro-026-claude-poster.jpg" width="640" height="360" controls playsinline preload="metadata"><source src="assets/videos/pro-026-claude.webm" type="video/webm"><source src="assets/videos/pro-026-claude.mp4" type="video/mp4"></video>
-  </div>
-  <div class="film-meta">
-    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill">VIS 100</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 100</span></div>
-    <p class="film-diag">Human raters 91.0 / Judge 100.0: nails every studio beat — exploded assembly, magnetic head snap with electric-blue rim light, contour shave, and high-pressure waterproof spray.</p>
-  </div>
-</div><div class="film-card flawed">
-  <div class="film-hd">
-    <img src="assets/logos/deepseek.png" alt="" width="20" height="20" aria-hidden="true">
-    <span class="film-model">DeepSeek V4.1 Flash</span>
-    <span class="film-calls">&middot; 38 calls</span>
-    <span class="film-score">70.1</span>
-  </div>
-  <div class="film-vid-wrap">
-    <video class="film-vid" poster="assets/videos/pro-026-deepseek-poster.jpg" width="640" height="360" controls playsinline preload="metadata"><source src="assets/videos/pro-026-deepseek.webm" type="video/webm"><source src="assets/videos/pro-026-deepseek.mp4" type="video/mp4"></video>
-  </div>
-  <div class="film-meta">
-    <div class="mini-dims"><span class="md-pill low">SEM 48.5</span><span class="md-pill">VIS 87.5</span><span class="md-pill low">AUD 50</span><span class="md-pill">AV 100</span></div>
-    <p class="film-diag">Human raters 41.5 / Judge 70.1: relies on sparse wireframe renders in a pitch-black void, missing the shave demo, waterproof spray test, and sound design (SEM 48.5, AUD 50.0).</p>
-  </div>
-</div></div>
-  </div>
-</div><div class="screen-panel" role="tabpanel" id="span-1" aria-labelledby="stab-1" hidden>
+  <div class="booth-shell" id="screening-booth" style="margin-top:0"><div class="screen-tabs" role="tablist" aria-label="Four multi-genre side-by-side film comparisons"><button type="button" role="tab" class="screen-tab" id="stab-0" aria-controls="span-0" aria-selected="true" tabindex="0"><span class="st-genre">Dialogue</span><span class="st-name">Renaissance Balcony</span><span class="st-id">DIA-AUD-001</span></button><button type="button" role="tab" class="screen-tab" id="stab-1" aria-controls="span-1" aria-selected="false" tabindex="-1"><span class="st-genre">Music</span><span class="st-name">Retro NYC Funk MV</span><span class="st-id">MUS-REF-004</span></button><button type="button" role="tab" class="screen-tab" id="stab-2" aria-controls="span-2" aria-selected="false" tabindex="-1"><span class="st-genre">Documentary</span><span class="st-name">Dragon-Boat Rituals</span><span class="st-id">DOC-OPN-013</span></button><button type="button" role="tab" class="screen-tab" id="stab-3" aria-controls="span-3" aria-selected="false" tabindex="-1"><span class="st-genre">Narrative</span><span class="st-name">Prince &amp; Dragon Comedy</span><span class="st-id">NAR-AST-004</span></button></div><div class="screen-panel" role="tabpanel" id="span-0" aria-labelledby="stab-0">
   <div class="screen-body">
     <div class="screen-brief-bar">
       <p class="screen-brief-txt"><b>DIA-AUD-001</b>A Renaissance balcony love scene in English dialogue: the young man climbs to the balcony, the lovers pledge themselves and part.</p>
@@ -1135,7 +1098,7 @@ section[id]{scroll-margin-top:68px}
     <span class="film-score">98.1</span>
   </div>
   <div class="film-vid-wrap">
-    <video class="film-vid" poster="assets/videos/dia-001-claude-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/dia-001-claude.webm" type="video/webm"><source src="assets/videos/dia-001-claude.mp4" type="video/mp4"></video>
+    <video class="film-vid" poster="assets/videos/dia-001-claude-poster.jpg" width="640" height="360" controls playsinline preload="metadata"><source src="assets/videos/dia-001-claude.webm" type="video/webm"><source src="assets/videos/dia-001-claude.mp4" type="video/mp4"></video>
   </div>
   <div class="film-meta">
     <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill">VIS 87.5</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 100</span></div>
@@ -1149,7 +1112,7 @@ section[id]{scroll-margin-top:68px}
     <span class="film-score">82.1</span>
   </div>
   <div class="film-vid-wrap">
-    <video class="film-vid" poster="assets/videos/dia-001-gpt6-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/dia-001-gpt6.webm" type="video/webm"><source src="assets/videos/dia-001-gpt6.mp4" type="video/mp4"></video>
+    <video class="film-vid" poster="assets/videos/dia-001-gpt6-poster.jpg" width="640" height="360" controls playsinline preload="metadata"><source src="assets/videos/dia-001-gpt6.webm" type="video/webm"><source src="assets/videos/dia-001-gpt6.mp4" type="video/mp4"></video>
   </div>
   <div class="film-meta">
     <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill low">VIS 25</span><span class="md-pill">AUD 100</span><span class="md-pill low">AV 66.7</span></div>
@@ -1157,7 +1120,7 @@ section[id]{scroll-margin-top:68px}
   </div>
 </div></div>
   </div>
-</div><div class="screen-panel" role="tabpanel" id="span-2" aria-labelledby="stab-2" hidden>
+</div><div class="screen-panel" role="tabpanel" id="span-1" aria-labelledby="stab-1" hidden>
   <div class="screen-body">
     <div class="screen-brief-bar">
       <p class="screen-brief-txt"><b>MUS-REF-004</b>A comedic sci-fi funk MV in cinematic live-action style: a slipper-wearing box-head robot and a crew of astronauts strut, lip-sync, and dance in sync along a retro New York street to an original English funk-pop song.</p>
@@ -1193,7 +1156,7 @@ section[id]{scroll-margin-top:68px}
   </div>
 </div></div>
   </div>
-</div><div class="screen-panel" role="tabpanel" id="span-3" aria-labelledby="stab-3" hidden>
+</div><div class="screen-panel" role="tabpanel" id="span-2" aria-labelledby="stab-2" hidden>
   <div class="screen-body">
     <div class="screen-brief-bar">
       <p class="screen-brief-txt"><b>DOC-OPN-013</b>A 154s documentary on the dragon-boat tradition, following one boat through five rituals from awakening to burial, with male narration and folk percussion.</p>
@@ -1229,7 +1192,7 @@ section[id]{scroll-margin-top:68px}
   </div>
 </div></div>
   </div>
-</div><div class="screen-panel" role="tabpanel" id="span-4" aria-labelledby="stab-4" hidden>
+</div><div class="screen-panel" role="tabpanel" id="span-3" aria-labelledby="stab-3" hidden>
   <div class="screen-body">
     <div class="screen-brief-bar">
       <p class="screen-brief-txt"><b>NAR-AST-004</b>A fantasy comedy: a prince trying on his sister&#x27;s pink gown is carried off by a dragon by mistake; the dragon turns into a silver-haired nobleman and the rescuing knight mistakes him.</p>
