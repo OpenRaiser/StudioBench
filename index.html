@@ -24,46 +24,120 @@
 @font-face{font-family:"JBMono";src:url(assets/fonts/jbmono-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
 
 :root{
-  --canvas:#FAF8F4;
-  --canvas-card:#FFFFFF;
-  --canvas-warm:#F2EEE4;
-  --canvas-tint:#EDF4F6;
-  --line:#DFDCD4;
-  --line-strong:#C2BEB4;
+  color-scheme:dark;
+  --canvas:#0A0E14;
+  --canvas-elev:#101620;
+  --canvas-card:#131B26;
+  --canvas-warm:#0E141D;
+  --canvas-tint:#0F1822;
+  --plate-bg:#F7F5EF;
 
-  --text:#1A1F24;
-  --text-soft:#434B52;
-  --text-muted:#656E76;
+  --line:#202B3A;
+  --line-strong:#314155;
 
-  --brand:#156082;
-  --brand-mid:#2B7EA1;
-  --brand-soft:#E5F1F5;
-  --brand-line:#9AC2D1;
+  --text:#F1F5F8;
+  --text-soft:#B6C3D1;
+  --text-muted:#8292A4;
 
-  --accent:#B14E3B;
-  --accent-soft:#F9EAE6;
-  --accent-line:#DFABA0;
+  --brand:#2E9BC4;
+  --brand-deep:#156082;
+  --brand-mid:#3FB4DE;
+  --brand-soft:#122938;
+  --brand-line:#285D78;
 
-  --audio-ok:#4E855B;
-  --audio-soft:#E8F3EB;
-  --audio-line:#A7CCB0;
+  --accent:#E26D52;
+  --accent-soft:#311B19;
+  --accent-line:#7D3B30;
 
-  --ochre:#B98E34;
-  --ochre-ink:#6B4E15;
-  --ochre-soft:#FBF3DF;
-  --ochre-line:#DFC487;
+  --audio-ok:#4FA86F;
+  --audio-soft:#142A1E;
+  --audio-line:#2B5E40;
 
-  --booth:#16181D;
-  --booth-panel:#1F232B;
-  --booth-card:#272C36;
-  --booth-line:#373F4E;
-  --booth-text:#F4F2ED;
-  --booth-soft:#CED3DC;
-  --booth-muted:#97A0AE;
+  --ochre:#E3B24C;
+  --ochre-ink:#F2CB78;
+  --ochre-soft:#2C2414;
+  --ochre-line:#6D5728;
+
+  --booth:#080B10;
+  --booth-panel:#101621;
+  --booth-card:#161F2D;
+  --booth-line:#243144;
+  --booth-text:#F2F5F8;
+  --booth-soft:#B8C5D4;
+  --booth-muted:#7E8FA3;
+
+  /* Light editorial theme tokens (declared in :root for unified palette registry) */
+  --lt-canvas:#FAF8F4;
+  --lt-canvas-elev:#F2EEE4;
+  --lt-canvas-card:#FFFFFF;
+  --lt-canvas-tint:#EBF3F5;
+  --lt-line:#DFDCD4;
+  --lt-line-strong:#C2BEB4;
+  --lt-text:#1A1F24;
+  --lt-text-soft:#434B52;
+  --lt-text-muted:#656E76;
+  --lt-brand:#156082;
+  --lt-brand-mid:#2B7EA1;
+  --lt-brand-soft:#E5F1F5;
+  --lt-brand-line:#9AC2D1;
+  --lt-accent:#B14E3B;
+  --lt-accent-soft:#F9EAE6;
+  --lt-accent-line:#DFABA0;
+  --lt-audio-ok:#3E7D50;
+  --lt-audio-soft:#E8F3EB;
+  --lt-audio-line:#A7CCB0;
+  --lt-ochre:#B98E34;
+  --lt-ochre-ink:#6B4E15;
+  --lt-ochre-soft:#FBF3DF;
+  --lt-ochre-line:#DFC487;
+  --lt-booth:#11151E;
+  --lt-booth-panel:#181E2A;
+  --lt-booth-card:#202836;
+  --lt-booth-line:#313B4D;
+  --lt-booth-text:#F4F2ED;
+  --lt-booth-soft:#CED5DF;
+  --lt-booth-muted:#94A0B0;
 
   --font-head:"Bricolage","WorkSans",ui-sans-serif,system-ui,sans-serif;
   --font-body:"WorkSans",ui-sans-serif,system-ui,"Noto Sans CJK SC",sans-serif;
   --font-code:"JBMono",ui-monospace,"DejaVu Sans Mono",monospace;
+}
+
+[data-theme="light"]{
+  color-scheme:light;
+  --canvas:var(--lt-canvas);
+  --canvas-elev:var(--lt-canvas-elev);
+  --canvas-card:var(--lt-canvas-card);
+  --canvas-warm:var(--lt-canvas-elev);
+  --canvas-tint:var(--lt-canvas-tint);
+  --plate-bg:var(--lt-canvas-card);
+  --line:var(--lt-line);
+  --line-strong:var(--lt-line-strong);
+  --text:var(--lt-text);
+  --text-soft:var(--lt-text-soft);
+  --text-muted:var(--lt-text-muted);
+  --brand:var(--lt-brand);
+  --brand-deep:var(--lt-brand);
+  --brand-mid:var(--lt-brand-mid);
+  --brand-soft:var(--lt-brand-soft);
+  --brand-line:var(--lt-brand-line);
+  --accent:var(--lt-accent);
+  --accent-soft:var(--lt-accent-soft);
+  --accent-line:var(--lt-accent-line);
+  --audio-ok:var(--lt-audio-ok);
+  --audio-soft:var(--lt-audio-soft);
+  --audio-line:var(--lt-audio-line);
+  --ochre:var(--lt-ochre);
+  --ochre-ink:var(--lt-ochre-ink);
+  --ochre-soft:var(--lt-ochre-soft);
+  --ochre-line:var(--lt-ochre-line);
+  --booth:var(--lt-booth);
+  --booth-panel:var(--lt-booth-panel);
+  --booth-card:var(--lt-booth-card);
+  --booth-line:var(--lt-booth-line);
+  --booth-text:var(--lt-booth-text);
+  --booth-soft:var(--lt-booth-soft);
+  --booth-muted:var(--lt-booth-muted);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -72,6 +146,7 @@ body{
   margin:0;background:var(--canvas);color:var(--text);
   font:400 16.5px/1.64 var(--font-body);font-variant-numeric:tabular-nums;
   text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
+  transition:background .22s ease,color .22s ease;
 }
 h1,h2,h3,h4{font-family:var(--font-head);font-weight:700;letter-spacing:-.022em;line-height:1.14;margin:0}
 p{margin:0 0 .82em}
@@ -80,171 +155,251 @@ a{color:var(--brand);text-underline-offset:.18em;text-decoration-thickness:1px}
 a:hover{text-decoration-thickness:2px}
 :focus-visible{outline:2.5px solid var(--brand-mid);outline-offset:2.5px;border-radius:4px}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
-.skip-link{position:absolute;left:10px;top:-56px;z-index:95;padding:10px 14px;background:var(--text);color:var(--canvas-card);border-radius:6px}
+.skip-link{position:absolute;left:10px;top:-56px;z-index:95;padding:10px 14px;background:var(--brand-deep);color:var(--booth-text);border-radius:6px}
 .skip-link:focus{top:10px}
 
-/* ─── top studio bar ─── */
+/* ─── top glass studio bar ─── */
 .topbar{
   position:sticky;top:0;z-index:80;
-  background:color-mix(in srgb,var(--canvas) 92%,transparent);
-  backdrop-filter:saturate(1.4) blur(10px);
+  background:color-mix(in srgb,var(--canvas) 84%,transparent);
+  backdrop-filter:saturate(1.6) blur(14px);
   border-bottom:1px solid var(--line);
 }
 .topbar-in{
-  max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:18px;
-  padding:11px clamp(18px,3.6vw,36px);
+  max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:14px;
+  padding:10px clamp(16px,3.2vw,34px);
 }
 .studio-brand{
   display:inline-flex;align-items:center;gap:10px;text-decoration:none;
-  font-family:var(--font-head);font-weight:700;font-size:21px;letter-spacing:-.025em;color:var(--text);flex:none;
+  font-family:var(--font-head);font-weight:700;font-size:20px;letter-spacing:-.025em;color:var(--text);flex:none;
 }
 .studio-brand img{width:28px;height:auto;display:block;border-radius:7px}
 .top-nav{margin-left:auto;display:flex;align-items:center;gap:3px;flex-wrap:wrap}
 .top-nav a{
-  font:700 13.5px/1 var(--font-body);color:var(--text-soft);text-decoration:none;
-  padding:8px 12px;border-radius:999px;transition:background .15s,color .15s;white-space:nowrap;
+  font:700 13px/1 var(--font-body);color:var(--text-soft);text-decoration:none;
+  padding:8px 11px;border-radius:999px;transition:background .15s,color .15s;white-space:nowrap;
 }
 .top-nav a:hover,.top-nav a[aria-current=true]{background:var(--brand-soft);color:var(--brand)}
-.top-nav a.top-cite{margin-left:6px;background:var(--text);color:var(--canvas-card);padding:8px 14px}
-.top-nav a.top-cite:hover{background:var(--brand);color:var(--canvas-card)}
-
-/* ─── Act 1: Editorial Hero + Screening Reel ─── */
-.opening{
-  background:linear-gradient(180deg,var(--canvas-warm) 0%,var(--canvas) 72%);
-  border-bottom:1px solid var(--line);
-  padding:clamp(36px,4.8vw,64px) clamp(18px,3.6vw,36px) clamp(44px,5.4vw,74px);
+.top-nav a.top-cite{
+  margin-left:4px;background:var(--brand-deep);color:var(--booth-text);padding:8px 13px;
 }
-.opening-in{max-width:1180px;margin:0 auto}
-.opening-head{max-width:900px;margin:0 auto;text-align:center}
+.top-nav a.top-cite:hover{background:var(--brand-mid);color:var(--booth)}
+.theme-btn{
+  margin-left:4px;display:inline-flex;align-items:center;gap:6px;
+  padding:7px 12px;border-radius:999px;border:1px solid var(--line-strong);
+  background:var(--canvas-card);color:var(--text);cursor:pointer;
+  font:700 12px/1 var(--font-code);transition:all .15s;white-space:nowrap;
+}
+.theme-btn:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+
+/* ─── Act 1: AI-Native Spatial Hero + 3D Constellation ─── */
+.opening{
+  position:relative;overflow:hidden;
+  background:radial-gradient(62% 50% at 50% 0%,color-mix(in srgb,var(--brand-deep) 20%,transparent),transparent 72%),var(--canvas);
+  border-bottom:1px solid var(--line);
+  padding:clamp(30px,4vw,52px) clamp(16px,3.2vw,34px) clamp(42px,5vw,68px);
+}
+.opening-in{max-width:1240px;margin:0 auto}
+.opening-head{max-width:920px;margin:0 auto;text-align:center}
 .slate-tag{
   display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
   background:var(--canvas-card);border:1px solid var(--line);
-  font:700 11.5px/1.2 var(--font-code);letter-spacing:.09em;text-transform:uppercase;color:var(--brand);
+  font:700 11px/1.2 var(--font-code);letter-spacing:.1em;text-transform:uppercase;color:var(--brand);
 }
-.slate-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
-.opening h1{margin-top:16px}
+.slate-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;
+  box-shadow:0 0 10px var(--accent);
+}
+.opening h1{margin-top:15px}
 .title-display{
-  display:block;font-size:clamp(46px,6.8vw,84px);line-height:.96;letter-spacing:-.035em;color:var(--text);
+  display:block;font-size:clamp(44px,6.4vw,80px);line-height:.96;letter-spacing:-.035em;color:var(--text);
 }
 .title-sub{
-  display:block;margin:13px auto 0;max-width:36ch;
-  font-size:clamp(19px,2.2vw,27px);line-height:1.28;letter-spacing:-.015em;color:var(--text-soft);
+  display:block;margin:11px auto 0;max-width:38ch;
+  font-size:clamp(18px,2.1vw,25px);line-height:1.28;letter-spacing:-.015em;color:var(--text-soft);
 }
 .opening-thesis{
-  margin:18px auto 0;max-width:66ch;font-size:clamp(15.5px,1.5vw,17.5px);line-height:1.62;color:var(--text-soft);
+  margin:15px auto 0;max-width:68ch;font-size:clamp(15px,1.45vw,17px);line-height:1.6;color:var(--text-soft);
 }
 .opening-thesis b{color:var(--text)}
-.opening-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.opening-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
 .action-pill{
-  display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
-  font:700 14px/1 var(--font-body);text-decoration:none;border:1px solid var(--line-strong);
+  display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;
+  font:700 13.5px/1 var(--font-body);text-decoration:none;border:1px solid var(--line-strong);
   background:var(--canvas-card);color:var(--text);transition:all .15s;cursor:pointer;
 }
 .action-pill:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
-.action-pill.solid{background:var(--brand);border-color:var(--brand);color:var(--canvas-card)}
-.action-pill.solid:hover{background:var(--text);border-color:var(--text);color:var(--canvas-card)}
+.action-pill.solid{background:var(--brand-deep);border-color:var(--brand-deep);color:var(--booth-text)}
+.action-pill.solid:hover{background:var(--brand-mid);border-color:var(--brand-mid);color:var(--booth)}
 
-/* ─── Hero Feature Film Screening Booth ─── */
-.booth-shell{
-  margin-top:clamp(28px,3.6vw,42px);
+/* ─── 3D Spatial Production Constellation Stage ─── */
+.cosmos-shell{
+  margin-top:clamp(24px,3vw,34px);
   background:var(--booth);color:var(--booth-text);
-  border:1px solid var(--booth-line);border-radius:18px;overflow:hidden;
-  box-shadow:0 24px 54px color-mix(in srgb,var(--booth) 20%,transparent);
+  border:1px solid var(--booth-line);border-radius:20px;overflow:hidden;
+  box-shadow:0 28px 64px color-mix(in srgb,var(--booth) 48%,transparent);
 }
-.booth-chrome{
-  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-  padding:11px 18px;background:var(--booth-panel);border-bottom:1px solid var(--booth-line);
-  font:400 12px/1.3 var(--font-code);color:var(--booth-muted);
+.cosmos-bar{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:11px 16px;background:var(--booth-panel);border-bottom:1px solid var(--booth-line);
 }
-.rec-badge{
-  display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:6px;
-  background:color-mix(in srgb,var(--accent) 22%,transparent);
-  border:1px solid color-mix(in srgb,var(--accent) 52%,transparent);
-  color:var(--accent-soft);font:700 10.5px/1.1 var(--font-code);text-transform:uppercase;letter-spacing:.07em;
+.cosmos-presets{display:flex;gap:6px;flex-wrap:wrap}
+.preset-btn{
+  padding:7px 12px;border-radius:9px;border:1px solid var(--booth-line);
+  background:var(--booth);color:var(--booth-soft);cursor:pointer;text-align:left;
+  font:700 12px/1.2 var(--font-body);transition:all .15s;
 }
-.rec-badge i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
-.booth-title{font:700 13.5px/1.2 var(--font-body);color:var(--booth-text)}
-.booth-score-chip{
-  margin-left:auto;padding:5px 11px;border-radius:999px;
-  background:color-mix(in srgb,var(--audio-ok) 24%,transparent);
-  border:1px solid color-mix(in srgb,var(--audio-ok) 55%,transparent);
-  font:700 11px/1 var(--font-code);color:var(--audio-soft);
+.preset-btn span{display:block;font:400 10.5px/1.2 var(--font-code);color:var(--booth-muted);margin-top:2px}
+.preset-btn:hover{border-color:var(--brand-mid);color:var(--booth-text)}
+.preset-btn[aria-pressed=true]{
+  background:color-mix(in srgb,var(--brand-deep) 44%,var(--booth));
+  border-color:var(--brand-mid);color:var(--booth-text);
 }
+.preset-btn[aria-pressed=true] span{color:var(--brand-mid)}
 
-.hero-reel-grid{
-  display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,.95fr);align-items:stretch;
+.cosmos-bar-right{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.live-pill{
+  display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;
+  background:var(--booth-card);border:1px solid var(--booth-line);
+  font:700 11px/1 var(--font-code);color:var(--booth-soft);transition:all .2s;
 }
-.reel-player-col{
-  padding:16px 18px 18px;background:var(--booth);border-right:1px solid var(--booth-line);
-  display:flex;flex-direction:column;gap:12px;
+.live-pill.delivered{
+  background:color-mix(in srgb,var(--audio-ok) 24%,var(--booth));
+  border-color:var(--audio-ok);color:var(--booth-text);
+  box-shadow:0 0 18px color-mix(in srgb,var(--audio-ok) 35%,transparent);
 }
+.live-pill i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block}
+.live-pill.delivered i{background:var(--audio-ok)}
+
+.cosmos-grid{
+  display:grid;grid-template-columns:minmax(0,1.52fr) minmax(0,.84fr);align-items:stretch;
+}
+.cosmos-stage{
+  position:relative;background:var(--booth);border-right:1px solid var(--booth-line);
+  display:flex;flex-direction:column;min-height:480px;
+}
+.canvas-wrap{
+  position:relative;flex:1;min-height:420px;cursor:grab;user-select:none;touch-action:none;
+}
+.canvas-wrap:active{cursor:grabbing}
+#constellation-3d{display:block;width:100%;height:100%;min-height:420px}
+
+.hud-telemetry{
+  position:absolute;left:14px;top:14px;max-width:min(420px,calc(100% - 28px));
+  padding:9px 13px;border-radius:10px;
+  background:color-mix(in srgb,var(--booth-panel) 84%,transparent);
+  backdrop-filter:blur(10px);border:1px solid var(--booth-line);
+  pointer-events:none;
+}
+.hud-step{font:700 11px/1.2 var(--font-code);color:var(--brand-mid);letter-spacing:.06em;text-transform:uppercase}
+.hud-action{margin-top:3px;font:700 13.5px/1.32 var(--font-body);color:var(--booth-text)}
+.hud-orbit-hint{
+  position:absolute;right:14px;top:14px;padding:6px 10px;border-radius:999px;
+  background:color-mix(in srgb,var(--booth-panel) 78%,transparent);
+  border:1px solid var(--booth-line);font:400 10.5px/1 var(--font-code);color:var(--booth-muted);
+  pointer-events:none;
+}
+.hud-tooltip{
+  position:absolute;z-index:8;max-width:270px;padding:10px 12px;border-radius:10px;
+  background:color-mix(in srgb,var(--booth-card) 94%,transparent);
+  backdrop-filter:blur(10px);border:1px solid var(--brand-mid);
+  box-shadow:0 12px 30px color-mix(in srgb,var(--booth) 60%,transparent);
+  pointer-events:none;font-size:12px;line-height:1.42;color:var(--booth-text);
+}
+.hud-tooltip[hidden]{display:none}
+.hud-tt-hd{display:flex;justify-content:space-between;gap:8px;font:700 11px/1.2 var(--font-code);color:var(--brand-mid);margin-bottom:4px}
+.hud-tt-badge{color:var(--ochre)}
+
+.cosmos-controls{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  padding:10px 14px;background:var(--booth-panel);border-top:1px solid var(--booth-line);
+}
+.ctrl-btn{
+  padding:6px 11px;border-radius:8px;border:1px solid var(--booth-line);
+  background:var(--booth-card);color:var(--booth-text);cursor:pointer;
+  font:700 11.5px/1 var(--font-code);transition:all .14s;white-space:nowrap;
+}
+.ctrl-btn:hover,.ctrl-btn[aria-pressed=true]{background:var(--brand-deep);border-color:var(--brand-mid);color:var(--booth-text)}
+.ctrl-scrub{flex:1;min-width:130px;accent-color:var(--brand-mid);cursor:pointer}
+.ctrl-readout{font:700 11.5px/1 var(--font-code);color:var(--booth-soft);min-width:9.5em;text-align:right}
+
+.lane-legend{
+  display:flex;gap:11px;flex-wrap:wrap;padding:8px 14px;
+  background:var(--booth);border-top:1px solid var(--booth-line);
+  font:400 10.5px/1.2 var(--font-code);color:var(--booth-muted);
+}
+.ll-item{display:inline-flex;align-items:center;gap:5px}
+.ll-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.ll-dot.img{background:var(--brand-mid)}
+.ll-dot.vid{background:var(--brand)}
+.ll-dot.snd{background:var(--audio-ok)}
+.ll-dot.edt{background:var(--ochre)}
+.ll-dot.chk{background:var(--booth-soft)}
+.ll-dot.exp{background:var(--accent)}
+
+/* ─── Right Converged Film Delivery Dock ─── */
+.delivery-dock{
+  padding:16px 18px;background:var(--booth-panel);display:flex;flex-direction:column;gap:12px;
+}
+.dock-head{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.dock-kicker{font:700 10.5px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--ochre)}
+.dock-score{
+  padding:4px 9px;border-radius:999px;font:700 11px/1 var(--font-code);
+  background:color-mix(in srgb,var(--audio-ok) 22%,var(--booth));
+  border:1px solid var(--audio-ok);color:var(--booth-text);
+}
+.dock-title{font-size:17px;color:var(--booth-text);line-height:1.25}
+.dock-summary{font-size:13px;line-height:1.5;color:var(--booth-soft)}
+
 .reel-frame{
-  position:relative;border-radius:11px;overflow:hidden;background:var(--booth-panel);
-  border:1px solid var(--booth-line);
+  position:relative;border-radius:11px;overflow:hidden;background:var(--booth);
+  border:1px solid var(--booth-line);transition:border-color .25s,box-shadow .25s;
+}
+.reel-frame.lit{
+  border-color:var(--brand-mid);
+  box-shadow:0 0 24px color-mix(in srgb,var(--brand-mid) 28%,transparent);
 }
 .reel-video{display:block;width:100%;height:auto}
-.audio-hint{
-  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
-  padding:8px 12px;border-radius:9px;background:var(--booth-panel);border:1px solid var(--booth-line);
-  font:400 12px/1.35 var(--font-code);color:var(--booth-soft);
+.dock-audio-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  font:400 11px/1.3 var(--font-code);color:var(--booth-muted);
 }
 .sound-toggle{
-  display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
-  border:1px solid var(--brand-mid);background:color-mix(in srgb,var(--brand-mid) 25%,transparent);
-  color:var(--booth-text);font:700 11.5px/1 var(--font-body);cursor:pointer;transition:all .15s;
+  padding:6px 11px;border-radius:999px;border:1px solid var(--brand-mid);
+  background:color-mix(in srgb,var(--brand-deep) 48%,var(--booth));
+  color:var(--booth-text);font:700 11px/1 var(--font-body);cursor:pointer;transition:all .14s;
 }
-.sound-toggle:hover,.sound-toggle[aria-pressed=true]{background:var(--brand-mid);color:var(--canvas-card)}
+.sound-toggle:hover,.sound-toggle[aria-pressed=true]{background:var(--brand-mid);color:var(--booth)}
 
-.call-sheet{
-  padding:18px 20px;background:var(--booth-panel);display:flex;flex-direction:column;gap:14px;
-}
-.sheet-box{
-  padding:13px 15px;border-radius:11px;background:var(--booth-card);border:1px solid var(--booth-line);
-}
-.sheet-kicker{
-  font:700 10.5px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--ochre-line);
-}
-.sheet-brief{margin-top:6px;font-size:14.5px;line-height:1.52;color:var(--booth-text)}
-.sheet-dims{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
-.dim-tile{
-  padding:9px 8px;border-radius:9px;background:var(--booth);border:1px solid var(--booth-line);text-align:center;
-}
-.dim-tile b{display:block;font-family:var(--font-head);font-size:19px;color:var(--booth-text);line-height:1.1}
-.dim-tile span{display:block;margin-top:3px;font:700 10px/1 var(--font-code);letter-spacing:.06em;color:var(--booth-muted)}
-.dim-tile.sem b{color:var(--booth-text)}
-.dim-tile.vis b{color:var(--brand-line)}
-.dim-tile.aud b{color:var(--audio-line)}
-.dim-tile.av b{color:var(--ochre-line)}
-
-.pipe-strip{display:grid;gap:7px}
-.pipe-label{font:700 10.5px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--booth-muted)}
-.pipe-pills{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.pipe-step{
-  padding:5px 9px;border-radius:7px;background:var(--booth);border:1px solid var(--booth-line);
-  font:700 11px/1.1 var(--font-code);color:var(--booth-soft);
-}
-.pipe-step.export{border-color:var(--accent);color:var(--accent-soft)}
-.sheet-stats{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:auto;
-}
-.ss-item{
+.dock-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.dm-cell{
   padding:9px 10px;border-radius:9px;background:var(--booth);border:1px solid var(--booth-line);
 }
-.ss-item b{display:block;font:700 14.5px/1.2 var(--font-code);color:var(--booth-text)}
-.ss-item span{display:block;margin-top:2px;font-size:11.5px;color:var(--booth-muted)}
+.dm-cell b{display:block;font:700 15px/1.15 var(--font-code);color:var(--booth-text)}
+.dm-cell span{display:block;margin-top:2px;font-size:11px;color:var(--booth-muted)}
+.dock-canvas-link{
+  margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:10px 14px;border-radius:10px;text-decoration:none;
+  background:var(--booth-card);border:1px solid var(--booth-line);
+  font:700 12.5px/1 var(--font-body);color:var(--booth-text);transition:all .15s;
+}
+.dock-canvas-link:hover{border-color:var(--brand-mid);color:var(--brand-mid)}
 
-/* ─── 4 Headline Metrics Strip ─── */
+/* ─── 4 Headline KPI Strip ─── */
 .stat-row{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
-  margin-top:clamp(20px,2.5vw,28px);
+  margin-top:clamp(18px,2.2vw,24px);
 }
 .stat-tile{
   background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
-  padding:17px 19px;display:flex;flex-direction:column;gap:4px;
+  padding:16px 18px;display:flex;flex-direction:column;gap:4px;
 }
-.stat-tile.emph{border-color:var(--brand-line);background:linear-gradient(180deg,var(--brand-soft) 0%,var(--canvas-card) 72%)}
+.stat-tile.emph{
+  border-color:var(--brand-line);
+  background:linear-gradient(180deg,var(--brand-soft) 0%,var(--canvas-card) 75%);
+}
 .stat-num{
-  font-family:var(--font-head);font-weight:700;font-size:clamp(25px,2.7vw,34px);
+  font-family:var(--font-head);font-weight:700;font-size:clamp(24px,2.5vw,32px);
   line-height:1.06;letter-spacing:-.025em;color:var(--text);
 }
 .stat-tile.emph .stat-num{color:var(--brand)}
@@ -254,7 +409,7 @@ a:hover{text-decoration-thickness:2px}
 /* ─── Section Rhythm ─── */
 .band-warm{background:var(--canvas-warm);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .band-tint{background:var(--canvas-tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.chapter{max-width:1180px;margin:0 auto;padding:clamp(54px,6vw,86px) clamp(18px,3.6vw,36px)}
+.chapter{max-width:1200px;margin:0 auto;padding:clamp(54px,6vw,84px) clamp(16px,3.2vw,34px)}
 .chapter+.chapter{border-top:1px solid var(--line)}
 .chap-head{max-width:840px;margin-bottom:clamp(26px,3.2vw,40px)}
 .chap-eyebrow{
@@ -262,22 +417,22 @@ a:hover{text-decoration-thickness:2px}
   color:var(--brand);margin:0 0 9px;
 }
 .chap-eyebrow.warm{color:var(--accent)}
-.chap-head h2{font-size:clamp(27px,3.3vw,41px);letter-spacing:-.025em}
-.chap-lede{margin-top:13px;font-size:clamp(15.5px,1.5vw,17.5px);line-height:1.62;color:var(--text-soft);max-width:72ch}
-.sub-title{font-size:clamp(20px,2.2vw,26px);margin:clamp(32px,3.8vw,46px) 0 8px}
+.chap-head h2{font-size:clamp(27px,3.2vw,40px);letter-spacing:-.025em}
+.chap-lede{margin-top:13px;font-size:clamp(15.5px,1.45vw,17px);line-height:1.62;color:var(--text-soft);max-width:72ch}
+.sub-title{font-size:clamp(20px,2.1vw,25px);margin:clamp(32px,3.6vw,44px) 0 8px}
 .sub-copy{font-size:15px;color:var(--text-soft);max-width:70ch;margin-bottom:18px}
 
-/* ─── Figures ─── */
+/* ─── Archival Paper Plates (clean in both Dark & Light modes) ─── */
 .plate{
   margin:0;background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
-  padding:14px;display:flex;flex-direction:column;
+  padding:13px;display:flex;flex-direction:column;
 }
 .plate-link{
   display:block;width:100%;border-radius:9px;overflow:hidden;border:1px solid var(--line);
-  background:var(--canvas-card);cursor:zoom-in;
+  background:var(--plate-bg);cursor:zoom-in;padding:6px;
 }
 .plate-link:hover{border-color:var(--brand-mid)}
-.plate-link img{display:block;width:100%;height:auto}
+.plate-link img{display:block;width:100%;height:auto;border-radius:5px}
 .plate-cap{margin-top:11px;font-size:12.5px;line-height:1.52;color:var(--text-muted)}
 .plate-id{font:700 11px/1.2 var(--font-code);color:var(--brand);margin-right:7px;text-transform:uppercase}
 
@@ -302,7 +457,7 @@ a:hover{text-decoration-thickness:2px}
 
 .env-split{
   display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
-  gap:clamp(22px,3vw,38px);align-items:stretch;margin-top:clamp(28px,3.6vw,42px);
+  gap:clamp(22px,3vw,36px);align-items:stretch;margin-top:clamp(28px,3.4vw,40px);
 }
 .tool-panel{
   background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
@@ -314,10 +469,8 @@ a:hover{text-decoration-thickness:2px}
   border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer;transition:all .14s;
 }
 .tool-tab:hover{border-color:var(--brand-mid);color:var(--brand)}
-.tool-tab[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:var(--canvas-card)}
-.tool-detail{
-  padding:15px 16px;border-radius:11px;background:var(--canvas);border:1px solid var(--line);
-}
+.tool-tab[aria-pressed=true]{background:var(--brand-deep);border-color:var(--brand-deep);color:var(--booth-text)}
+.tool-detail{padding:15px 16px;border-radius:11px;background:var(--canvas-elev);border:1px solid var(--line)}
 .tool-detail-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .tool-detail-hd h4{font-size:17px;color:var(--text)}
 .tool-detail-hd span{font:700 11px/1 var(--font-code);color:var(--brand)}
@@ -329,33 +482,27 @@ a:hover{text-decoration-thickness:2px}
 .tool-note{margin-top:10px;font-size:13.5px;line-height:1.5;color:var(--text-soft)}
 
 .rule-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:auto}
-.rule-box{
-  padding:13px 15px;border-radius:11px;background:var(--canvas-warm);border:1px solid var(--line);
-}
+.rule-box{padding:13px 15px;border-radius:11px;border:1px solid var(--line)}
 .rule-box.score{background:var(--audio-soft);border-color:var(--audio-line)}
 .rule-box.attr{background:var(--ochre-soft);border-color:var(--ochre-line)}
 .rule-box h4{font-size:14.5px;color:var(--text)}
 .rule-box p{margin-top:5px;font-size:13px;line-height:1.48;color:var(--text-soft)}
 
 /* ─── Act 3: RQ1 Interactive Leaderboard + Pareto Frontier ─── */
-.rq1-grid{
-  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
-  gap:20px;align-items:stretch;
-}
+.rq1-grid{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:20px;align-items:stretch}
 .board-card{
   background:var(--canvas-card);border:1px solid var(--line);border-radius:16px;
   padding:20px 22px;display:flex;flex-direction:column;
 }
 .board-card h3{font-size:19.5px;margin-bottom:5px}
 .board-sub{font-size:13.5px;color:var(--text-muted);margin-bottom:14px}
-
 .metric-sw{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
 .metric-sw button{
   font:700 12px/1 var(--font-body);color:var(--text-soft);background:var(--canvas);
   border:1px solid var(--line);border-radius:999px;padding:7.5px 12px;cursor:pointer;transition:all .14s;
 }
 .metric-sw button:hover{border-color:var(--brand-mid);color:var(--brand)}
-.metric-sw button[aria-pressed=true]{background:var(--text);border-color:var(--text);color:var(--canvas-card)}
+.metric-sw button[aria-pressed=true]{background:var(--brand-deep);border-color:var(--brand-deep);color:var(--booth-text)}
 .metric-blurb{font-size:13px;line-height:1.48;color:var(--text-muted);margin-bottom:12px;min-height:2.4em}
 
 .rank-list{display:grid;gap:6px;margin-top:auto}
@@ -369,11 +516,8 @@ a:hover{text-decoration-thickness:2px}
 .rank-idx{font:700 11px/1 var(--font-code);color:var(--text-muted);width:15px;flex:none}
 .rank-ico{width:19px;height:auto;border-radius:4px;flex:none}
 .rank-nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.rank-track{position:relative;height:18px;background:var(--canvas-warm);border-radius:5px;overflow:hidden}
-.rank-fill{
-  position:absolute;left:0;top:0;bottom:0;border-radius:4px;
-  background:var(--brand-line);transition:width .24s;
-}
+.rank-track{position:relative;height:18px;background:var(--canvas-elev);border-radius:5px;overflow:hidden}
+.rank-fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--brand-line);transition:width .24s}
 .rank-row.is-top .rank-fill{background:var(--brand)}
 .rank-row.is-pareto .rank-fill{background:var(--brand-mid)}
 .rank-val{font:700 12.5px/1 var(--font-code);text-align:right;color:var(--text)}
@@ -382,9 +526,10 @@ a:hover{text-decoration-thickness:2px}
   margin-top:13px;padding-top:11px;border-top:1px solid var(--line);
   font:400 11px/1.4 var(--font-code);color:var(--text-muted);
 }
+
 .pareto-svg{display:block;width:100%;height:auto;margin-top:auto}
 .pareto-svg text{font-family:var(--font-code);font-size:10.5px;fill:var(--text-muted)}
-.pareto-svg .grid-l{stroke:var(--canvas-warm);stroke-width:1}
+.pareto-svg .grid-l{stroke:var(--line);stroke-width:1}
 .pareto-svg .axis-l{stroke:var(--line-strong);stroke-width:1.1}
 .pareto-svg .frontier-l{fill:none;stroke:var(--brand);stroke-width:2;stroke-dasharray:5 4}
 .pareto-svg .pt-dom{fill:var(--text-muted);transition:r .15s}
@@ -397,26 +542,18 @@ a:hover{text-decoration-thickness:2px}
 .leg-dot.dom{background:var(--text-muted)}
 
 /* ─── Act 4: RQ2 Workflows & RQ3 Missing Quality Loop ─── */
-.wf-pair{
-  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
-  gap:22px;align-items:stretch;
-}
+.wf-pair{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:22px;align-items:stretch}
 .wf-takeaways{
   background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
   padding:22px 24px;display:flex;flex-direction:column;gap:14px;
 }
 .wf-takeaways h3{font-size:20px}
 .wf-bullets{margin:0;padding:0;list-style:none;display:grid;gap:12px}
-.wf-bullets li{
-  padding-left:14px;border-left:3px solid var(--brand-line);font-size:14.5px;line-height:1.55;color:var(--text-soft);
-}
+.wf-bullets li{padding-left:14px;border-left:3px solid var(--brand-line);font-size:14.5px;line-height:1.55;color:var(--text-soft)}
 .wf-bullets li.warm{border-left-color:var(--accent)}
 .wf-bullets b{color:var(--text)}
 
-.loop-split{
-  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
-  gap:24px;align-items:stretch;margin-top:clamp(28px,3.6vw,44px);
-}
+.loop-split{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:24px;align-items:stretch;margin-top:clamp(28px,3.6vw,44px)}
 .gap-stack{display:grid;gap:14px}
 .gap-card{
   background:var(--canvas-card);border:1px solid var(--line);border-left:4px solid var(--brand);
@@ -431,12 +568,17 @@ a:hover{text-decoration-thickness:2px}
 .gap-card p{margin-top:7px;font-size:14px;line-height:1.56;color:var(--text-soft)}
 .gap-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
 .gap-chip{
-  padding:4px 9px;border-radius:6px;background:var(--canvas);border:1px solid var(--line);
+  padding:4px 9px;border-radius:6px;background:var(--canvas-elev);border:1px solid var(--line);
   font:700 11.5px/1.2 var(--font-code);color:var(--text);
 }
 .gap-card.verif .gap-chip{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
 
 /* ─── Act 5: 4-Genre Side-by-Side Audiovisual Screening Room ─── */
+.booth-shell{
+  background:var(--booth);color:var(--booth-text);
+  border:1px solid var(--booth-line);border-radius:18px;overflow:hidden;
+  box-shadow:0 24px 54px color-mix(in srgb,var(--booth) 35%,transparent);
+}
 .screen-tabs{
   display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;
   background:var(--booth-line);border-bottom:1px solid var(--booth-line);
@@ -447,11 +589,8 @@ a:hover{text-decoration-thickness:2px}
   transition:background .15s,color .15s;
 }
 .screen-tab:hover{background:var(--booth-card);color:var(--booth-text)}
-.screen-tab[aria-selected=true]{
-  background:var(--booth);color:var(--booth-text);
-  box-shadow:inset 0 3px 0 var(--accent);
-}
-.st-genre{font:700 10px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--ochre-line)}
+.screen-tab[aria-selected=true]{background:var(--booth);color:var(--booth-text);box-shadow:inset 0 3px 0 var(--accent)}
+.st-genre{font:700 10px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--ochre)}
 .st-name{font:700 14px/1.25 var(--font-body);color:inherit}
 .st-id{font:400 11px/1.2 var(--font-code);color:var(--booth-muted)}
 .screen-panel[hidden]{display:none}
@@ -462,22 +601,15 @@ a:hover{text-decoration-thickness:2px}
   margin-bottom:16px;
 }
 .screen-brief-txt{font-size:14.5px;line-height:1.52;color:var(--booth-text);max-width:74ch}
-.screen-brief-txt b{color:var(--ochre-line);font-family:var(--font-code);font-size:12px;margin-right:8px}
+.screen-brief-txt b{color:var(--ochre);font-family:var(--font-code);font-size:12px;margin-right:8px}
 .screen-dur-tag{
   font:700 11.5px/1 var(--font-code);color:var(--booth-soft);
   padding:5px 10px;border-radius:999px;background:var(--booth-card);border:1px solid var(--booth-line);white-space:nowrap;
 }
-
 .duel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.film-card{
-  background:var(--booth-panel);border:1px solid var(--booth-line);border-radius:13px;overflow:hidden;
-  display:flex;flex-direction:column;
-}
+.film-card{background:var(--booth-panel);border:1px solid var(--booth-line);border-radius:13px;overflow:hidden;display:flex;flex-direction:column}
 .film-card.winner{border-color:var(--brand-mid)}
-.film-hd{
-  display:flex;align-items:center;gap:9px;padding:11px 14px;
-  background:var(--booth-card);border-bottom:1px solid var(--booth-line);
-}
+.film-hd{display:flex;align-items:center;gap:9px;padding:11px 14px;background:var(--booth-card);border-bottom:1px solid var(--booth-line)}
 .film-hd img{width:20px;height:auto;border-radius:4px;flex:none}
 .film-model{font:700 14px/1.2 var(--font-body);color:var(--booth-text)}
 .film-calls{font:400 11px/1 var(--font-code);color:var(--booth-muted);margin-left:4px}
@@ -485,41 +617,26 @@ a:hover{text-decoration-thickness:2px}
   margin-left:auto;padding:4px 10px;border-radius:999px;
   font:700 12px/1 var(--font-code);background:var(--booth);color:var(--booth-text);border:1px solid var(--booth-line);
 }
-.film-card.winner .film-score{
-  background:color-mix(in srgb,var(--audio-ok) 26%,transparent);
-  border-color:var(--audio-ok);color:var(--audio-soft);
-}
-.film-card.flawed .film-score{
-  background:color-mix(in srgb,var(--accent) 26%,transparent);
-  border-color:var(--accent);color:var(--accent-soft);
-}
+.film-card.winner .film-score{background:color-mix(in srgb,var(--audio-ok) 26%,transparent);border-color:var(--audio-ok);color:var(--booth-text)}
+.film-card.flawed .film-score{background:color-mix(in srgb,var(--accent) 26%,transparent);border-color:var(--accent);color:var(--booth-text)}
 .film-vid-wrap{background:var(--booth)}
 .film-vid{display:block;width:100%;height:auto}
 .film-meta{padding:12px 14px 14px;display:flex;flex-direction:column;gap:9px;flex:1}
 .mini-dims{display:flex;flex-wrap:wrap;gap:6px}
-.md-pill{
-  padding:4px 8px;border-radius:6px;background:var(--booth);border:1px solid var(--booth-line);
-  font:700 11px/1 var(--font-code);color:var(--booth-soft);
-}
-.md-pill.low{border-color:var(--accent);color:var(--accent-soft)}
+.md-pill{padding:4px 8px;border-radius:6px;background:var(--booth);border:1px solid var(--booth-line);font:700 11px/1 var(--font-code);color:var(--booth-soft)}
+.md-pill.low{border-color:var(--accent);color:var(--accent)}
 .film-diag{font-size:13px;line-height:1.48;color:var(--booth-soft)}
 
-.contact-strip{
-  margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;
-  font-size:13px;color:var(--text-muted);
-}
+.contact-strip{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--text-muted)}
 
-/* ─── Collapsible Data Drawers (verified paper tables) ─── */
+/* ─── Collapsible Data Drawers ─── */
 .fold-stack{display:grid;gap:12px;margin-top:22px}
-details.fold{
-  background:var(--canvas-card);border:1px solid var(--line);border-radius:12px;
-}
+details.fold{background:var(--canvas-card);border:1px solid var(--line);border-radius:12px}
 details.fold:not([open])>.fold-body{display:none}
 details.fold>summary{
   list-style:none;cursor:pointer;padding:13px 18px;border-radius:11px;
   display:flex;align-items:center;justify-content:space-between;gap:12px;
-  font:700 14px/1.35 var(--font-body);color:var(--text);background:var(--canvas);
-  transition:background .14s;
+  font:700 14px/1.35 var(--font-body);color:var(--text);background:var(--canvas-elev);transition:background .14s;
 }
 details.fold>summary::-webkit-details-marker{display:none}
 details.fold>summary:hover{background:var(--brand-soft);color:var(--brand)}
@@ -532,68 +649,48 @@ details.fold[open]>summary{border-bottom:1px solid var(--line);border-radius:11p
 
 .data-tbl-wrap+.data-tbl-wrap{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
 .data-tbl-lead{font:700 16px/1.35 var(--font-head);color:var(--text);margin:0 0 12px}
-.data-tbl{
-  width:100%;border-collapse:collapse;font-size:13px;
-  font-variant-numeric:tabular-nums lining-nums;background:var(--canvas-card);
-}
+.data-tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums lining-nums;background:var(--canvas-card)}
 .data-tbl.compact{max-width:680px}
-.data-tbl caption{
-  caption-side:bottom;margin-top:11px;font-size:12px;line-height:1.5;color:var(--text-muted);text-align:left;max-width:92ch;
-}
+.data-tbl caption{caption-side:bottom;margin-top:11px;font-size:12px;line-height:1.5;color:var(--text-muted);text-align:left;max-width:92ch}
 .data-tbl th,.data-tbl td{padding:7px 7px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
 .data-tbl th.l,.data-tbl td.l{text-align:left;white-space:normal}
-.data-tbl thead th{
-  font:700 11.5px/1.3 var(--font-body);color:var(--text);border-bottom:1.5px solid var(--text-soft);
-  vertical-align:bottom;
-}
+.data-tbl thead th{font:700 11.5px/1.3 var(--font-body);color:var(--text);border-bottom:1.5px solid var(--text-soft);vertical-align:bottom}
 .data-tbl tr.sec-row th{
   text-align:left;font:700 11px/1.3 var(--font-code);text-transform:uppercase;letter-spacing:.06em;
-  color:var(--brand);background:var(--canvas);padding-top:10px;
+  color:var(--brand);background:var(--canvas-elev);padding-top:10px;
 }
 .data-tbl tr.hl-row{background:var(--brand-soft)}
 .data-tbl tr.hl-row td,.data-tbl tr.hl-row th{font-weight:700}
 .data-tbl b.hi{color:var(--brand);font-weight:700}
 .fold-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
 
-/* ─── Honest Scope, Citation & Footer ─── */
+/* ─── Scope, Citation & Footer ─── */
 .scope-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
-.scope-card{
-  background:var(--canvas-card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;
-}
+.scope-card{background:var(--canvas-card);border:1px solid var(--line);border-radius:12px;padding:15px 16px}
 .scope-card h3{font-size:14.5px;color:var(--text)}
 .scope-card p{margin-top:6px;font-size:13px;line-height:1.5;color:var(--text-muted)}
 
-.cite-shell{
-  border:1px solid var(--line);border-radius:14px;background:var(--canvas-card);
-  overflow:hidden;max-width:820px;
-}
-.cite-top{
-  display:flex;align-items:center;gap:12px;padding:10px 16px;
-  border-bottom:1px solid var(--line);background:var(--canvas);
-}
+.cite-shell{border:1px solid var(--line);border-radius:14px;background:var(--canvas-card);overflow:hidden;max-width:820px}
+.cite-top{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--canvas-elev)}
 .cite-top span{font:700 12px/1.2 var(--font-code);color:var(--text-muted)}
 .cite-copy{
   margin-left:auto;font:700 12.5px/1 var(--font-body);color:var(--brand);
-  background:var(--brand-soft);border:1px solid var(--brand-line);
-  border-radius:8px;padding:8px 14px;cursor:pointer;
+  background:var(--brand-soft);border:1px solid var(--brand-line);border-radius:8px;padding:8px 14px;cursor:pointer;
 }
-.cite-copy:hover{background:var(--brand);border-color:var(--brand);color:var(--canvas-card)}
+.cite-copy:hover{background:var(--brand-deep);border-color:var(--brand-deep);color:var(--booth-text)}
 pre.bib-code{margin:0;padding:16px 18px;font:400 13px/1.62 var(--font-code);color:var(--text);overflow-x:auto;white-space:pre}
 .footnote{font-size:12.5px;line-height:1.55;color:var(--text-muted);margin-top:12px;max-width:86ch}
 
-.site-foot{border-top:1px solid var(--line);padding:28px clamp(18px,3.6vw,36px);background:var(--canvas-warm)}
-.foot-row{
-  max-width:1180px;margin:0 auto;display:flex;gap:18px;flex-wrap:wrap;justify-content:space-between;
-  font-size:13px;line-height:1.58;color:var(--text-muted);
-}
+.site-foot{border-top:1px solid var(--line);padding:28px clamp(16px,3.2vw,34px);background:var(--canvas-warm)}
+.foot-row{max-width:1200px;margin:0 auto;display:flex;gap:18px;flex-wrap:wrap;justify-content:space-between;font-size:13px;line-height:1.58;color:var(--text-muted)}
 .foot-row p{max-width:68ch}
 
 dialog.lightbox{border:0;padding:0;max-width:96vw;max-height:94vh;background:transparent}
-dialog.lightbox::backdrop{background:color-mix(in srgb,var(--booth) 90%,transparent)}
-dialog.lightbox img{display:block;max-width:96vw;max-height:84vh;width:auto;height:auto;background:var(--canvas-card);border-radius:10px}
+dialog.lightbox::backdrop{background:color-mix(in srgb,var(--booth) 92%,transparent)}
+dialog.lightbox img{display:block;max-width:96vw;max-height:84vh;width:auto;height:auto;background:var(--plate-bg);border-radius:10px}
 .lb-bar{display:flex;gap:12px;align-items:center;margin-top:10px}
 .lb-bar p{margin:0;font:400 12.5px/1.5 var(--font-code);color:var(--booth-text);flex:1}
-.lb-close{font:700 13px/1 var(--font-body);color:var(--text);background:var(--canvas-card);border:0;border-radius:8px;padding:9px 15px;cursor:pointer}
+.lb-close{font:700 13px/1 var(--font-body);color:var(--booth);background:var(--booth-text);border:0;border-radius:8px;padding:9px 15px;cursor:pointer}
 
 section[id]{scroll-margin-top:68px}
 
@@ -609,19 +706,18 @@ section[id]{scroll-margin-top:68px}
   .data-tbl.wide td::before{content:attr(data-col);font:400 11px/1.35 var(--font-code);color:var(--text-muted);text-align:left}
 }
 
-@media (max-width:960px){
-  .hero-reel-grid,.env-split,.rq1-grid,.wf-pair,.loop-split,.duel-grid,.fold-two{grid-template-columns:minmax(0,1fr)}
-  .reel-player-col{border-right:0;border-bottom:1px solid var(--booth-line)}
+@media (max-width:980px){
+  .cosmos-grid,.env-split,.rq1-grid,.wf-pair,.loop-split,.duel-grid,.fold-two{grid-template-columns:minmax(0,1fr)}
+  .cosmos-stage{border-right:0;border-bottom:1px solid var(--booth-line);min-height:400px}
   .stat-row,.genre-grid,.scope-grid,.screen-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .topbar-in{flex-wrap:wrap;gap:10px}
   .top-nav{margin-left:0;width:100%}
-  .top-nav a{font-size:12.5px;padding:7px 10px}
+  .top-nav a{font-size:12.5px;padding:7px 9px}
 }
 
 @media (max-width:660px){
   body{font-size:15.5px}
-  .stat-row,.genre-grid,.scope-grid,.rule-pair,.sheet-dims{grid-template-columns:minmax(0,1fr)}
-  .screen-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat-row,.genre-grid,.scope-grid,.rule-pair,.dock-metrics{grid-template-columns:minmax(0,1fr)}
   .rank-row{grid-template-columns:138px 1fr 56px}
   .data-tbl,.data-tbl tbody,.data-tbl tr,.data-tbl td,.data-tbl th{display:block}
   .data-tbl thead{display:none}
@@ -644,13 +740,14 @@ section[id]{scroll-margin-top:68px}
   <div class="topbar-in">
     <a class="studio-brand" href="#hero"><img src="assets/brand/studiobench-mark.svg" alt="" width="28" height="28" aria-hidden="true">StudioBench</a>
     <nav class="top-nav" aria-label="Primary">
-      <a href="#hero">Overview</a>
+      <a href="#hero">3D Constellation</a>
       <a href="#environment">Environment</a>
       <a href="#leaderboard">Leaderboard</a>
       <a href="#workflows">Workflows</a>
       <a href="#screening">Screening Room</a>
-      <a href="_canvas/index.html" target="_blank" rel="noopener">Workflow Canvas &#8599;</a>
+      <a href="_canvas/index.html" target="_blank" rel="noopener">2D Canvas &#8599;</a>
       <a class="top-cite" href="#citation">BibTeX</a>
+      <button type="button" class="theme-btn" id="theme-toggle" aria-pressed="false" aria-label="Toggle light or dark theme">&#9728; Light</button>
     </nav>
   </div>
 </header>
@@ -676,49 +773,66 @@ section[id]{scroll-margin-top:68px}
       </div>
     </div>
 
-    <div class="booth-shell" id="hero-reel">
-  <div class="booth-chrome">
-    <span class="rec-badge"><i></i>Feature Screening</span>
-    <span class="booth-title">EDU-OPN-045 &middot; Claude Opus 5.5 &middot; Autonomous 153s Animated Short</span>
-    <span class="booth-score-chip">Overall 100.0 &middot; 7/7 Checklist Items Met</span>
+    <div class="cosmos-shell" id="cosmos-root" data-clips="{&quot;edu_claude&quot;:{&quot;mp4&quot;:&quot;assets/videos/hero-edu-045-claude.mp4&quot;,&quot;webm&quot;:&quot;assets/videos/hero-edu-045-claude.webm&quot;,&quot;poster_jpg&quot;:&quot;assets/videos/hero-edu-045-claude-poster.jpg&quot;,&quot;poster_webp&quot;:&quot;assets/videos/hero-edu-045-claude-poster.webp&quot;,&quot;width&quot;:768,&quot;height&quot;:432,&quot;t0&quot;:12.0,&quot;dur&quot;:24.0,&quot;slug&quot;:&quot;hero-edu-045-claude&quot;,&quot;caption&quot;:&quot;EDU-OPN-045 \u00b7 24s highlight with voiceover, SFX &amp; score (153s film)&quot;},&quot;nar_claude&quot;:{&quot;mp4&quot;:&quot;assets/videos/nar-004-claude.mp4&quot;,&quot;webm&quot;:&quot;assets/videos/nar-004-claude.webm&quot;,&quot;poster_jpg&quot;:&quot;assets/videos/nar-004-claude-poster.jpg&quot;,&quot;poster_webp&quot;:&quot;assets/videos/nar-004-claude-poster.webp&quot;,&quot;width&quot;:640,&quot;height&quot;:360,&quot;t0&quot;:10.0,&quot;dur&quot;:20.0,&quot;slug&quot;:&quot;nar-004-claude&quot;,&quot;caption&quot;:&quot;NAR-AST-004 \u00b7 Claude Opus 5.5 delivered film excerpt (90.6)&quot;},&quot;nar_mimo&quot;:{&quot;mp4&quot;:&quot;assets/videos/nar-004-claude.mp4&quot;,&quot;webm&quot;:&quot;assets/videos/nar-004-claude.webm&quot;,&quot;poster_jpg&quot;:&quot;assets/videos/nar-004-claude-poster.jpg&quot;,&quot;poster_webp&quot;:&quot;assets/videos/nar-004-claude-poster.webp&quot;,&quot;width&quot;:640,&quot;height&quot;:360,&quot;t0&quot;:10.0,&quot;dur&quot;:20.0,&quot;slug&quot;:&quot;nar-004-claude&quot;,&quot;caption&quot;:&quot;NAR-AST-004 \u00b7 Compare MiMo&#x27;s 0-prune linear tube against Claude&#x27;s selective graph&quot;}}">
+  <div class="cosmos-bar">
+    <div class="cosmos-presets" role="group" aria-label="Select 3D production constellation trace">
+      <button type="button" class="preset-btn" data-trace="edu_claude" aria-pressed="true">EDU-OPN-045 &middot; Full Ignition<span>Claude &middot; 162 calls &middot; 269 edges</span></button>
+      <button type="button" class="preset-btn" data-trace="nar_claude" aria-pressed="false">Selective Director &middot; Claude<span>NAR-AST-004 &middot; 171 calls &middot; 36 pruned</span></button>
+      <button type="button" class="preset-btn" data-trace="nar_mimo" aria-pressed="false">Linear Director &middot; MiMo<span>NAR-AST-004 &middot; 76 calls &middot; 0 pruned</span></button>
+    </div>
+    <div class="cosmos-bar-right">
+      <span class="live-pill" id="cosmos-live-pill"><i></i>Igniting Production Graph</span>
+    </div>
   </div>
-  <div class="hero-reel-grid">
-    <div class="reel-player-col">
-      <div class="reel-frame">
-        <video id="hero-video" class="reel-video" poster="assets/videos/hero-edu-045-claude-poster.jpg" width="768" height="432" controls muted loop playsinline preload="metadata"><source src="assets/videos/hero-edu-045-claude.webm" type="video/webm"><source src="assets/videos/hero-edu-045-claude.mp4" type="video/mp4"></video>
+  <div class="cosmos-grid">
+    <div class="cosmos-stage">
+      <div class="canvas-wrap">
+        <canvas id="constellation-3d" aria-label="Interactive 3D spatial workflow constellation showing autonomous agent tool calls igniting chronologically from left to right and converging into the exported film"></canvas>
+        <div class="hud-telemetry">
+          <div class="hud-step" id="hud-step">#162 &middot; export &middot; FINAL DELIVERY</div>
+          <div class="hud-action" id="hud-action">Deliver final 153s animated film (100/100)</div>
+        </div>
+        <div class="hud-orbit-hint">Drag to orbit 3D &middot; Hover any orb</div>
+        <div class="hud-tooltip" id="hud-tooltip" hidden></div>
       </div>
-      <div class="audio-hint">
-        <span>24s highlight excerpt with full voiceover, SFX &amp; score (from 153s film)</span>
-        <button type="button" id="hero-sound-btn" class="sound-toggle" aria-pressed="false">Enable Film Sound</button>
+      <div class="cosmos-controls">
+        <button type="button" id="cosmos-play" class="ctrl-btn">Pause</button>
+        <button type="button" id="cosmos-replay" class="ctrl-btn">Replay Ignition</button>
+        <button type="button" id="cosmos-discard" class="ctrl-btn" aria-pressed="false">Backbone Only</button>
+        <label class="sr-only" for="cosmos-scrub">Scrub agent tool-call sequence</label>
+        <input id="cosmos-scrub" class="ctrl-scrub" type="range" min="1" max="162" value="116" step="1">
+        <span class="ctrl-readout" id="cosmos-readout">Step 116 / 162</span>
+      </div>
+      <div class="lane-legend">
+        <span class="ll-item"><i class="ll-dot img"></i>Image / Keyframe</span>
+        <span class="ll-item"><i class="ll-dot vid"></i>Video / Render</span>
+        <span class="ll-item"><i class="ll-dot snd"></i>Voice / Music / SFX</span>
+        <span class="ll-item"><i class="ll-dot edt"></i>Edit / Mix</span>
+        <span class="ll-item"><i class="ll-dot chk"></i>Inspect / Check</span>
+        <span class="ll-item"><i class="ll-dot exp"></i>Final Export</span>
+        <span style="margin-left:auto">Inner core = reached film &middot; Outer Z-shell = pruned takes</span>
       </div>
     </div>
-    <div class="call-sheet">
-      <div class="sheet-box">
-        <p class="sheet-kicker">Production Brief (No Workflow Template Provided)</p>
-        <p class="sheet-brief">&ldquo;Make a foreign-language AI animated short story for young children, in which a reckless little bee and a calm little ant team up on an adventure to find nectar, naturally conveying courage, calm, cooperation and growth.&rdquo; (120&ndash;180s &middot; 16:9)</p>
+    <div class="delivery-dock">
+      <div class="dock-head">
+        <span class="dock-kicker">Converged Deliverable</span>
+        <span class="dock-score" id="dock-score">Score 100.0</span>
       </div>
-      <div class="sheet-dims">
-        <div class="dim-tile sem"><b>100</b><span>SEM</span></div>
-        <div class="dim-tile vis"><b>100</b><span>VIS</span></div>
-        <div class="dim-tile aud"><b>100</b><span>AUD</span></div>
-        <div class="dim-tile av"><b>100</b><span>AV</span></div>
+      <h3 class="dock-title" id="dock-title">Bee &amp; Ant Animated Short (EDU-OPN-045)</h3>
+      <p class="dock-summary" id="dock-summary">From a 2-sentence prompt with zero templates, 162 autonomous tool calls ignite across 6 modalities &mdash; 107 reach the final 153s film while 55 checks and discarded takes sculpt quality.</p>
+      <div class="reel-frame" id="hero-reel-frame">
+        <video id="hero-video" class="reel-video" data-clip-key="hero-edu-045-claude" poster="assets/videos/hero-edu-045-claude-poster.jpg" width="768" height="432" controls muted loop playsinline preload="metadata"><source src="assets/videos/hero-edu-045-claude.webm" type="video/webm"><source src="assets/videos/hero-edu-045-claude.mp4" type="video/mp4"></video>
       </div>
-      <div class="pipe-strip">
-        <span class="pipe-label">Reconstructed Emergent Workflow Graph G(&tau;)</span>
-        <div class="pipe-pills">
-          <span class="pipe-step">Image Keyframes</span>
-          <span class="pipe-step">Video Clips</span>
-          <span class="pipe-step">36 Voice Lines &amp; Music</span>
-          <span class="pipe-step">Edit &amp; Mix</span>
-          <span class="pipe-step">Visual Checks</span>
-          <span class="pipe-step export">Export</span>
-        </div>
+      <div class="dock-audio-bar">
+        <span id="dock-clip-meta">EDU-OPN-045 &middot; 24s highlight with voiceover, SFX &amp; score</span>
+        <button type="button" id="hero-sound-btn" class="sound-toggle" aria-pressed="false">Enable Sound</button>
       </div>
-      <div class="sheet-stats">
-        <div class="ss-item"><b>162</b><span>tool calls</span></div>
-        <div class="ss-item"><b>269</b><span>artifact edges</span></div>
-        <div class="ss-item"><b>107 / 162</b><span>reached film</span></div>
+      <div class="dock-metrics">
+        <div class="dm-cell"><b id="dm-calls">162</b><span>tool calls</span></div>
+        <div class="dm-cell"><b id="dm-kept">107 / 162</b><span>reached film</span></div>
+        <div class="dm-cell"><b id="dm-disc">30</b><span>pruned takes</span></div>
       </div>
+      <a class="dock-canvas-link" href="_canvas/index.html" target="_blank" rel="noopener">Inspect Raw Asset Nodes in 2D Canvas &#8599;</a>
     </div>
   </div>
 </div>
@@ -1287,23 +1401,46 @@ section[id]{scroll-margin-top:68px}
   <div class="lb-bar"><p id="lb-cap"></p><button class="lb-close" id="lb-close" type="button">Close</button></div>
 </dialog>
 
+<script id="constellation-json" type="application/json">{"edu_claude":{"key":"edu_claude","tab":"EDU-OPN-045 · Full Ignition","sub":"Claude Opus 5.5 · 162 calls · 100.0","title":"Bee & Ant Animated Short (EDU-OPN-045)","model":"Claude Opus 5.5","score":"100.0","kept_count":107,"total_calls":162,"edge_count":269,"discarded":30,"summary":"From a 2-sentence prompt with zero templates, 162 autonomous tool calls ignite across 6 modalities — 107 reach the final 153s film while 55 checks and discarded takes sculpt quality.","nodes":[{"id":1,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":-0.98,"y":-0.68,"z":0.297,"label":"inspect → ."},{"id":2,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":-0.968,"y":0.72,"z":-0.438,"label":"Execute inspect"},{"id":3,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.956,"y":0.573,"z":0.222,"label":"Character design of Buzzy, a cute chubby little cartoon…"},{"id":4,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.944,"y":0.486,"z":-0.049,"label":"Character design of Andy, a cute little cartoon ant boy…"},{"id":5,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.932,"y":0.586,"z":-0.15,"label":"Establishing shot of a magical green meadow at sunrise s…"},{"id":6,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.92,"y":0.526,"z":0.27,"label":"A meadow from a tiny insect's eye view as a sudden windy…"},{"id":7,"tool":"render_html","lane":"render","kept":false,"ok":true,"x":-0.908,"y":-0.001,"z":-0.728,"label":"Execute render_html"},{"id":8,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.897,"y":0.592,"z":0.096,"label":"Put both characters together in one picture: the cartoon…"},{"id":9,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.885,"y":0.489,"z":0.107,"label":"The same cartoon bee character (keep his exact design: f…"},{"id":10,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.873,"y":0.563,"z":-0.254,"label":"The same cartoon bee character (keep his exact design: f…"},{"id":11,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.861,"y":0.556,"z":0.267,"label":"The same cartoon ant character (keep his exact design: g…"},{"id":12,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.849,"y":0.492,"z":-0.14,"label":"The same cartoon ant character (keep his exact design: g…"},{"id":13,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.837,"y":0.594,"z":-0.06,"label":"The same cartoon bee character (keep his exact design: f…"},{"id":14,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.825,"y":0.508,"z":0.229,"label":"The same cartoon ant character (keep his exact design: g…"},{"id":15,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.813,"y":0.533,"z":-0.278,"label":"Remove the small black insect standing in the grass in t…"},{"id":16,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.801,"y":0.582,"z":0.18,"label":"Remove the small insect standing in the grass at the bot…"},{"id":17,"tool":"render_html","lane":"render","kept":false,"ok":true,"x":-0.789,"y":-0.05,"z":-0.492,"label":"Execute render_html"},{"id":18,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.777,"y":0.579,"z":-0.198,"label":"The same two cartoon characters (keep their exact design…"},{"id":19,"tool":"image_edit","lane":"image","kept":false,"ok":true,"x":-0.765,"y":0.536,"z":-0.76,"label":"The same two cartoon characters (keep their exact design…"},{"id":20,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.753,"y":0.505,"z":-0.215,"label":"The same two cartoon characters (keep their exact design…"},{"id":21,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.741,"y":0.595,"z":0.037,"label":"The same two cartoon characters (keep their exact design…"},{"id":22,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.73,"y":0.495,"z":0.16,"label":"The same two cartoon characters (keep their exact design…"},{"id":23,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.718,"y":0.552,"z":-0.273,"label":"The same two cartoon characters (keep their exact design…"},{"id":24,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.706,"y":0.567,"z":0.243,"label":"The same two cartoon characters (keep their exact design…"},{"id":25,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.694,"y":0.488,"z":-0.085,"label":"The same two cartoon characters (keep their exact design…"},{"id":26,"tool":"image_edit","lane":"image","kept":false,"ok":true,"x":-0.682,"y":0.622,"z":0.597,"label":"The same two cartoon characters (keep their exact design…"},{"id":27,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.67,"y":0.519,"z":0.258,"label":"Close-up of the same two cartoon characters (keep their…"},{"id":28,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.658,"y":0.521,"z":-0.263,"label":"The same two cartoon characters (keep their exact design…"},{"id":29,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.646,"y":0.589,"z":0.13,"label":"The same two cartoon characters (keep their exact design…"},{"id":30,"tool":"render_html","lane":"render","kept":false,"ok":true,"x":-0.634,"y":-0.047,"z":0.551,"label":"Execute render_html"},{"id":31,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.622,"y":0.57,"z":-0.236,"label":"The same two cartoon characters (keep their exact design…"},{"id":32,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.61,"y":0.549,"z":0.276,"label":"The same two cartoon characters (keep their exact design…"},{"id":33,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.598,"y":0.497,"z":-0.171,"label":"The same two cartoon characters (keep their exact design…"},{"id":34,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.586,"y":0.595,"z":-0.023,"label":"The same two cartoon characters (keep their exact design…"},{"id":35,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.575,"y":0.203,"z":0.206,"label":"3D Pixar-style animated film. Slow, smooth cinematic cam…"},{"id":36,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.563,"y":0.24,"z":-0.28,"label":"3D Pixar-style animated film. The little bee zooms fast…"},{"id":37,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.551,"y":0.277,"z":0.207,"label":"3D Pixar-style animated film. The little bee flies too f…"},{"id":38,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.539,"y":0.185,"z":-0.026,"label":"3D Pixar-style animated film. The little ant walks slowl…"},{"id":39,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.527,"y":0.284,"z":-0.169,"label":"3D Pixar-style animated film. The little bee bounces in…"},{"id":40,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.515,"y":0.23,"z":0.275,"label":"3D Pixar-style animated film. The little bee shoots up i…"},{"id":41,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.503,"y":0.211,"z":-0.237,"label":"3D Pixar-style animated film. The bee flies forward and…"},{"id":42,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.491,"y":0.293,"z":0.074,"label":"3D Pixar-style animated film. The bee hovers above the s…"},{"id":43,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.479,"y":0.191,"z":0.128,"label":"3D Pixar-style animated film. The little ant's face ligh…"},{"id":44,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.467,"y":0.259,"z":-0.263,"label":"3D Pixar-style animated film. The leaf boat glides quick…"},{"id":45,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.455,"y":0.261,"z":0.259,"label":"3D Pixar-style animated film. A strong gust of wind sudd…"},{"id":46,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":-0.443,"y":-0.561,"z":0.6,"label":"Execute concat"},{"id":47,"tool":"render_html","lane":"render","kept":false,"ok":true,"x":-0.431,"y":0.126,"z":-0.562,"label":"Execute render_html"},{"id":48,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.42,"y":0.72,"z":0.38,"label":"sample_frames → batch1.mp4"},{"id":49,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.408,"y":-0.68,"z":-0.43,"label":"sample_frames → batch1.mp4"},{"id":50,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.396,"y":0.285,"z":0.162,"label":"3D Pixar-style animated film. The little ant raises his…"},{"id":51,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.384,"y":0.185,"z":0.035,"label":"3D Pixar-style animated film. The little bee bravely tri…"},{"id":52,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.372,"y":0.276,"z":-0.213,"label":"3D Pixar-style animated film. The little ant holds tight…"},{"id":53,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.36,"y":0.242,"z":0.28,"label":"3D Pixar-style animated film. Rain pours down all around…"},{"id":54,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.348,"y":0.201,"z":-0.199,"label":"3D Pixar-style animated film. The rain stops, the clouds…"},{"id":55,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.336,"y":0.295,"z":0.014,"label":"3D Pixar-style animated film. Low angle: the little ant…"},{"id":56,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.324,"y":0.198,"z":0.178,"label":"3D Pixar-style animated film. The bee keeps his hand on…"},{"id":57,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.312,"y":0.248,"z":-0.277,"label":"3D Pixar-style animated film. The little ant climbs up t…"},{"id":58,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.3,"y":0.271,"z":0.231,"label":"3D Pixar-style animated film. The petals of the giant go…"},{"id":59,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.288,"y":0.186,"z":-0.063,"label":"3D Pixar-style animated film. Inside the giant golden fl…"},{"id":60,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.276,"y":0.288,"z":-0.138,"label":"3D Pixar-style animated film. The bee flies smoothly thr…"},{"id":61,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.264,"y":-0.237,"z":0.266,"label":"Once upon a time, in a big green meadow, there lived a l…"},{"id":62,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.253,"y":-0.243,"z":-0.255,"label":"Buzzy was brave... and super, super fast!"},{"id":63,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.241,"y":-0.169,"z":0.109,"label":"Maybe... a little too fast!"},{"id":64,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.229,"y":-0.272,"z":0.093,"label":"Down below lived a little ant named Andy. Andy was calm…"},{"id":65,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.217,"y":-0.194,"z":-0.247,"label":"So off they went, through the tall, tall grass."},{"id":66,"tool":"tts","lane":"sound","kept":false,"ok":true,"x":-0.205,"y":-0.197,"z":0.751,"label":"Andy had the idea. Buzzy had the power. Together, they c…"},{"id":67,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.193,"y":-0.266,"z":-0.153,"label":"But then... the wind began to blow!"},{"id":68,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.181,"y":-0.166,"z":-0.046,"label":"Buzzy learned that sometimes, the bravest thing is to sl…"},{"id":69,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.169,"y":-0.254,"z":0.221,"label":"Step by step, Andy climbed higher... and higher."},{"id":70,"tool":"tts","lane":"sound","kept":false,"ok":true,"x":-0.157,"y":-0.227,"z":0.759,"label":"Buzzy found his calm. Andy found his courage. And togeth…"},{"id":71,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.145,"y":-0.18,"z":0.191,"label":"Be brave. Stay calm. And always work together. The End."},{"id":72,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.133,"y":-0.275,"z":-0.003,"label":"Whoa! Oops! Hee hee!"},{"id":73,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.121,"y":-0.179,"z":-0.187,"label":"Hi! I'm Buzzy! The flowers here are all empty, and my hi…"},{"id":74,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.109,"y":-0.225,"z":0.279,"label":"Then let's go! Right now! Woo-hoo!"},{"id":75,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.098,"y":-0.253,"z":-0.224,"label":"A stream? Easy! I'll just fly over!"},{"id":76,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.086,"y":-0.166,"z":0.051,"label":"Hold on tight, Andy!"},{"id":77,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.074,"y":-0.267,"z":0.148,"label":"I'm brave! I can fly through anything! Whoa, whoa, whoaa…"},{"id":78,"tool":"tts","lane":"sound","kept":false,"ok":true,"x":-0.062,"y":-0.196,"z":0.75,"label":"Breathe in... and out. Thank you, Andy."},{"id":79,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.05,"y":-0.195,"z":0.25,"label":"You helped me stay calm. Now I'll help you be brave. I'l…"},{"id":80,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.038,"y":-0.271,"z":-0.099,"label":"One step at a time. You can do it!"},{"id":81,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.026,"y":-0.169,"z":-0.104,"label":"Wow!"},{"id":82,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.014,"y":-0.244,"z":0.252,"label":"Best friends?"},{"id":83,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.002,"y":-0.236,"z":-0.268,"label":"Hello, Buzzy. I'm Andy."},{"id":84,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.01,"y":-0.173,"z":0.143,"label":"Look! The Golden Flower is on top of that hill. It's ful…"},{"id":85,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.022,"y":-0.274,"z":0.057,"label":"Okay! But let's go together."},{"id":86,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.034,"y":-0.188,"z":-0.227,"label":"But I can't fly... Hmm. Let me think."},{"id":87,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.046,"y":-0.213,"z":0.278,"label":"I know! A leaf boat!"},{"id":88,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.058,"y":-0.262,"z":-0.183,"label":"Buzzy, come down! Being brave doesn't mean rushing!"},{"id":89,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.069,"y":-0.165,"z":-0.009,"label":"Let's wait here, and take a deep breath."},{"id":90,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.081,"y":-0.259,"z":0.196,"label":"It's so high... I'm scared."},{"id":91,"tool":"tts","lane":"sound","kept":false,"ok":true,"x":0.093,"y":-0.215,"z":-0.76,"label":"We made it!"},{"id":92,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.105,"y":-0.185,"z":0.217,"label":"Best friends forever!"},{"id":93,"tool":"music","lane":"sound","kept":true,"ok":true,"x":0.117,"y":-0.274,"z":-0.04,"label":"Playful whimsical children's cartoon adventure music, uk…"},{"id":94,"tool":"music","lane":"sound","kept":true,"ok":true,"x":0.129,"y":-0.175,"z":-0.158,"label":"Children's cartoon storm music: gentle suspense with sof…"},{"id":95,"tool":"music","lane":"sound","kept":true,"ok":true,"x":0.141,"y":-0.233,"z":0.273,"label":"Heartwarming uplifting children's animated movie finale…"},{"id":96,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.153,"y":0.72,"z":-0.384,"label":"Execute asr"},{"id":97,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":0.165,"y":-0.395,"z":-0.568,"label":"Execute concat"},{"id":98,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.177,"y":0.72,"z":0.181,"label":"sample_frames → batch2.mp4"},{"id":99,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.189,"y":-0.68,"z":-0.404,"label":"sample_frames → batch2.mp4"},{"id":100,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.201,"y":0.72,"z":0.415,"label":"Execute asr"},{"id":101,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.213,"y":-0.268,"z":-0.133,"label":"Breathe in... and out. Thank you, Andy."},{"id":102,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.224,"y":-0.167,"z":-0.069,"label":"peaceful morning meadow ambience, gentle birdsong, soft…"},{"id":103,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.236,"y":-0.25,"z":0.234,"label":"cartoon bee buzzing wings flying very fast, quick whoosh…"},{"id":104,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.248,"y":-0.229,"z":-0.276,"label":"soft fluffy puff as a dandelion bursts, light airy whoos…"},{"id":105,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.26,"y":-0.177,"z":0.174,"label":"gentle babbling brook, flowing water, soft bee buzzing w…"},{"id":106,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.272,"y":-0.275,"z":0.02,"label":"water splashing, a small leaf boat gliding fast over a s…"},{"id":107,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.284,"y":-0.182,"z":-0.204,"label":"strong howling wind gusts, grass rustling hard, leaves b…"},{"id":108,"tool":"sfx","lane":"sound","kept":false,"ok":false,"x":0.296,"y":-0.221,"z":0.76,"label":"steady gentle rain pattering on a mushroom cap, raindrop…"},{"id":109,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.308,"y":-0.257,"z":-0.209,"label":"magical sparkling chimes, twinkling shimmer, soft glitte…"},{"id":110,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.32,"y":-0.165,"z":0.029,"label":"gentle evening breeze, soft bee wings humming, crickets…"},{"id":111,"tool":"remove_bg","lane":"image","kept":false,"ok":true,"x":0.332,"y":0.468,"z":-0.647,"label":"remove_bg → buzzy.png"},{"id":112,"tool":"remove_bg","lane":"image","kept":false,"ok":true,"x":0.344,"y":0.557,"z":0.755,"label":"remove_bg → andy.png"},{"id":113,"tool":"audio_mix","lane":"edit","kept":false,"ok":true,"x":0.356,"y":-0.433,"z":-0.718,"label":"Execute audio_mix"},{"id":114,"tool":"lipsync","lane":"sound","kept":false,"ok":false,"x":0.368,"y":-0.307,"z":0.557,"label":"lipsync → s14.mp4"},{"id":115,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.38,"y":-0.171,"z":-0.125,"label":"steady gentle rain pattering on a mushroom cap, raindrop…"},{"id":116,"tool":"fetch_url","lane":"check","kept":false,"ok":true,"x":0.391,"y":0.72,"z":0.411,"label":"Execute fetch_url"},{"id":117,"tool":"render_html","lane":"render","kept":false,"ok":true,"x":0.403,"y":0.007,"z":-0.74,"label":"Execute render_html"},{"id":118,"tool":"render_html","lane":"render","kept":false,"ok":true,"x":0.415,"y":0.121,"z":0.602,"label":"Execute render_html"},{"id":119,"tool":"render_html","lane":"render","kept":true,"ok":true,"x":0.427,"y":-0.013,"z":0.08,"label":"Execute render_html"},{"id":120,"tool":"render_html","lane":"render","kept":true,"ok":true,"x":0.439,"y":0.068,"z":-0.24,"label":"Execute render_html"},{"id":121,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":0.451,"y":-0.462,"z":-0.754,"label":"Execute concat"},{"id":122,"tool":"audio_mix","lane":"edit","kept":false,"ok":true,"x":0.463,"y":-0.553,"z":0.644,"label":"Execute audio_mix"},{"id":123,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.475,"y":-0.425,"z":-0.032,"label":"Execute audio_mix"},{"id":124,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.487,"y":-0.516,"z":0.211,"label":"Execute audio_mix"},{"id":125,"tool":"reframe","lane":"edit","kept":false,"ok":true,"x":0.499,"y":-0.482,"z":-0.76,"label":"reframe → main_raw.mp4"},{"id":126,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.511,"y":0.72,"z":0.316,"label":"Execute asr"},{"id":127,"tool":"audio_mix","lane":"edit","kept":false,"ok":true,"x":0.523,"y":-0.57,"z":-0.497,"label":"Execute audio_mix"},{"id":128,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.535,"y":0.72,"z":-0.277,"label":"Execute asr"},{"id":129,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.546,"y":-0.68,"z":0.435,"label":"Execute asr"},{"id":130,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.558,"y":0.72,"z":-0.365,"label":"Execute asr"},{"id":131,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.57,"y":-0.167,"z":0.065,"label":"Yay! We made it!"},{"id":132,"tool":"composite","lane":"edit","kept":false,"ok":true,"x":0.582,"y":-0.559,"z":0.616,"label":"composite → main_1080.mp4"},{"id":133,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.594,"y":-0.203,"z":-0.265,"label":"Clever Andy had the idea. Strong Buzzy had the power. To…"},{"id":134,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.606,"y":-0.198,"z":0.256,"label":"And so, Buzzy found his calm. Andy found his courage. An…"},{"id":135,"tool":"transition","lane":"edit","kept":false,"ok":true,"x":0.618,"y":-0.563,"z":-0.592,"label":"Execute transition"},{"id":136,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.63,"y":0.72,"z":-0.143,"label":"sample_frames → full_nosub.mp4"},{"id":137,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":0.642,"y":-0.68,"z":0.386,"label":"inspect → full_nosub.mp4"},{"id":138,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.654,"y":0.72,"z":-0.427,"label":"Execute asr"},{"id":139,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.666,"y":-0.68,"z":0.243,"label":"Execute asr"},{"id":140,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.678,"y":-0.534,"z":0.043,"label":"Execute audio_mix"},{"id":141,"tool":"overlay","lane":"edit","kept":false,"ok":true,"x":0.69,"y":-0.424,"z":-0.699,"label":"overlay → full_nosub.mp4"},{"id":142,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.701,"y":0.72,"z":0.439,"label":"sample_frames → full_sub.mp4"},{"id":143,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.713,"y":-0.52,"z":-0.193,"label":"Execute audio_mix"},{"id":144,"tool":"overlay","lane":"edit","kept":false,"ok":true,"x":0.725,"y":-0.39,"z":0.485,"label":"overlay → full_nosub.mp4"},{"id":145,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.737,"y":-0.68,"z":0.291,"label":"sample_frames → full_sub_v2.mp4"},{"id":146,"tool":"mix_audio","lane":"edit","kept":false,"ok":true,"x":0.749,"y":-0.47,"z":0.758,"label":"mix_audio → full_sub_v2.mp4"},{"id":147,"tool":"export","lane":"export","kept":false,"ok":true,"x":0.761,"y":0.053,"z":-0.705,"label":"Deliver final film (final.mp4)"},{"id":148,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":0.773,"y":0.72,"z":-0.085,"label":"inspect → final_v1.mp4"},{"id":149,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.785,"y":-0.68,"z":-0.229,"label":"sample_frames → final_v1.mp4"},{"id":150,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.797,"y":0.72,"z":0.423,"label":"Execute asr"},{"id":151,"tool":"i2v","lane":"video","kept":false,"ok":true,"x":0.809,"y":0.2,"z":-0.731,"label":"3D Pixar-style animated film. The little bee zooms quick…"},{"id":152,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.821,"y":0.72,"z":0.159,"label":"sample_frames → s02_v2.mp4"},{"id":153,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.833,"y":0.189,"z":0.102,"label":"3D Pixar-style animated film, one continuous shot. The l…"},{"id":154,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.845,"y":0.72,"z":-0.395,"label":"sample_frames → s02_v3.mp4"},{"id":155,"tool":"concat","lane":"edit","kept":true,"ok":true,"x":0.857,"y":-0.465,"z":0.269,"label":"Execute concat"},{"id":156,"tool":"reframe","lane":"edit","kept":true,"ok":true,"x":0.868,"y":-0.527,"z":-0.145,"label":"reframe → main_raw_v2.mp4"},{"id":157,"tool":"composite","lane":"edit","kept":true,"ok":true,"x":0.88,"y":-0.426,"z":-0.055,"label":"composite → main_1080_v2.mp4"},{"id":158,"tool":"transition","lane":"edit","kept":true,"ok":true,"x":0.892,"y":-0.513,"z":0.226,"label":"Execute transition"},{"id":159,"tool":"overlay","lane":"edit","kept":true,"ok":true,"x":0.904,"y":-0.486,"z":-0.278,"label":"overlay → full_nosub_v2.mp4"},{"id":160,"tool":"mix_audio","lane":"edit","kept":true,"ok":true,"x":0.916,"y":-0.439,"z":0.185,"label":"mix_audio → full_sub_v3.mp4"},{"id":161,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.928,"y":-0.68,"z":0.01,"label":"sample_frames → final_v2.mp4"},{"id":162,"tool":"export","lane":"export","kept":true,"ok":true,"x":1.04,"y":0.0,"z":0.0,"label":"Deliver final film (final.mp4)"}],"edges":[[3,8],[4,8],[3,9],[3,10],[4,11],[4,12],[3,13],[4,14],[5,15],[6,16],[8,18],[8,19],[8,20],[8,21],[8,22],[8,23],[8,24],[8,25],[8,26],[8,27],[8,28],[8,29],[8,31],[8,32],[8,33],[8,34],[15,35],[9,36],[10,37],[11,38],[18,39],[20,40],[21,41],[22,42],[12,43],[23,44],[16,45],[35,46],[36,46],[37,46],[38,46],[39,46],[40,46],[41,46],[42,46],[43,46],[44,46],[45,46],[46,48],[46,49],[31,50],[13,51],[14,52],[24,53],[25,54],[32,55],[27,56],[28,57],[29,58],[33,59],[34,60],[46,96],[50,97],[51,97],[52,97],[53,97],[54,97],[55,97],[56,97],[57,97],[58,97],[59,97],[60,97],[97,98],[97,99],[97,100],[35,102],[36,103],[37,104],[42,105],[44,106],[45,107],[53,108],[58,109],[60,110],[3,111],[4,112],[88,113],[52,114],[113,114],[53,115],[35,121],[36,121],[37,121],[38,121],[39,121],[50,121],[40,121],[41,121],[42,121],[43,121],[44,121],[45,121],[51,121],[52,121],[53,121],[54,121],[55,121],[56,121],[57,121],[58,121],[59,121],[60,121],[61,122],[62,122],[72,122],[63,122],[64,122],[73,122],[83,122],[84,122],[74,122],[85,122],[65,122],[75,122],[86,122],[87,122],[76,122],[66,122],[67,122],[77,122],[88,122],[89,122],[101,122],[68,122],[90,122],[79,122],[80,122],[69,122],[81,122],[91,122],[70,122],[82,122],[92,122],[71,122],[93,123],[94,123],[95,123],[102,124],[103,124],[104,124],[102,124],[102,124],[109,124],[103,124],[102,124],[102,124],[105,124],[105,124],[106,124],[107,124],[107,124],[107,124],[115,124],[102,124],[102,124],[102,124],[102,124],[109,124],[109,124],[110,124],[121,125],[122,126],[122,127],[123,127],[124,127],[66,128],[70,129],[88,130],[125,132],[119,132],[132,135],[120,135],[135,136],[135,137],[133,138],[134,139],[61,140],[62,140],[72,140],[63,140],[64,140],[73,140],[83,140],[84,140],[74,140],[85,140],[65,140],[75,140],[86,140],[87,140],[76,140],[133,140],[67,140],[77,140],[88,140],[89,140],[101,140],[68,140],[90,140],[79,140],[80,140],[69,140],[81,140],[131,140],[134,140],[82,140],[92,140],[71,140],[135,141],[141,142],[140,143],[123,143],[124,143],[135,144],[144,145],[144,146],[143,146],[146,147],[146,148],[146,149],[146,150],[9,151],[151,152],[9,153],[10,153],[153,154],[35,155],[153,155],[37,155],[38,155],[39,155],[50,155],[40,155],[41,155],[42,155],[43,155],[44,155],[45,155],[51,155],[52,155],[53,155],[54,155],[55,155],[56,155],[57,155],[58,155],[59,155],[60,155],[155,156],[156,157],[119,157],[157,158],[120,158],[158,159],[159,160],[143,160],[160,161],[160,162]]},"nar_claude":{"key":"nar_claude","tab":"Selective Director · Claude","sub":"NAR-AST-004 · 171 calls · 36 discarded","title":"Prince & Dragon Comedy — Selective Directing (NAR-AST-004)","model":"Claude Opus 5.5","score":"90.6","kept_count":99,"total_calls":171,"edge_count":170,"discarded":36,"summary":"Explores 171 calls across keyframes, edits, clips, and 33 visual checks — actively pruning 36 weaker takes into the outer Z-shell so only cohesive character shots reach export.","nodes":[{"id":1,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":-0.98,"y":-0.68,"z":0.297,"label":"inspect (inspection check)"},{"id":2,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":-0.969,"y":0.72,"z":-0.438,"label":"inspect (inspection check)"},{"id":3,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.957,"y":0.595,"z":-0.702,"label":"t2i (discarded take)"},{"id":4,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.946,"y":0.451,"z":0.529,"label":"t2i (discarded take)"},{"id":5,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.935,"y":0.616,"z":-0.63,"label":"t2i (discarded take)"},{"id":6,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.924,"y":0.526,"z":0.27,"label":"t2i (kept in final film)"},{"id":7,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.912,"y":0.499,"z":-0.728,"label":"t2i (discarded take)"},{"id":8,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.901,"y":0.625,"z":0.576,"label":"t2i (discarded take)"},{"id":9,"tool":"tts","lane":"sound","kept":false,"ok":true,"x":-0.89,"y":-0.303,"z":-0.587,"label":"tts (discarded take)"},{"id":10,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.878,"y":-0.197,"z":-0.254,"label":"tts (kept in final film)"},{"id":11,"tool":"tts","lane":"sound","kept":false,"ok":true,"x":-0.867,"y":-0.193,"z":-0.747,"label":"tts (discarded take)"},{"id":12,"tool":"tts","lane":"sound","kept":false,"ok":true,"x":-0.856,"y":-0.298,"z":0.62,"label":"tts (discarded take)"},{"id":13,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.844,"y":-0.68,"z":-0.094,"label":"sample_frames (inspection check)"},{"id":14,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.833,"y":0.72,"z":0.36,"label":"sample_frames (inspection check)"},{"id":15,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.822,"y":-0.68,"z":-0.436,"label":"sample_frames (inspection check)"},{"id":16,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.811,"y":0.72,"z":0.284,"label":"sample_frames (inspection check)"},{"id":17,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.799,"y":-0.68,"z":0.018,"label":"sample_frames (inspection check)"},{"id":18,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.788,"y":0.72,"z":-0.31,"label":"sample_frames (inspection check)"},{"id":19,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.777,"y":0.536,"z":-0.76,"label":"t2i (discarded take)"},{"id":20,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.765,"y":0.482,"z":0.695,"label":"t2i (discarded take)"},{"id":21,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.754,"y":0.629,"z":-0.517,"label":"t2i (discarded take)"},{"id":22,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.743,"y":0.466,"z":0.64,"label":"t2i (discarded take)"},{"id":23,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.732,"y":0.56,"z":-0.753,"label":"t2i (discarded take)"},{"id":24,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.72,"y":0.585,"z":0.723,"label":"t2i (discarded take)"},{"id":25,"tool":"image_edit","lane":"image","kept":false,"ok":true,"x":-0.709,"y":0.454,"z":-0.565,"label":"image_edit (discarded take)"},{"id":26,"tool":"asr","lane":"check","kept":false,"ok":true,"x":-0.698,"y":0.72,"z":-0.185,"label":"asr (inspection check)"},{"id":27,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.686,"y":-0.68,"z":0.406,"label":"sample_frames (inspection check)"},{"id":28,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.675,"y":0.72,"z":-0.414,"label":"sample_frames (inspection check)"},{"id":29,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.664,"y":-0.68,"z":0.205,"label":"sample_frames (inspection check)"},{"id":30,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.652,"y":0.72,"z":0.112,"label":"sample_frames (inspection check)"},{"id":31,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.641,"y":-0.68,"z":-0.37,"label":"sample_frames (inspection check)"},{"id":32,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.63,"y":0.72,"z":0.434,"label":"sample_frames (inspection check)"},{"id":33,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.619,"y":-0.68,"z":-0.269,"label":"sample_frames (inspection check)"},{"id":34,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.607,"y":0.63,"z":0.503,"label":"t2i (discarded take)"},{"id":35,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.596,"y":0.503,"z":0.206,"label":"t2i (kept in final film)"},{"id":36,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.585,"y":0.54,"z":-0.28,"label":"t2i (kept in final film)"},{"id":37,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.573,"y":0.577,"z":0.207,"label":"t2i (kept in final film)"},{"id":38,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.562,"y":0.485,"z":-0.026,"label":"t2i (kept in final film)"},{"id":39,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.551,"y":0.612,"z":-0.649,"label":"t2i (discarded take)"},{"id":40,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.54,"y":0.53,"z":0.275,"label":"t2i (kept in final film)"},{"id":41,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.528,"y":0.511,"z":-0.237,"label":"t2i (kept in final film)"},{"id":42,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.517,"y":0.593,"z":0.074,"label":"t2i (kept in final film)"},{"id":43,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.506,"y":0.46,"z":-0.608,"label":"t2i (discarded take)"},{"id":44,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.494,"y":0.559,"z":-0.263,"label":"t2i (kept in final film)"},{"id":45,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.483,"y":0.561,"z":0.259,"label":"t2i (kept in final film)"},{"id":46,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.472,"y":0.49,"z":-0.12,"label":"t2i (kept in final film)"},{"id":47,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.46,"y":0.593,"z":-0.082,"label":"t2i (kept in final film)"},{"id":48,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.449,"y":0.512,"z":0.242,"label":"t2i (kept in final film)"},{"id":49,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.438,"y":0.521,"z":-0.754,"label":"t2i (discarded take)"},{"id":50,"tool":"render_html","lane":"graphics","kept":false,"ok":true,"x":-0.427,"y":0.073,"z":0.642,"label":"render_html (discarded take)"},{"id":51,"tool":"render_html","lane":"graphics","kept":false,"ok":true,"x":-0.415,"y":-0.089,"z":-0.515,"label":"render_html (discarded take)"},{"id":52,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.404,"y":0.276,"z":-0.213,"label":"i2v (kept in final film)"},{"id":53,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.393,"y":0.242,"z":0.28,"label":"i2v (kept in final film)"},{"id":54,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.381,"y":0.201,"z":-0.199,"label":"i2v (kept in final film)"},{"id":55,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.37,"y":0.295,"z":0.014,"label":"i2v (kept in final film)"},{"id":56,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.359,"y":0.198,"z":0.178,"label":"i2v (kept in final film)"},{"id":57,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.348,"y":0.248,"z":-0.277,"label":"i2v (kept in final film)"},{"id":58,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.336,"y":0.271,"z":0.231,"label":"i2v (kept in final film)"},{"id":59,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.325,"y":0.186,"z":-0.063,"label":"i2v (kept in final film)"},{"id":60,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.314,"y":0.288,"z":-0.138,"label":"i2v (kept in final film)"},{"id":61,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":-0.302,"y":0.223,"z":0.266,"label":"i2v (kept in final film)"},{"id":62,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":-0.291,"y":0.517,"z":-0.255,"label":"image_edit (kept in final film)"},{"id":63,"tool":"image_edit","lane":"image","kept":false,"ok":true,"x":-0.28,"y":0.623,"z":-0.589,"label":"image_edit (discarded take)"},{"id":64,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.268,"y":0.488,"z":0.093,"label":"t2i (kept in final film)"},{"id":65,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.257,"y":0.566,"z":-0.247,"label":"t2i (kept in final film)"},{"id":66,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.246,"y":0.554,"z":0.271,"label":"t2i (kept in final film)"},{"id":67,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.235,"y":0.494,"z":-0.153,"label":"t2i (kept in final film)"},{"id":68,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.223,"y":0.629,"z":0.526,"label":"t2i (discarded take)"},{"id":69,"tool":"t2i","lane":"image","kept":false,"ok":true,"x":-0.212,"y":0.485,"z":-0.701,"label":"t2i (discarded take)"},{"id":70,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.201,"y":0.536,"z":-0.279,"label":"t2i (kept in final film)"},{"id":71,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.189,"y":0.58,"z":0.191,"label":"t2i (kept in final film)"},{"id":72,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.178,"y":-0.275,"z":-0.003,"label":"tts (kept in final film)"},{"id":73,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.167,"y":-0.179,"z":-0.187,"label":"tts (kept in final film)"},{"id":74,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.156,"y":-0.225,"z":0.279,"label":"tts (kept in final film)"},{"id":75,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.144,"y":-0.253,"z":-0.224,"label":"tts (kept in final film)"},{"id":76,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.133,"y":-0.166,"z":0.051,"label":"tts (kept in final film)"},{"id":77,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.122,"y":-0.267,"z":0.148,"label":"tts (kept in final film)"},{"id":78,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.11,"y":-0.205,"z":-0.27,"label":"tts (kept in final film)"},{"id":79,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.099,"y":-0.195,"z":0.25,"label":"tts (kept in final film)"},{"id":80,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.088,"y":-0.271,"z":-0.099,"label":"tts (kept in final film)"},{"id":81,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.076,"y":-0.169,"z":-0.104,"label":"tts (kept in final film)"},{"id":82,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.065,"y":-0.244,"z":0.252,"label":"tts (kept in final film)"},{"id":83,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.054,"y":-0.236,"z":-0.268,"label":"tts (kept in final film)"},{"id":84,"tool":"render_html","lane":"graphics","kept":false,"ok":true,"x":-0.043,"y":0.077,"z":0.623,"label":"render_html (discarded take)"},{"id":85,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":-0.031,"y":-0.568,"z":-0.537,"label":"concat (discarded take)"},{"id":86,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":-0.02,"y":-0.428,"z":0.707,"label":"concat (discarded take)"},{"id":87,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.009,"y":-0.68,"z":0.437,"label":"sample_frames (inspection check)"},{"id":88,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.003,"y":0.72,"z":-0.287,"label":"sample_frames (inspection check)"},{"id":89,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":0.014,"y":0.595,"z":-0.009,"label":"t2i (kept in final film)"},{"id":90,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":0.025,"y":0.501,"z":0.196,"label":"t2i (kept in final film)"},{"id":91,"tool":"image_edit","lane":"image","kept":true,"ok":true,"x":0.036,"y":0.543,"z":-0.28,"label":"image_edit (kept in final film)"},{"id":92,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.048,"y":0.275,"z":0.217,"label":"i2v (kept in final film)"},{"id":93,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.059,"y":0.186,"z":-0.04,"label":"i2v (kept in final film)"},{"id":94,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.07,"y":0.285,"z":-0.158,"label":"i2v (kept in final film)"},{"id":95,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.082,"y":0.227,"z":0.273,"label":"i2v (kept in final film)"},{"id":96,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.093,"y":0.213,"z":-0.244,"label":"i2v (kept in final film)"},{"id":97,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.104,"y":0.292,"z":0.088,"label":"i2v (kept in final film)"},{"id":98,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.116,"y":0.19,"z":0.115,"label":"i2v (kept in final film)"},{"id":99,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.127,"y":-0.198,"z":-0.257,"label":"tts (kept in final film)"},{"id":100,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.138,"y":-0.202,"z":0.264,"label":"tts (kept in final film)"},{"id":101,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.149,"y":-0.268,"z":-0.133,"label":"tts (kept in final film)"},{"id":102,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.161,"y":-0.167,"z":-0.069,"label":"tts (kept in final film)"},{"id":103,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.172,"y":-0.25,"z":0.234,"label":"tts (kept in final film)"},{"id":104,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.183,"y":-0.229,"z":-0.276,"label":"tts (kept in final film)"},{"id":105,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.195,"y":-0.177,"z":0.174,"label":"tts (kept in final film)"},{"id":106,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.206,"y":-0.275,"z":0.02,"label":"tts (kept in final film)"},{"id":107,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.217,"y":-0.182,"z":-0.204,"label":"tts (kept in final film)"},{"id":108,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.228,"y":-0.221,"z":0.28,"label":"tts (kept in final film)"},{"id":109,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.24,"y":-0.257,"z":-0.209,"label":"tts (kept in final film)"},{"id":110,"tool":"music","lane":"sound","kept":true,"ok":true,"x":0.251,"y":-0.165,"z":0.029,"label":"music (kept in final film)"},{"id":111,"tool":"render_html","lane":"graphics","kept":false,"ok":true,"x":0.262,"y":-0.072,"z":-0.647,"label":"render_html (discarded take)"},{"id":112,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":0.274,"y":-0.463,"z":0.755,"label":"concat (discarded take)"},{"id":113,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":0.285,"y":-0.433,"z":-0.718,"label":"concat (discarded take)"},{"id":114,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.296,"y":0.72,"z":-0.12,"label":"sample_frames (inspection check)"},{"id":115,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.308,"y":-0.68,"z":-0.197,"label":"sample_frames (inspection check)"},{"id":116,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.319,"y":0.22,"z":0.262,"label":"i2v (kept in final film)"},{"id":117,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.33,"y":0.22,"z":-0.26,"label":"i2v (kept in final film)"},{"id":118,"tool":"i2v","lane":"video","kept":true,"ok":true,"x":0.341,"y":0.289,"z":0.122,"label":"i2v (kept in final film)"},{"id":119,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.353,"y":-0.273,"z":0.08,"label":"sfx (kept in final film)"},{"id":120,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.364,"y":-0.192,"z":-0.24,"label":"sfx (kept in final film)"},{"id":121,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.375,"y":-0.209,"z":0.274,"label":"sfx (kept in final film)"},{"id":122,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.387,"y":-0.265,"z":-0.164,"label":"sfx (kept in final film)"},{"id":123,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.398,"y":-0.165,"z":-0.032,"label":"sfx (kept in final film)"},{"id":124,"tool":"audio_edit","lane":"sound","kept":true,"ok":true,"x":0.409,"y":-0.256,"z":0.211,"label":"audio_edit (kept in final film)"},{"id":125,"tool":"speed","lane":"edit","kept":true,"ok":true,"x":0.42,"y":-0.481,"z":-0.28,"label":"speed (kept in final film)"},{"id":126,"tool":"speed","lane":"edit","kept":true,"ok":true,"x":0.432,"y":-0.442,"z":0.201,"label":"speed (kept in final film)"},{"id":127,"tool":"concat","lane":"edit","kept":false,"ok":true,"x":0.443,"y":-0.57,"z":-0.497,"label":"concat (discarded take)"},{"id":128,"tool":"render_html","lane":"graphics","kept":false,"ok":true,"x":0.454,"y":0.07,"z":0.656,"label":"render_html (discarded take)"},{"id":129,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.466,"y":-0.68,"z":0.435,"label":"sample_frames (inspection check)"},{"id":130,"tool":"render_html","lane":"graphics","kept":false,"ok":true,"x":0.477,"y":-0.05,"z":0.712,"label":"render_html (discarded take)"},{"id":131,"tool":"render_html","lane":"graphics","kept":true,"ok":true,"x":0.488,"y":0.053,"z":0.065,"label":"render_html (kept in final film)"},{"id":132,"tool":"render_html","lane":"graphics","kept":true,"ok":true,"x":0.5,"y":-0.048,"z":0.136,"label":"render_html (kept in final film)"},{"id":133,"tool":"trim","lane":"edit","kept":true,"ok":true,"x":0.511,"y":-0.463,"z":-0.265,"label":"trim (kept in final film)"},{"id":134,"tool":"trim","lane":"edit","kept":true,"ok":true,"x":0.522,"y":-0.458,"z":0.256,"label":"trim (kept in final film)"},{"id":135,"tool":"trim","lane":"edit","kept":true,"ok":true,"x":0.533,"y":-0.53,"z":-0.112,"label":"trim (kept in final film)"},{"id":136,"tool":"trim","lane":"edit","kept":true,"ok":true,"x":0.545,"y":-0.428,"z":-0.091,"label":"trim (kept in final film)"},{"id":137,"tool":"trim","lane":"edit","kept":true,"ok":true,"x":0.556,"y":-0.506,"z":0.246,"label":"trim (kept in final film)"},{"id":138,"tool":"trim","lane":"edit","kept":true,"ok":true,"x":0.567,"y":-0.493,"z":-0.272,"label":"trim (kept in final film)"},{"id":139,"tool":"trim","lane":"edit","kept":true,"ok":true,"x":0.579,"y":-0.434,"z":0.155,"label":"trim (kept in final film)"},{"id":140,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.59,"y":-0.274,"z":0.043,"label":"sfx (kept in final film)"},{"id":141,"tool":"sfx","lane":"sound","kept":true,"ok":true,"x":0.601,"y":-0.186,"z":-0.219,"label":"sfx (kept in final film)"},{"id":142,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.612,"y":-0.476,"z":0.279,"label":"audio_mix (kept in final film)"},{"id":143,"tool":"audio_mix","lane":"edit","kept":false,"ok":true,"x":0.624,"y":-0.545,"z":-0.673,"label":"audio_mix (discarded take)"},{"id":144,"tool":"audio_mix","lane":"edit","kept":false,"ok":true,"x":0.635,"y":-0.39,"z":0.485,"label":"audio_mix (discarded take)"},{"id":145,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.646,"y":-0.521,"z":0.185,"label":"audio_mix (kept in final film)"},{"id":146,"tool":"lipsync","lane":"video","kept":true,"ok":true,"x":0.658,"y":0.246,"z":-0.278,"label":"lipsync (kept in final film)"},{"id":147,"tool":"lipsync","lane":"video","kept":false,"ok":false,"x":0.669,"y":0.293,"z":-0.705,"label":"lipsync (discarded take)"},{"id":148,"tool":"lipsync","lane":"video","kept":false,"ok":false,"x":0.68,"y":0.152,"z":0.534,"label":"lipsync (discarded take)"},{"id":149,"tool":"lipsync","lane":"video","kept":true,"ok":true,"x":0.692,"y":0.287,"z":-0.146,"label":"lipsync (kept in final film)"},{"id":150,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.703,"y":0.72,"z":0.423,"label":"sample_frames (inspection check)"},{"id":151,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.714,"y":-0.68,"z":-0.394,"label":"sample_frames (inspection check)"},{"id":152,"tool":"concat","lane":"edit","kept":true,"ok":true,"x":0.725,"y":-0.429,"z":0.101,"label":"concat (kept in final film)"},{"id":153,"tool":"scene_detect","lane":"check","kept":false,"ok":false,"x":0.737,"y":-0.68,"z":0.16,"label":"scene_detect (inspection check)"},{"id":154,"tool":"scene_detect","lane":"check","kept":false,"ok":true,"x":0.748,"y":0.72,"z":-0.395,"label":"scene_detect (inspection check)"},{"id":155,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.759,"y":-0.465,"z":0.269,"label":"audio_mix (kept in final film)"},{"id":156,"tool":"reframe","lane":"edit","kept":true,"ok":true,"x":0.771,"y":-0.527,"z":-0.145,"label":"reframe (kept in final film)"},{"id":157,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.782,"y":-0.68,"z":-0.086,"label":"asr (inspection check)"},{"id":158,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.793,"y":0.72,"z":0.355,"label":"asr (inspection check)"},{"id":159,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.804,"y":-0.68,"z":-0.437,"label":"asr (inspection check)"},{"id":160,"tool":"audio_edit","lane":"sound","kept":true,"ok":true,"x":0.816,"y":-0.179,"z":0.185,"label":"audio_edit (kept in final film)"},{"id":161,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.827,"y":-0.535,"z":0.006,"label":"audio_mix (kept in final film)"},{"id":162,"tool":"mix_audio","lane":"edit","kept":true,"ok":true,"x":0.838,"y":-0.44,"z":-0.194,"label":"mix_audio (kept in final film)"},{"id":163,"tool":"overlay","lane":"edit","kept":false,"ok":true,"x":0.85,"y":-0.486,"z":-0.759,"label":"overlay (discarded take)"},{"id":164,"tool":"export","lane":"export","kept":false,"ok":true,"x":0.861,"y":-0.056,"z":0.698,"label":"export (discarded take)"},{"id":165,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":0.872,"y":-0.68,"z":0.067,"label":"inspect (inspection check)"},{"id":166,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.884,"y":0.72,"z":0.244,"label":"sample_frames (inspection check)"},{"id":167,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.895,"y":-0.68,"z":-0.427,"label":"sample_frames (inspection check)"},{"id":168,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.906,"y":0.72,"z":0.386,"label":"asr (inspection check)"},{"id":169,"tool":"overlay","lane":"edit","kept":true,"ok":true,"x":0.917,"y":-0.532,"z":-0.09,"label":"overlay (kept in final film)"},{"id":170,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.929,"y":0.72,"z":-0.177,"label":"sample_frames (inspection check)"},{"id":171,"tool":"export","lane":"export","kept":true,"ok":true,"x":1.04,"y":0.0,"z":0.0,"label":"Deliver final film (#171)"}],"edges":[[3,13],[4,14],[5,15],[6,16],[7,17],[8,18],[6,25],[10,26],[19,27],[20,28],[21,29],[22,30],[23,31],[24,32],[25,33],[35,52],[36,53],[37,54],[38,55],[40,56],[41,57],[44,58],[46,59],[47,60],[48,61],[6,62],[42,62],[6,63],[45,63],[52,85],[53,85],[54,85],[55,85],[56,85],[57,86],[58,86],[59,86],[60,86],[61,86],[85,87],[86,88],[45,91],[42,92],[62,92],[70,93],[71,94],[64,95],[65,96],[66,97],[67,98],[92,112],[93,112],[94,112],[95,113],[96,113],[97,113],[98,113],[112,114],[113,115],[89,116],[90,117],[91,118],[55,119],[57,120],[92,121],[59,122],[96,123],[82,124],[58,125],[61,126],[116,127],[117,127],[118,127],[127,129],[116,133],[56,134],[60,135],[94,136],[95,137],[96,138],[97,139],[116,140],[117,141],[80,142],[107,143],[108,144],[109,145],[93,146],[142,146],[138,147],[143,147],[139,148],[144,148],[98,149],[145,149],[146,150],[149,151],[52,152],[53,152],[54,152],[55,152],[57,152],[59,152],[92,152],[117,152],[118,152],[125,152],[126,152],[131,152],[132,152],[133,152],[134,152],[135,152],[136,152],[137,152],[138,152],[139,152],[146,152],[149,152],[152,153],[152,154],[10,155],[72,155],[73,155],[74,155],[75,155],[76,155],[77,155],[78,155],[79,155],[80,155],[81,155],[83,155],[99,155],[100,155],[101,155],[102,155],[103,155],[104,155],[105,155],[106,155],[107,155],[108,155],[109,155],[124,155],[152,156],[155,157],[78,158],[79,159],[110,160],[119,161],[120,161],[121,161],[122,161],[123,161],[140,161],[141,161],[155,161],[160,161],[156,162],[161,162],[162,163],[163,164],[163,165],[163,166],[163,167],[161,168],[162,169],[169,170],[169,171]]},"nar_mimo":{"key":"nar_mimo","tab":"Linear Director · MiMo","sub":"NAR-AST-004 · 76 calls · 0 discarded","title":"Prince & Dragon Comedy — Linear Directing (NAR-AST-004)","model":"MiMo v2.6 Pro","score":"76 calls · 100% kept","kept_count":48,"total_calls":76,"edge_count":98,"discarded":0,"summary":"Executes a narrow 76-call linear pass with 0 discarded takes, 0 image edits, and 0 SFX — retaining every raw output directly into the final timeline without selective pruning.","nodes":[{"id":1,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":-0.98,"y":-0.68,"z":0.297,"label":"inspect (inspection check)"},{"id":2,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":-0.954,"y":0.72,"z":-0.438,"label":"inspect (inspection check)"},{"id":3,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.929,"y":0.573,"z":0.222,"label":"t2i (kept in final film)"},{"id":4,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.903,"y":0.486,"z":-0.049,"label":"t2i (kept in final film)"},{"id":5,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.878,"y":0.586,"z":-0.15,"label":"t2i (kept in final film)"},{"id":6,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.852,"y":0.526,"z":0.27,"label":"t2i (kept in final film)"},{"id":7,"tool":"t2i","lane":"image","kept":true,"ok":true,"x":-0.826,"y":0.515,"z":-0.248,"label":"t2i (kept in final film)"},{"id":8,"tool":"render_html","lane":"graphics","kept":true,"ok":true,"x":-0.801,"y":0.052,"z":0.096,"label":"render_html (kept in final film)"},{"id":9,"tool":"render_html","lane":"graphics","kept":true,"ok":true,"x":-0.775,"y":-0.051,"z":0.107,"label":"render_html (kept in final film)"},{"id":10,"tool":"render_html","lane":"graphics","kept":true,"ok":true,"x":-0.75,"y":0.023,"z":-0.254,"label":"render_html (kept in final film)"},{"id":11,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.724,"y":-0.68,"z":0.42,"label":"sample_frames (inspection check)"},{"id":12,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.698,"y":0.72,"z":-0.221,"label":"sample_frames (inspection check)"},{"id":13,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.673,"y":-0.68,"z":-0.094,"label":"sample_frames (inspection check)"},{"id":14,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.647,"y":0.72,"z":0.36,"label":"sample_frames (inspection check)"},{"id":15,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":-0.622,"y":-0.68,"z":-0.436,"label":"sample_frames (inspection check)"},{"id":16,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.596,"y":0.282,"z":0.18,"label":"ref_video (kept in final film)"},{"id":17,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.57,"y":0.185,"z":0.012,"label":"ref_video (kept in final film)"},{"id":18,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.545,"y":0.279,"z":-0.198,"label":"ref_video (kept in final film)"},{"id":19,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.519,"y":0.237,"z":0.28,"label":"ref_video (kept in final film)"},{"id":20,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.494,"y":0.205,"z":-0.215,"label":"ref_video (kept in final film)"},{"id":21,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.468,"y":0.295,"z":0.037,"label":"ref_video (kept in final film)"},{"id":22,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.442,"y":0.195,"z":0.16,"label":"ref_video (kept in final film)"},{"id":23,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.417,"y":-0.208,"z":-0.273,"label":"tts (kept in final film)"},{"id":24,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.391,"y":0.267,"z":0.243,"label":"ref_video (kept in final film)"},{"id":25,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.366,"y":0.188,"z":-0.085,"label":"ref_video (kept in final film)"},{"id":26,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.34,"y":0.29,"z":-0.117,"label":"ref_video (kept in final film)"},{"id":27,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.314,"y":0.219,"z":0.258,"label":"ref_video (kept in final film)"},{"id":28,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.289,"y":0.221,"z":-0.263,"label":"ref_video (kept in final film)"},{"id":29,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.263,"y":0.289,"z":0.13,"label":"ref_video (kept in final film)"},{"id":30,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.238,"y":0.187,"z":0.071,"label":"ref_video (kept in final film)"},{"id":31,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.212,"y":0.27,"z":-0.236,"label":"ref_video (kept in final film)"},{"id":32,"tool":"ref_video","lane":"video","kept":true,"ok":true,"x":-0.186,"y":0.249,"z":0.276,"label":"ref_video (kept in final film)"},{"id":33,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.161,"y":-0.263,"z":-0.171,"label":"tts (kept in final film)"},{"id":34,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.135,"y":-0.165,"z":-0.023,"label":"tts (kept in final film)"},{"id":35,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.11,"y":-0.257,"z":0.206,"label":"tts (kept in final film)"},{"id":36,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.084,"y":-0.22,"z":-0.28,"label":"tts (kept in final film)"},{"id":37,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.058,"y":-0.183,"z":0.207,"label":"tts (kept in final film)"},{"id":38,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.033,"y":-0.275,"z":-0.026,"label":"tts (kept in final film)"},{"id":39,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":-0.007,"y":-0.176,"z":-0.169,"label":"tts (kept in final film)"},{"id":40,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.018,"y":-0.23,"z":0.275,"label":"tts (kept in final film)"},{"id":41,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.044,"y":-0.249,"z":-0.237,"label":"tts (kept in final film)"},{"id":42,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.07,"y":-0.167,"z":0.074,"label":"tts (kept in final film)"},{"id":43,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.095,"y":-0.269,"z":0.128,"label":"tts (kept in final film)"},{"id":44,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.121,"y":-0.201,"z":-0.263,"label":"tts (kept in final film)"},{"id":45,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.146,"y":-0.199,"z":0.259,"label":"tts (kept in final film)"},{"id":46,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.172,"y":-0.27,"z":-0.12,"label":"tts (kept in final film)"},{"id":47,"tool":"tts","lane":"sound","kept":true,"ok":true,"x":0.198,"y":-0.167,"z":-0.082,"label":"tts (kept in final film)"},{"id":48,"tool":"music","lane":"sound","kept":true,"ok":true,"x":0.223,"y":-0.248,"z":0.242,"label":"music (kept in final film)"},{"id":49,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.249,"y":-0.68,"z":-0.43,"label":"sample_frames (inspection check)"},{"id":50,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.274,"y":0.72,"z":0.255,"label":"sample_frames (inspection check)"},{"id":51,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.3,"y":-0.68,"z":0.054,"label":"sample_frames (inspection check)"},{"id":52,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.326,"y":0.72,"z":-0.335,"label":"sample_frames (inspection check)"},{"id":53,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.351,"y":-0.68,"z":0.44,"label":"sample_frames (inspection check)"},{"id":54,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.377,"y":0.72,"z":-0.313,"label":"sample_frames (inspection check)"},{"id":55,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.402,"y":-0.68,"z":0.022,"label":"sample_frames (inspection check)"},{"id":56,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.428,"y":0.72,"z":0.28,"label":"sample_frames (inspection check)"},{"id":57,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.454,"y":-0.68,"z":-0.436,"label":"sample_frames (inspection check)"},{"id":58,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.479,"y":0.72,"z":0.362,"label":"sample_frames (inspection check)"},{"id":59,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.505,"y":-0.68,"z":-0.099,"label":"sample_frames (inspection check)"},{"id":60,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.53,"y":0.72,"z":-0.217,"label":"sample_frames (inspection check)"},{"id":61,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.556,"y":-0.68,"z":0.419,"label":"sample_frames (inspection check)"},{"id":62,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.582,"y":0.72,"z":-0.4,"label":"sample_frames (inspection check)"},{"id":63,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.607,"y":-0.68,"z":0.172,"label":"sample_frames (inspection check)"},{"id":64,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.633,"y":0.72,"z":0.147,"label":"sample_frames (inspection check)"},{"id":65,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.658,"y":-0.68,"z":-0.388,"label":"sample_frames (inspection check)"},{"id":66,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.684,"y":0.72,"z":0.426,"label":"sample_frames (inspection check)"},{"id":67,"tool":"sample_frames","lane":"check","kept":false,"ok":true,"x":0.71,"y":-0.68,"z":-0.24,"label":"sample_frames (inspection check)"},{"id":68,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.735,"y":-0.426,"z":-0.046,"label":"audio_mix (kept in final film)"},{"id":69,"tool":"concat","lane":"edit","kept":true,"ok":true,"x":0.761,"y":-0.514,"z":0.221,"label":"concat (kept in final film)"},{"id":70,"tool":"overlay","lane":"edit","kept":true,"ok":true,"x":0.786,"y":-0.484,"z":-0.279,"label":"overlay (kept in final film)"},{"id":71,"tool":"audio_mix","lane":"edit","kept":true,"ok":true,"x":0.812,"y":-0.44,"z":0.191,"label":"audio_mix (kept in final film)"},{"id":72,"tool":"mix_audio","lane":"edit","kept":true,"ok":true,"x":0.838,"y":-0.535,"z":-0.003,"label":"mix_audio (kept in final film)"},{"id":73,"tool":"asr","lane":"check","kept":false,"ok":true,"x":0.863,"y":-0.68,"z":-0.294,"label":"asr (inspection check)"},{"id":74,"tool":"color","lane":"edit","kept":true,"ok":true,"x":0.889,"y":-0.485,"z":0.279,"label":"color (kept in final film)"},{"id":75,"tool":"inspect","lane":"check","kept":false,"ok":true,"x":0.914,"y":-0.68,"z":-0.352,"label":"inspect (inspection check)"},{"id":76,"tool":"export","lane":"export","kept":true,"ok":true,"x":1.04,"y":0.0,"z":0.0,"label":"Deliver final film (#76)"}],"edges":[[3,11],[4,12],[5,13],[6,14],[7,15],[3,16],[3,17],[3,18],[3,19],[7,19],[3,20],[4,20],[3,21],[4,21],[3,22],[4,22],[3,24],[4,24],[3,25],[5,25],[3,26],[5,26],[6,27],[6,28],[3,29],[5,29],[6,29],[3,30],[5,30],[6,30],[3,31],[4,31],[3,32],[4,32],[5,32],[16,49],[17,50],[18,51],[19,52],[20,53],[21,54],[22,55],[24,56],[25,57],[26,58],[27,59],[28,60],[29,61],[30,62],[31,63],[32,64],[30,65],[31,66],[32,67],[23,68],[33,68],[34,68],[35,68],[36,68],[37,68],[38,68],[39,68],[40,68],[41,68],[42,68],[43,68],[44,68],[45,68],[46,68],[47,68],[8,69],[9,69],[10,69],[16,69],[17,69],[18,69],[19,69],[20,69],[21,69],[22,69],[24,69],[25,69],[26,69],[27,69],[28,69],[29,69],[30,69],[31,69],[32,69],[69,70],[48,71],[68,71],[70,72],[71,72],[68,73],[72,74],[74,75],[74,76]]}}</script>
 <script>
 (function(){
   'use strict';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ── Audio mutual exclusion across all video players ── */
+  /* ── 1. Dark / Light Theme Switcher ── */
+  var rootEl = document.documentElement;
+  var themeBtn = document.getElementById('theme-toggle');
+  function applyTheme(mode){
+    if(mode === 'light') rootEl.setAttribute('data-theme', 'light');
+    else rootEl.removeAttribute('data-theme');
+    if(themeBtn){
+      themeBtn.setAttribute('aria-pressed', String(mode === 'light'));
+      themeBtn.textContent = mode === 'light' ? '\u263E Dark' : '\u2600 Light';
+    }
+    try { localStorage.setItem('studiobench-theme', mode); } catch(e){}
+  }
+  (function(){
+    var saved = 'dark';
+    try { saved = localStorage.getItem('studiobench-theme') || 'dark'; } catch(e){}
+    applyTheme(saved);
+    if(themeBtn){
+      themeBtn.addEventListener('click', function(){
+        applyTheme(rootEl.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+      });
+    }
+  })();
+
+  /* ── 2. Audio mutual exclusion across all video players ── */
   var allVideos = [].slice.call(document.querySelectorAll('video'));
   allVideos.forEach(function(v){
     v.addEventListener('play', function(){
       allVideos.forEach(function(other){
-        if(other !== v && !other.paused){
-          other.pause();
-        }
+        if(other !== v && !other.paused) other.pause();
       });
     });
   });
 
-  /* ── Hero Feature Reel unmute button ── */
+  /* ── Hero film sound button ── */
   (function(){
     var hv = document.getElementById('hero-video');
     var btn = document.getElementById('hero-sound-btn');
@@ -1311,20 +1448,447 @@ section[id]{scroll-margin-top:68px}
     function syncBtn(){
       var unmuted = !hv.muted;
       btn.setAttribute('aria-pressed', String(unmuted));
-      btn.textContent = unmuted ? 'Sound On (Click to Mute)' : 'Enable Film Sound';
+      btn.textContent = unmuted ? 'Sound On' : 'Enable Sound';
     }
     btn.addEventListener('click', function(){
       hv.muted = !hv.muted;
-      if(!hv.muted && hv.paused){
-        hv.play().catch(function(){});
-      }
+      if(!hv.muted && hv.paused) hv.play().catch(function(){});
       syncBtn();
     });
     hv.addEventListener('volumechange', syncBtn);
     syncBtn();
   })();
 
-  /* ── 33 Atomic Tools 8-group Explorer ── */
+  /* ── 3. 3D Spatial Production Constellation Engine ── */
+  (function(){
+    var shell = document.getElementById('cosmos-root');
+    var canvas = document.getElementById('constellation-3d');
+    var dataEl = document.getElementById('constellation-json');
+    if(!shell || !canvas || !dataEl) return;
+
+    var TRACES;
+    try { TRACES = JSON.parse(dataEl.textContent); } catch(e){ return; }
+
+    var ctx = canvas.getContext('2d');
+    var wrap = canvas.parentElement;
+    var hudStep = document.getElementById('hud-step');
+    var hudAction = document.getElementById('hud-action');
+    var livePill = document.getElementById('cosmos-live-pill');
+    var reelFrame = document.getElementById('hero-reel-frame');
+    var scrub = document.getElementById('cosmos-scrub');
+    var readout = document.getElementById('cosmos-readout');
+    var playBtn = document.getElementById('cosmos-play');
+    var replayBtn = document.getElementById('cosmos-replay');
+    var discardBtn = document.getElementById('cosmos-discard');
+    var tooltip = document.getElementById('hud-tooltip');
+    var presetBtns = [].slice.call(shell.querySelectorAll('.preset-btn'));
+
+    // Right dock dynamic fields
+    var dockTitle = document.getElementById('dock-title');
+    var dockSummary = document.getElementById('dock-summary');
+    var dockScore = document.getElementById('dock-score');
+    var dmCalls = document.getElementById('dm-calls');
+    var dmKept = document.getElementById('dm-kept');
+    var dmDisc = document.getElementById('dm-disc');
+    var heroVideo = document.getElementById('hero-video');
+    var dockClipMeta = document.getElementById('dock-clip-meta');
+    var clipMap = {};
+    try { clipMap = JSON.parse(shell.getAttribute('data-clips') || '{}'); } catch(e){}
+
+    var LANE_COLOR = {
+      image:  [92, 200, 255],
+      video:  [43, 183, 214],
+      render: [129, 140, 248],
+      sound:  [74, 222, 128],
+      edit:   [251, 191, 36],
+      check:  [192, 132, 252],
+      export: [242, 108, 79]
+    };
+
+    var activeKey = 'edu_claude';
+    var trace = TRACES[activeKey];
+    var nodeMap = {};
+    var adjMap = {};
+    var progress = 1.0;        // float in [1, total_calls]
+    var playing = !reduce;
+    var showDiscarded = true;
+    var hoveredId = null;
+    var yaw = -0.34;
+    var pitch = 0.22;
+    var dragging = false;
+    var lastX = 0, lastY = 0;
+    var lastTs = 0;
+    var W = 800, H = 440, DPR = 1;
+    var projected = [];
+
+    function rgba(rgb, a){
+      return 'rgba(' + rgb[0] + ',' + rgb[1] + ',' + rgb[2] + ',' + a.toFixed(3) + ')';
+    }
+
+    function resize(){
+      DPR = Math.min(2, window.devicePixelRatio || 1);
+      var rect = wrap.getBoundingClientRect();
+      W = Math.max(320, rect.width);
+      H = Math.max(380, rect.height);
+      canvas.width = Math.round(W * DPR);
+      canvas.height = Math.round(H * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    }
+
+    function loadTrace(key, startFull){
+      activeKey = key;
+      trace = TRACES[key];
+      nodeMap = {};
+      adjMap = {};
+      trace.nodes.forEach(function(n){
+        nodeMap[n.id] = n;
+        adjMap[n.id] = {};
+      });
+      trace.edges.forEach(function(e){
+        if(adjMap[e[0]]) adjMap[e[0]][e[1]] = true;
+        if(adjMap[e[1]]) adjMap[e[1]][e[0]] = true;
+      });
+      if(scrub){
+        scrub.max = String(trace.total_calls);
+      }
+      progress = startFull || reduce ? trace.total_calls : 1;
+      playing = !startFull && !reduce;
+      hoveredId = null;
+      if(tooltip) tooltip.hidden = true;
+
+      if(dockTitle) dockTitle.textContent = trace.title;
+      if(dockSummary) dockSummary.textContent = trace.summary;
+      if(dockScore) dockScore.textContent = 'Score ' + trace.score;
+      if(dmCalls) dmCalls.textContent = String(trace.total_calls);
+      if(dmKept) dmKept.textContent = trace.kept_count + ' / ' + trace.total_calls;
+      if(dmDisc) dmDisc.textContent = String(trace.discarded);
+
+      // Swap video preview smoothly when switching EDU vs NAR trace
+      var cinfo = clipMap[key] || clipMap.edu_claude;
+      if(dockClipMeta && cinfo) dockClipMeta.textContent = cinfo.caption;
+      if(heroVideo && cinfo && heroVideo.getAttribute('data-clip-key') !== cinfo.slug){
+        heroVideo.pause();
+        heroVideo.setAttribute('data-clip-key', cinfo.slug);
+        heroVideo.setAttribute('poster', cinfo.poster_jpg);
+        var srcs = heroVideo.querySelectorAll('source');
+        if(srcs[0]) srcs[0].setAttribute('src', cinfo.webm);
+        if(srcs[1]) srcs[1].setAttribute('src', cinfo.mp4);
+        heroVideo.load();
+      }
+
+      presetBtns.forEach(function(b){
+        b.setAttribute('aria-pressed', String(b.getAttribute('data-trace') === key));
+      });
+      syncControls();
+    }
+
+    function syncControls(){
+      var cur = Math.max(1, Math.min(trace.total_calls, Math.floor(progress)));
+      if(scrub && document.activeElement !== scrub) scrub.value = String(cur);
+      if(readout) readout.textContent = 'Step ' + cur + ' / ' + trace.total_calls;
+      if(playBtn) playBtn.textContent = playing ? 'Pause' : 'Play';
+
+      var curNode = nodeMap[cur];
+      if(curNode && hudStep && hudAction){
+        var status = curNode.id === trace.total_calls ? 'FINAL DELIVERY' : (curNode.kept ? 'REACHES FILM' : (curNode.lane === 'check' ? 'INSPECTION' : 'DISCARDED TAKE'));
+        hudStep.textContent = '#' + String(curNode.id).padStart(3, '0') + ' \u00b7 ' + curNode.tool + ' \u00b7 ' + status;
+        hudAction.textContent = curNode.label;
+      }
+      var done = cur >= trace.total_calls;
+      if(livePill){
+        livePill.classList.toggle('delivered', done);
+        livePill.innerHTML = '<i></i>' + (done ? 'Film Delivered \u00b7 #' + trace.total_calls + ' Export' : 'Igniting Call #' + cur + ' / ' + trace.total_calls);
+      }
+      if(reelFrame) reelFrame.classList.toggle('lit', done);
+    }
+
+    function project(x, y, z){
+      var cy = Math.cos(yaw), sy = Math.sin(yaw);
+      var cp = Math.cos(pitch), sp = Math.sin(pitch);
+      var x1 = x * cy - z * sy;
+      var z1 = x * sy + z * cy;
+      var y2 = y * cp - z1 * sp;
+      var z2 = y * sp + z1 * cp;
+      var fov = 3.15;
+      var scale = fov / (fov + z2 + 1.15);
+      var rad = Math.min(W * 0.44, H * 0.56);
+      return {
+        sx: W * 0.5 + x1 * rad * 1.08 * scale,
+        sy: H * 0.52 - y2 * rad * 0.88 * scale,
+        z: z2,
+        scale: scale
+      };
+    }
+
+    function drawFrame(ts){
+      var dt = lastTs ? Math.min(0.05, (ts - lastTs) / 1000) : 0.016;
+      lastTs = ts;
+
+      if(playing){
+        var rate = trace.total_calls / 10.5;
+        progress += dt * rate;
+        if(progress >= trace.total_calls){
+          progress = trace.total_calls;
+          playing = false;
+        }
+        syncControls();
+      }
+      if(!dragging && !reduce){
+        yaw += Math.sin(ts * 0.00032) * 0.00055;
+      }
+
+      var curInt = Math.floor(progress);
+      var isLight = rootEl.getAttribute('data-theme') === 'light';
+
+      // Clear spatial backdrop
+      ctx.clearRect(0, 0, W, H);
+      var bgGrad = ctx.createRadialGradient(W * 0.54, H * 0.48, 20, W * 0.5, H * 0.5, Math.max(W, H) * 0.72);
+      if(isLight){
+        bgGrad.addColorStop(0, '#1B2838');
+        bgGrad.addColorStop(1, '#0F1520');
+      } else {
+        bgGrad.addColorStop(0, '#101B2B');
+        bgGrad.addColorStop(1, '#070A0F');
+      }
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Subtle 3D spatial reference strata (horizontal rings & timeline spine)
+      var strata = [
+        {y: 0.54, name: 'IMAGE', col: LANE_COLOR.image},
+        {y: 0.24, name: 'VIDEO', col: LANE_COLOR.video},
+        {y: -0.22, name: 'SOUND', col: LANE_COLOR.sound},
+        {y: -0.48, name: 'EDIT / MIX', col: LANE_COLOR.edit}
+      ];
+      ctx.lineWidth = 1;
+      strata.forEach(function(st){
+        var pL = project(-1.02, st.y, 0);
+        var pR = project(1.02, st.y, 0);
+        ctx.strokeStyle = rgba(st.col, 0.12);
+        ctx.beginPath();
+        ctx.moveTo(pL.sx, pL.sy);
+        ctx.lineTo(pR.sx, pR.sy);
+        ctx.stroke();
+
+        ctx.fillStyle = rgba(st.col, 0.48);
+        ctx.font = '700 9.5px "JBMono", monospace';
+        ctx.fillText(st.name, Math.max(12, pL.sx - 6), pL.sy - 5);
+      });
+
+      // Project all nodes
+      var pById = {};
+      projected = [];
+      for(var i = 0; i < trace.nodes.length; i++){
+        var nd = trace.nodes[i];
+        var pr = project(nd.x, nd.y, nd.z);
+        pr.nd = nd;
+        pById[nd.id] = pr;
+        projected.push(pr);
+      }
+
+      // Draw glowing 3D Bezier dependency filaments
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      for(var ei = 0; ei < trace.edges.length; ei++){
+        var u = trace.edges[ei][0], v = trace.edges[ei][1];
+        if(v > curInt) continue;
+        var nu = nodeMap[u], nv = nodeMap[v];
+        if(!nu || !nv) continue;
+        if(!showDiscarded && (!nu.kept || !nv.kept) && nv.lane !== 'check') continue;
+
+        var pu = pById[u], pv = pById[v];
+        var isFocus = hoveredId && (u === hoveredId || v === hoveredId);
+        var isCore = nu.kept && nv.kept;
+        var age = progress - v;
+        var fresh = age >= 0 && age < 6 ? (1 - age / 6) : 0;
+
+        var alpha = hoveredId ? (isFocus ? 0.85 : 0.05) : (isCore ? (0.17 + fresh * 0.48) : (0.06 + fresh * 0.2));
+        var col = LANE_COLOR[nv.lane] || LANE_COLOR.video;
+        ctx.strokeStyle = rgba(col, alpha);
+        ctx.lineWidth = isFocus ? 2.1 : (isCore ? (1.05 + fresh * 1.4) : 0.7);
+
+        var midX = (pu.sx + pv.sx) * 0.5;
+        var midY = (pu.sy + pv.sy) * 0.5 - (pv.sx - pu.sx) * 0.06;
+        ctx.beginPath();
+        ctx.moveTo(pu.sx, pu.sy);
+        ctx.quadraticCurveTo(midX, midY, pv.sx, pv.sy);
+        ctx.stroke();
+
+        // Traveling photon pulse on freshly ignited or hovered dependency edges
+        if((fresh > 0.05 || isFocus) && !reduce){
+          var pt = isFocus ? ((ts * 0.0012 + ei * 0.17) % 1) : (1 - fresh);
+          var omt = 1 - pt;
+          var px = omt * omt * pu.sx + 2 * omt * pt * midX + pt * pt * pv.sx;
+          var py = omt * omt * pu.sy + 2 * omt * pt * midY + pt * pt * pv.sy;
+          ctx.fillStyle = rgba([255, 255, 255], isFocus ? 0.92 : 0.85);
+          ctx.beginPath();
+          ctx.arc(px, py, isFocus ? 2.6 : 2.1, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+
+      // Depth-sort nodes back-to-front so nearer glowing orbs occlude cleanly
+      projected.sort(function(a, b){ return b.z - a.z; });
+
+      for(var ni = 0; ni < projected.length; ni++){
+        var p = projected[ni];
+        var n = p.nd;
+        var visible = n.id <= curInt;
+        if(!showDiscarded && !n.kept && n.lane !== 'check') continue;
+
+        var col = LANE_COLOR[n.lane] || LANE_COLOR.video;
+        var isExport = n.lane === 'export';
+        var isHover = hoveredId === n.id;
+        var isNeighbor = hoveredId && adjMap[hoveredId] && adjMap[hoveredId][n.id];
+        var ageN = progress - n.id;
+        var ignite = (visible && ageN >= 0 && ageN < 4.5) ? (1 - ageN / 4.5) : 0;
+
+        if(!visible){
+          // Faint unlit starfield ghost so the upcoming 3D silhouette is perceptible
+          ctx.fillStyle = rgba(col, 0.12);
+          ctx.beginPath();
+          ctx.arc(p.sx, p.sy, 1.8 * p.scale, 0, Math.PI * 2);
+          ctx.fill();
+          continue;
+        }
+
+        var dim = hoveredId && !isHover && !isNeighbor;
+        var baseR = isExport ? 8.5 : (n.kept ? 4.4 : (n.lane === 'check' ? 2.8 : 2.9));
+        var r = baseR * p.scale * (1 + ignite * 0.75 + (isHover ? 0.55 : 0));
+
+        // Additive outer glow halo
+        var glowR = r * (isExport ? 4.4 : (n.kept ? 3.2 : 2.2));
+        var gAlpha = dim ? 0.08 : (isExport ? 0.72 : (n.kept ? (0.42 + ignite * 0.45) : 0.22));
+        var grad = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, glowR);
+        grad.addColorStop(0, rgba(col, gAlpha));
+        grad.addColorStop(1, rgba(col, 0));
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(p.sx, p.sy, glowR, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Crisp luminous core
+        ctx.fillStyle = dim ? rgba(col, 0.24) : (n.kept || isExport || isHover ? rgba([255, 255, 255], 0.92) : rgba(col, 0.65));
+        ctx.beginPath();
+        ctx.arc(p.sx, p.sy, Math.max(1.6, r * 0.55), 0, Math.PI * 2);
+        ctx.fill();
+
+        // Subtle ring on Export beacon (distinguish draft re-export vs final delivery)
+        if(isExport){
+          var isFinalExp = n.id === trace.total_calls;
+          ctx.strokeStyle = rgba(col, isFinalExp ? 0.92 : 0.52);
+          ctx.lineWidth = isFinalExp ? 1.7 : 1.1;
+          ctx.beginPath();
+          ctx.arc(p.sx, p.sy, r * (isFinalExp ? 1.65 : 1.25), 0, Math.PI * 2);
+          ctx.stroke();
+          ctx.fillStyle = isFinalExp ? 'rgba(255,245,235,0.95)' : 'rgba(255,215,200,0.72)';
+          ctx.font = '700 ' + (isFinalExp ? '10.5px' : '9px') + ' "JBMono", monospace';
+          ctx.fillText(isFinalExp ? 'FINAL EXPORT' : 'DRAFT', p.sx - (isFinalExp ? 36 : 15), p.sy - r * 2.0);
+        }
+      }
+
+      requestAnimationFrame(drawFrame);
+    }
+
+    // Pointer orbit & hover hit-test
+    function pickNode(clientX, clientY){
+      var rect = canvas.getBoundingClientRect();
+      var mx = clientX - rect.left, my = clientY - rect.top;
+      var best = null, bestD = 16;
+      var curInt = Math.floor(progress);
+      for(var i = projected.length - 1; i >= 0; i--){
+        var p = projected[i];
+        if(p.nd.id > curInt) continue;
+        if(!showDiscarded && !p.nd.kept && p.nd.lane !== 'check') continue;
+        var d = Math.hypot(p.sx - mx, p.sy - my);
+        if(d < bestD){ bestD = d; best = p; }
+      }
+      return best;
+    }
+
+    wrap.addEventListener('pointerdown', function(e){
+      dragging = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+      wrap.setPointerCapture && wrap.setPointerCapture(e.pointerId);
+    });
+    window.addEventListener('pointermove', function(e){
+      if(dragging){
+        yaw += (e.clientX - lastX) * 0.0065;
+        pitch = Math.max(-0.95, Math.min(0.95, pitch + (e.clientY - lastY) * 0.0055));
+        lastX = e.clientX;
+        lastY = e.clientY;
+        return;
+      }
+      var rect = canvas.getBoundingClientRect();
+      if(e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom){
+        if(hoveredId !== null){ hoveredId = null; if(tooltip) tooltip.hidden = true; }
+        return;
+      }
+      var hit = pickNode(e.clientX, e.clientY);
+      if(hit){
+        hoveredId = hit.nd.id;
+        if(tooltip){
+          var n = hit.nd;
+          var badge = n.lane === 'export' ? 'DELIVERY' : (n.kept ? 'KEPT IN FILM' : (n.lane === 'check' ? 'CHECK' : 'DISCARDED'));
+          tooltip.innerHTML = '<div class="hud-tt-hd"><span>#' + String(n.id).padStart(3, '0') + ' ' + n.tool + '</span><span class="hud-tt-badge">' + badge + '</span></div><div>' + n.label + '</div>';
+          tooltip.style.left = Math.min(W - 280, Math.max(12, hit.sx + 14)) + 'px';
+          tooltip.style.top = Math.min(H - 86, Math.max(12, hit.sy - 16)) + 'px';
+          tooltip.hidden = false;
+        }
+      } else if(hoveredId !== null){
+        hoveredId = null;
+        if(tooltip) tooltip.hidden = true;
+      }
+    });
+    window.addEventListener('pointerup', function(){ dragging = false; });
+
+    if(scrub){
+      scrub.addEventListener('input', function(){
+        playing = false;
+        progress = parseFloat(scrub.value) || 1;
+        syncControls();
+      });
+    }
+    if(playBtn){
+      playBtn.addEventListener('click', function(){
+        if(progress >= trace.total_calls) progress = 1;
+        playing = !playing;
+        syncControls();
+      });
+    }
+    if(replayBtn){
+      replayBtn.addEventListener('click', function(){
+        progress = 1;
+        playing = true;
+        syncControls();
+      });
+    }
+    if(discardBtn){
+      discardBtn.addEventListener('click', function(){
+        showDiscarded = !showDiscarded;
+        discardBtn.setAttribute('aria-pressed', String(!showDiscarded));
+        discardBtn.textContent = showDiscarded ? 'Backbone Only' : 'Show Discarded';
+      });
+    }
+    presetBtns.forEach(function(b){
+      b.addEventListener('click', function(){
+        loadTrace(b.getAttribute('data-trace'), false);
+      });
+    });
+
+    window.addEventListener('resize', resize);
+    resize();
+    // Initial state: load EDU-OPN-045 at full bloom on static first paint or ignite smoothly
+    loadTrace('edu_claude', false);
+    // Start at ~72% progress on first paint so even instant screenshots look vividly alive, then finish ignition to 100%!
+    progress = Math.round(trace.total_calls * 0.72);
+    syncControls();
+    requestAnimationFrame(drawFrame);
+  })();
+
+  /* ── 4. 33 Atomic Tools 8-group Explorer ── */
   (function(){
     var root = document.getElementById('tool-explorer');
     if(!root) return;
@@ -1355,7 +1919,7 @@ section[id]{scroll-margin-top:68px}
     show(0);
   })();
 
-  /* ── 7-Model Leaderboard + Synced Quality-Cost Pareto Highlight ── */
+  /* ── 5. 7-Model Leaderboard + Synced Quality-Cost Pareto Highlight ── */
   (function(){
     var root = document.getElementById('sb-leaderboard');
     if(!root) return;
@@ -1438,7 +2002,7 @@ section[id]{scroll-margin-top:68px}
       });
 
       if(blurb) blurb.textContent = m.blurb;
-      if(dirEl) dirEl.textContent = m.better === 'higher' ? 'higher is better · 160 tasks' : 'lower median LLM cost per task';
+      if(dirEl) dirEl.textContent = m.better === 'higher' ? 'higher is better \u00b7 160 tasks' : 'lower median LLM cost per task';
       btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-k') === key)); });
     }
 
@@ -1446,7 +2010,7 @@ section[id]{scroll-margin-top:68px}
     draw('overall');
   })();
 
-  /* ── 5-Genre Side-by-Side Screening Room Tabs ── */
+  /* ── 6. 4-Genre Side-by-Side Screening Room Tabs ── */
   (function(){
     var root = document.getElementById('screening-booth');
     if(!root) return;
@@ -1487,69 +2051,65 @@ section[id]{scroll-margin-top:68px}
     activate(0);
   })();
 
-  /* ── Lightbox Zoom for Paper Figures & Contact Sheets ── */
+  /* ── 7. Lightbox Zoom + Copy BibTeX + Scroll-Spy ── */
   (function(){
     var dlg = document.getElementById('lightbox');
     var img = document.getElementById('lb-img');
     var cap = document.getElementById('lb-cap');
     var closeBtn = document.getElementById('lb-close');
-    if(!dlg || !dlg.showModal) return;
-
-    [].forEach.call(document.querySelectorAll('a.plate-link, a.sheet-zoom'), function(a){
-      a.addEventListener('click', function(e){
-        if(e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
-        e.preventDefault();
-        var fig = a.closest('figure');
-        var c = fig && fig.querySelector('figcaption');
-        var im = a.querySelector('img');
-        img.src = a.getAttribute('href');
-        img.alt = im ? im.alt : (a.getAttribute('data-cap') || 'Enlarged figure');
-        cap.textContent = c ? c.textContent : (a.getAttribute('data-cap') || '');
-        dlg.showModal();
-      });
-    });
-    closeBtn.addEventListener('click', function(){ dlg.close(); });
-    dlg.addEventListener('click', function(e){ if(e.target === dlg) dlg.close(); });
-  })();
-
-  /* ── Copy BibTeX ── */
-  (function(){
-    var btn = document.getElementById('copy-bib');
-    var pre = document.getElementById('bib');
-    if(!btn || !pre || !navigator.clipboard) return;
-    var orig = btn.textContent, timer = null;
-    btn.addEventListener('click', function(){
-      navigator.clipboard.writeText(pre.textContent).then(function(){
-        btn.textContent = 'Copied!';
-        clearTimeout(timer);
-        timer = setTimeout(function(){ btn.textContent = orig; }, 1600);
-      });
-    });
-  })();
-
-  /* ── Scroll-Spy Navigation ── */
-  (function(){
-    if(!('IntersectionObserver' in window)) return;
-    var map = {};
-    [].forEach.call(document.querySelectorAll('.top-nav a[href^="#"]'), function(a){
-      map[a.getAttribute('href').slice(1)] = a;
-    });
-    var io = new IntersectionObserver(function(es){
-      es.forEach(function(en){
-        if(!en.isIntersecting) return;
-        var id = en.target.id;
-        if(id === 'citation') return;
-        Object.keys(map).forEach(function(k){
-          if(k === 'citation') return;
-          if(k === id) map[k].setAttribute('aria-current', 'true');
-          else map[k].removeAttribute('aria-current');
+    if(dlg && dlg.showModal){
+      [].forEach.call(document.querySelectorAll('a.plate-link, a.sheet-zoom'), function(a){
+        a.addEventListener('click', function(e){
+          if(e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+          e.preventDefault();
+          var fig = a.closest('figure');
+          var c = fig && fig.querySelector('figcaption');
+          var im = a.querySelector('img');
+          img.src = a.getAttribute('href');
+          img.alt = im ? im.alt : (a.getAttribute('data-cap') || 'Enlarged figure');
+          cap.textContent = c ? c.textContent : (a.getAttribute('data-cap') || '');
+          dlg.showModal();
         });
       });
-    }, {rootMargin: '-28% 0px -62% 0px'});
-    Object.keys(map).forEach(function(id){
-      var el = document.getElementById(id);
-      if(el) io.observe(el);
-    });
+      closeBtn.addEventListener('click', function(){ dlg.close(); });
+      dlg.addEventListener('click', function(e){ if(e.target === dlg) dlg.close(); });
+    }
+
+    var btn = document.getElementById('copy-bib');
+    var pre = document.getElementById('bib');
+    if(btn && pre && navigator.clipboard){
+      var orig = btn.textContent, timer = null;
+      btn.addEventListener('click', function(){
+        navigator.clipboard.writeText(pre.textContent).then(function(){
+          btn.textContent = 'Copied!';
+          clearTimeout(timer);
+          timer = setTimeout(function(){ btn.textContent = orig; }, 1600);
+        });
+      });
+    }
+
+    if('IntersectionObserver' in window){
+      var map = {};
+      [].forEach.call(document.querySelectorAll('.top-nav a[href^="#"]'), function(a){
+        map[a.getAttribute('href').slice(1)] = a;
+      });
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(en){
+          if(!en.isIntersecting) return;
+          var id = en.target.id;
+          if(id === 'citation') return;
+          Object.keys(map).forEach(function(k){
+            if(k === 'citation') return;
+            if(k === id) map[k].setAttribute('aria-current', 'true');
+            else map[k].removeAttribute('aria-current');
+          });
+        });
+      }, {rootMargin: '-28% 0px -62% 0px'});
+      Object.keys(map).forEach(function(id){
+        var el = document.getElementById(id);
+        if(el) io.observe(el);
+      });
+    }
   })();
 })();
 </script>
