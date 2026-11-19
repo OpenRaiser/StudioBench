@@ -1,0 +1,112 @@
+{
+  "generated_at": 1794228994.1663392,
+  "profile": "540",
+  "runs": [
+    {
+      "task": "COM-AST-002",
+      "model": "claude-opus-5-5",
+      "status": "done",
+      "seconds": 5669.8
+    },
+    {
+      "task": "COM-AST-002",
+      "model": "doubao-seed-2-1-pro-260915",
+      "status": "done",
+      "seconds": 1820.3
+    },
+    {
+      "task": "COM-AST-002",
+      "model": "gemini-4-argon",
+      "status": "done",
+      "seconds": 6270.7
+    },
+    {
+      "task": "COM-AST-002",
+      "model": "gpt-6-astra",
+      "status": "done",
+      "seconds": 3728.7
+    },
+    {
+      "task": "COM-AST-002",
+      "model": "qwen3.8-27b",
+      "status": "done",
+      "seconds": 3215.2
+    },
+    {
+      "task": "COM-AST-002",
+      "model": "qwen3.8-max-0902",
+      "status": "done",
+      "seconds": 5929.3
+    },
+    {
+      "task": "MUS-AST-001",
+      "model": "doubao-seed-2-1-pro-260915",
+      "status": "done",
+      "seconds": 1158.6
+    },
+    {
+      "task": "MUS-AST-001",
+      "model": "gemini-4-argon",
+      "status": "done",
+      "seconds": 7426.1
+    },
+    {
+      "task": "MUS-AST-001",
+      "model": "gpt-6-astra",
+      "status": "done",
+      "seconds": 1043.1
+    },
+    {
+      "task": "MUS-AST-001",
+      "model": "qwen3.8-27b",
+      "status": "done",
+      "seconds": 2526.6
+    },
+    {
+      "task": "MUS-AST-001",
+      "model": "qwen3.8-max-0902",
+      "status": "done",
+      "seconds": 2771.5
+    },
+    {
+      "task": "NAR-REF-007",
+      "model": "claude-opus-5-5",
+      "status": "done",
+      "seconds": 6965.8
+    },
+    {
+      "task": "NAR-REF-007",
+      "model": "doubao-seed-2-1-pro-260915",
+      "status": "done",
+      "seconds": 5488.6
+    },
+    {
+      "task": "NAR-REF-007",
+      "model": "gemini-4-argon",
+      "status": "done",
+      "seconds": 6638.9
+    },
+    {
+      "task": "NAR-REF-007",
+      "model": "gpt-6-astra",
+      "status": "done",
+      "seconds": 16084.5
+    },
+    {
+      "task": "NAR-REF-007",
+      "model": "qwen3.8-27b",
+      "status": "done",
+      "seconds": 5462.8
+    },
+    {
+      "task": "NAR-REF-007",
+      "model": "qwen3.8-max-0902",
+      "status": "done",
+      "seconds": 6502.0
+    }
+  ],
+  "skipped": [
+    "MUS-AST-001/claude-opus-5-5 (no final cut)"
+  ],
+  "media_bytes": 80843922
+}
