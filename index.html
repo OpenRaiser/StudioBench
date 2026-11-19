@@ -1,0 +1,1588 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StudioBench: Benchmarking Agentic Multimodal Large Language Models for Productive Audiovisual Creation</title>
+<meta name="description" content="StudioBench evaluates seven general MLLMs on end-to-end audiovisual creation across 160 tasks, 8 genres, and 33 atomic tools without workflow templates. Explicit requirements saturate (98.1%), while craft gaps and the missing inspection-selection-revision quality loop separate directors.">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="StudioBench: Benchmarking Agentic Multimodal Large Language Models for Productive Audiovisual Creation">
+<meta property="og:description" content="StudioBench evaluates seven general MLLMs on end-to-end audiovisual creation across 160 tasks, 8 genres, and 33 atomic tools without workflow templates. Explicit requirements saturate (98.1%), while craft gaps and the missing inspection-selection-revision quality loop separate directors.">
+<meta property="og:image" content="assets/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="StudioBench: Benchmarking Agentic Multimodal Large Language Models for Productive Audiovisual Creation">
+<meta name="twitter:description" content="StudioBench evaluates seven general MLLMs on end-to-end audiovisual creation across 160 tasks, 8 genres, and 33 atomic tools without workflow templates. Explicit requirements saturate (98.1%), while craft gaps and the missing inspection-selection-revision quality loop separate directors.">
+<meta name="twitter:image" content="assets/social-card.png">
+<link rel="icon" href="assets/brand/studiobench-mark.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ScholarlyArticle", "headline": "StudioBench: Benchmarking Agentic Multimodal Large Language Models for Productive Audiovisual Creation", "abstract": "StudioBench evaluates seven general MLLMs on end-to-end audiovisual creation across 160 tasks, 8 genres, and 33 atomic tools without workflow templates. Explicit requirements saturate (98.1%), while craft gaps and the missing inspection-selection-revision quality loop separate directors.", "author": [{"@type": "Person", "name": "Anonymous"}], "inLanguage": "en", "datePublished": "2026", "image": "assets/social-card.png", "keywords": "StudioBench, agentic multimodal LLM, audiovisual creation, video production benchmark, atomic tools, workflow graph, quality loop, perceptual verification, video editing agent"}</script>
+<style>@font-face{font-family:"Bricolage";src:url(assets/fonts/bricolage-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"WorkSans";src:url(assets/fonts/worksans-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"WorkSans";src:url(assets/fonts/worksans-400i.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:"WorkSans";src:url(assets/fonts/worksans-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"JBMono";src:url(assets/fonts/jbmono-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"JBMono";src:url(assets/fonts/jbmono-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap}
+
+:root{
+  --canvas:#FAF8F4;
+  --canvas-card:#FFFFFF;
+  --canvas-warm:#F2EEE4;
+  --canvas-tint:#EDF4F6;
+  --line:#DFDCD4;
+  --line-strong:#C2BEB4;
+
+  --text:#1A1F24;
+  --text-soft:#434B52;
+  --text-muted:#656E76;
+
+  --brand:#156082;
+  --brand-mid:#2B7EA1;
+  --brand-soft:#E5F1F5;
+  --brand-line:#9AC2D1;
+
+  --accent:#B14E3B;
+  --accent-soft:#F9EAE6;
+  --accent-line:#DFABA0;
+
+  --audio-ok:#4E855B;
+  --audio-soft:#E8F3EB;
+  --audio-line:#A7CCB0;
+
+  --ochre:#B98E34;
+  --ochre-ink:#6B4E15;
+  --ochre-soft:#FBF3DF;
+  --ochre-line:#DFC487;
+
+  --booth:#16181D;
+  --booth-panel:#1F232B;
+  --booth-card:#272C36;
+  --booth-line:#373F4E;
+  --booth-text:#F4F2ED;
+  --booth-soft:#CED3DC;
+  --booth-muted:#97A0AE;
+
+  --font-head:"Bricolage","WorkSans",ui-sans-serif,system-ui,sans-serif;
+  --font-body:"WorkSans",ui-sans-serif,system-ui,"Noto Sans CJK SC",sans-serif;
+  --font-code:"JBMono",ui-monospace,"DejaVu Sans Mono",monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--canvas);color:var(--text);
+  font:400 16.5px/1.64 var(--font-body);font-variant-numeric:tabular-nums;
+  text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:var(--font-head);font-weight:700;letter-spacing:-.022em;line-height:1.14;margin:0}
+p{margin:0 0 .82em}
+p:last-child{margin-bottom:0}
+a{color:var(--brand);text-underline-offset:.18em;text-decoration-thickness:1px}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2.5px solid var(--brand-mid);outline-offset:2.5px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+.skip-link{position:absolute;left:10px;top:-56px;z-index:95;padding:10px 14px;background:var(--text);color:var(--canvas-card);border-radius:6px}
+.skip-link:focus{top:10px}
+
+/* ─── top studio bar ─── */
+.topbar{
+  position:sticky;top:0;z-index:80;
+  background:color-mix(in srgb,var(--canvas) 92%,transparent);
+  backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.topbar-in{
+  max-width:1180px;margin:0 auto;display:flex;align-items:center;gap:18px;
+  padding:11px clamp(18px,3.6vw,36px);
+}
+.studio-brand{
+  display:inline-flex;align-items:center;gap:10px;text-decoration:none;
+  font-family:var(--font-head);font-weight:700;font-size:21px;letter-spacing:-.025em;color:var(--text);flex:none;
+}
+.studio-brand img{width:28px;height:auto;display:block;border-radius:7px}
+.top-nav{margin-left:auto;display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.top-nav a{
+  font:700 13.5px/1 var(--font-body);color:var(--text-soft);text-decoration:none;
+  padding:8px 12px;border-radius:999px;transition:background .15s,color .15s;white-space:nowrap;
+}
+.top-nav a:hover,.top-nav a[aria-current=true]{background:var(--brand-soft);color:var(--brand)}
+.top-nav a.top-cite{margin-left:6px;background:var(--text);color:var(--canvas-card);padding:8px 14px}
+.top-nav a.top-cite:hover{background:var(--brand);color:var(--canvas-card)}
+
+/* ─── Act 1: Editorial Hero + Screening Reel ─── */
+.opening{
+  background:linear-gradient(180deg,var(--canvas-warm) 0%,var(--canvas) 72%);
+  border-bottom:1px solid var(--line);
+  padding:clamp(36px,4.8vw,64px) clamp(18px,3.6vw,36px) clamp(44px,5.4vw,74px);
+}
+.opening-in{max-width:1180px;margin:0 auto}
+.opening-head{max-width:900px;margin:0 auto;text-align:center}
+.slate-tag{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;
+  background:var(--canvas-card);border:1px solid var(--line);
+  font:700 11.5px/1.2 var(--font-code);letter-spacing:.09em;text-transform:uppercase;color:var(--brand);
+}
+.slate-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+.opening h1{margin-top:16px}
+.title-display{
+  display:block;font-size:clamp(46px,6.8vw,84px);line-height:.96;letter-spacing:-.035em;color:var(--text);
+}
+.title-sub{
+  display:block;margin:13px auto 0;max-width:36ch;
+  font-size:clamp(19px,2.2vw,27px);line-height:1.28;letter-spacing:-.015em;color:var(--text-soft);
+}
+.opening-thesis{
+  margin:18px auto 0;max-width:66ch;font-size:clamp(15.5px,1.5vw,17.5px);line-height:1.62;color:var(--text-soft);
+}
+.opening-thesis b{color:var(--text)}
+.opening-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.action-pill{
+  display:inline-flex;align-items:center;gap:8px;padding:11px 20px;border-radius:999px;
+  font:700 14px/1 var(--font-body);text-decoration:none;border:1px solid var(--line-strong);
+  background:var(--canvas-card);color:var(--text);transition:all .15s;cursor:pointer;
+}
+.action-pill:hover{border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+.action-pill.solid{background:var(--brand);border-color:var(--brand);color:var(--canvas-card)}
+.action-pill.solid:hover{background:var(--text);border-color:var(--text);color:var(--canvas-card)}
+
+/* ─── Hero Feature Film Screening Booth ─── */
+.booth-shell{
+  margin-top:clamp(28px,3.6vw,42px);
+  background:var(--booth);color:var(--booth-text);
+  border:1px solid var(--booth-line);border-radius:18px;overflow:hidden;
+  box-shadow:0 24px 54px color-mix(in srgb,var(--booth) 20%,transparent);
+}
+.booth-chrome{
+  display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  padding:11px 18px;background:var(--booth-panel);border-bottom:1px solid var(--booth-line);
+  font:400 12px/1.3 var(--font-code);color:var(--booth-muted);
+}
+.rec-badge{
+  display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:6px;
+  background:color-mix(in srgb,var(--accent) 22%,transparent);
+  border:1px solid color-mix(in srgb,var(--accent) 52%,transparent);
+  color:var(--accent-soft);font:700 10.5px/1.1 var(--font-code);text-transform:uppercase;letter-spacing:.07em;
+}
+.rec-badge i{width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block}
+.booth-title{font:700 13.5px/1.2 var(--font-body);color:var(--booth-text)}
+.booth-score-chip{
+  margin-left:auto;padding:5px 11px;border-radius:999px;
+  background:color-mix(in srgb,var(--audio-ok) 24%,transparent);
+  border:1px solid color-mix(in srgb,var(--audio-ok) 55%,transparent);
+  font:700 11px/1 var(--font-code);color:var(--audio-soft);
+}
+
+.hero-reel-grid{
+  display:grid;grid-template-columns:minmax(0,1.32fr) minmax(0,.95fr);align-items:stretch;
+}
+.reel-player-col{
+  padding:16px 18px 18px;background:var(--booth);border-right:1px solid var(--booth-line);
+  display:flex;flex-direction:column;gap:12px;
+}
+.reel-frame{
+  position:relative;border-radius:11px;overflow:hidden;background:var(--booth-panel);
+  border:1px solid var(--booth-line);
+}
+.reel-video{display:block;width:100%;height:auto}
+.audio-hint{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  padding:8px 12px;border-radius:9px;background:var(--booth-panel);border:1px solid var(--booth-line);
+  font:400 12px/1.35 var(--font-code);color:var(--booth-soft);
+}
+.sound-toggle{
+  display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;
+  border:1px solid var(--brand-mid);background:color-mix(in srgb,var(--brand-mid) 25%,transparent);
+  color:var(--booth-text);font:700 11.5px/1 var(--font-body);cursor:pointer;transition:all .15s;
+}
+.sound-toggle:hover,.sound-toggle[aria-pressed=true]{background:var(--brand-mid);color:var(--canvas-card)}
+
+.call-sheet{
+  padding:18px 20px;background:var(--booth-panel);display:flex;flex-direction:column;gap:14px;
+}
+.sheet-box{
+  padding:13px 15px;border-radius:11px;background:var(--booth-card);border:1px solid var(--booth-line);
+}
+.sheet-kicker{
+  font:700 10.5px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--ochre-line);
+}
+.sheet-brief{margin-top:6px;font-size:14.5px;line-height:1.52;color:var(--booth-text)}
+.sheet-dims{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.dim-tile{
+  padding:9px 8px;border-radius:9px;background:var(--booth);border:1px solid var(--booth-line);text-align:center;
+}
+.dim-tile b{display:block;font-family:var(--font-head);font-size:19px;color:var(--booth-text);line-height:1.1}
+.dim-tile span{display:block;margin-top:3px;font:700 10px/1 var(--font-code);letter-spacing:.06em;color:var(--booth-muted)}
+.dim-tile.sem b{color:var(--booth-text)}
+.dim-tile.vis b{color:var(--brand-line)}
+.dim-tile.aud b{color:var(--audio-line)}
+.dim-tile.av b{color:var(--ochre-line)}
+
+.pipe-strip{display:grid;gap:7px}
+.pipe-label{font:700 10.5px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--booth-muted)}
+.pipe-pills{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pipe-step{
+  padding:5px 9px;border-radius:7px;background:var(--booth);border:1px solid var(--booth-line);
+  font:700 11px/1.1 var(--font-code);color:var(--booth-soft);
+}
+.pipe-step.export{border-color:var(--accent);color:var(--accent-soft)}
+.sheet-stats{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:auto;
+}
+.ss-item{
+  padding:9px 10px;border-radius:9px;background:var(--booth);border:1px solid var(--booth-line);
+}
+.ss-item b{display:block;font:700 14.5px/1.2 var(--font-code);color:var(--booth-text)}
+.ss-item span{display:block;margin-top:2px;font-size:11.5px;color:var(--booth-muted)}
+
+/* ─── 4 Headline Metrics Strip ─── */
+.stat-row{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;
+  margin-top:clamp(20px,2.5vw,28px);
+}
+.stat-tile{
+  background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
+  padding:17px 19px;display:flex;flex-direction:column;gap:4px;
+}
+.stat-tile.emph{border-color:var(--brand-line);background:linear-gradient(180deg,var(--brand-soft) 0%,var(--canvas-card) 72%)}
+.stat-num{
+  font-family:var(--font-head);font-weight:700;font-size:clamp(25px,2.7vw,34px);
+  line-height:1.06;letter-spacing:-.025em;color:var(--text);
+}
+.stat-tile.emph .stat-num{color:var(--brand)}
+.stat-k{font:700 13.5px/1.35 var(--font-body);color:var(--text)}
+.stat-d{font-size:12.5px;line-height:1.45;color:var(--text-muted);margin-top:auto}
+
+/* ─── Section Rhythm ─── */
+.band-warm{background:var(--canvas-warm);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.band-tint{background:var(--canvas-tint);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.chapter{max-width:1180px;margin:0 auto;padding:clamp(54px,6vw,86px) clamp(18px,3.6vw,36px)}
+.chapter+.chapter{border-top:1px solid var(--line)}
+.chap-head{max-width:840px;margin-bottom:clamp(26px,3.2vw,40px)}
+.chap-eyebrow{
+  font:700 11.5px/1.3 var(--font-code);letter-spacing:.11em;text-transform:uppercase;
+  color:var(--brand);margin:0 0 9px;
+}
+.chap-eyebrow.warm{color:var(--accent)}
+.chap-head h2{font-size:clamp(27px,3.3vw,41px);letter-spacing:-.025em}
+.chap-lede{margin-top:13px;font-size:clamp(15.5px,1.5vw,17.5px);line-height:1.62;color:var(--text-soft);max-width:72ch}
+.sub-title{font-size:clamp(20px,2.2vw,26px);margin:clamp(32px,3.8vw,46px) 0 8px}
+.sub-copy{font-size:15px;color:var(--text-soft);max-width:70ch;margin-bottom:18px}
+
+/* ─── Figures ─── */
+.plate{
+  margin:0;background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
+  padding:14px;display:flex;flex-direction:column;
+}
+.plate-link{
+  display:block;width:100%;border-radius:9px;overflow:hidden;border:1px solid var(--line);
+  background:var(--canvas-card);cursor:zoom-in;
+}
+.plate-link:hover{border-color:var(--brand-mid)}
+.plate-link img{display:block;width:100%;height:auto}
+.plate-cap{margin-top:11px;font-size:12.5px;line-height:1.52;color:var(--text-muted)}
+.plate-id{font:700 11px/1.2 var(--font-code);color:var(--brand);margin-right:7px;text-transform:uppercase}
+
+/* ─── Act 2: 8-Genre Visual Gallery + 33 Atomic Tools ─── */
+.genre-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.genre-card{
+  background:var(--canvas-card);border:1px solid var(--line);border-radius:13px;overflow:hidden;
+  display:flex;flex-direction:column;transition:border-color .15s,transform .15s;
+}
+.genre-card:hover{border-color:var(--brand-line);transform:translateY(-2px)}
+.genre-shot img{display:block;width:100%;height:auto}
+.genre-info{padding:12px 13px 14px;display:flex;flex-direction:column;gap:5px;flex:1}
+.genre-top{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.genre-top h3{font-size:15.5px;color:var(--text)}
+.genre-count{font:700 10.5px/1 var(--font-code);color:var(--brand);background:var(--brand-soft);padding:3px 7px;border-radius:999px}
+.genre-focus{font-size:12.5px;line-height:1.45;color:var(--text-muted)}
+.genre-leader{
+  margin-top:auto;padding-top:7px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;font:700 11px/1.2 var(--font-code);color:var(--text-soft);
+}
+.genre-leader b{color:var(--brand)}
+
+.env-split{
+  display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);
+  gap:clamp(22px,3vw,38px);align-items:stretch;margin-top:clamp(28px,3.6vw,42px);
+}
+.tool-panel{
+  background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
+  padding:20px 22px;display:flex;flex-direction:column;gap:14px;
+}
+.tool-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.tool-tab{
+  font:700 12px/1 var(--font-body);color:var(--text-soft);background:var(--canvas);
+  border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer;transition:all .14s;
+}
+.tool-tab:hover{border-color:var(--brand-mid);color:var(--brand)}
+.tool-tab[aria-pressed=true]{background:var(--brand);border-color:var(--brand);color:var(--canvas-card)}
+.tool-detail{
+  padding:15px 16px;border-radius:11px;background:var(--canvas);border:1px solid var(--line);
+}
+.tool-detail-hd{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.tool-detail-hd h4{font-size:17px;color:var(--text)}
+.tool-detail-hd span{font:700 11px/1 var(--font-code);color:var(--brand)}
+.tool-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.tool-chip{
+  padding:5px 9px;border-radius:7px;background:var(--canvas-card);border:1px solid var(--line-strong);
+  font:700 12px/1.1 var(--font-code);color:var(--text);
+}
+.tool-note{margin-top:10px;font-size:13.5px;line-height:1.5;color:var(--text-soft)}
+
+.rule-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:auto}
+.rule-box{
+  padding:13px 15px;border-radius:11px;background:var(--canvas-warm);border:1px solid var(--line);
+}
+.rule-box.score{background:var(--audio-soft);border-color:var(--audio-line)}
+.rule-box.attr{background:var(--ochre-soft);border-color:var(--ochre-line)}
+.rule-box h4{font-size:14.5px;color:var(--text)}
+.rule-box p{margin-top:5px;font-size:13px;line-height:1.48;color:var(--text-soft)}
+
+/* ─── Act 3: RQ1 Interactive Leaderboard + Pareto Frontier ─── */
+.rq1-grid{
+  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:20px;align-items:stretch;
+}
+.board-card{
+  background:var(--canvas-card);border:1px solid var(--line);border-radius:16px;
+  padding:20px 22px;display:flex;flex-direction:column;
+}
+.board-card h3{font-size:19.5px;margin-bottom:5px}
+.board-sub{font-size:13.5px;color:var(--text-muted);margin-bottom:14px}
+
+.metric-sw{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.metric-sw button{
+  font:700 12px/1 var(--font-body);color:var(--text-soft);background:var(--canvas);
+  border:1px solid var(--line);border-radius:999px;padding:7.5px 12px;cursor:pointer;transition:all .14s;
+}
+.metric-sw button:hover{border-color:var(--brand-mid);color:var(--brand)}
+.metric-sw button[aria-pressed=true]{background:var(--text);border-color:var(--text);color:var(--canvas-card)}
+.metric-blurb{font-size:13px;line-height:1.48;color:var(--text-muted);margin-bottom:12px;min-height:2.4em}
+
+.rank-list{display:grid;gap:6px;margin-top:auto}
+.rank-row{
+  display:grid;grid-template-columns:196px 1fr 64px;gap:10px;align-items:center;
+  padding:5px 7px;border-radius:8px;transition:background .15s;cursor:pointer;
+}
+.rank-row:hover,.rank-row.is-active{background:var(--brand-soft)}
+.rank-row.is-top{background:color-mix(in srgb,var(--brand-soft) 72%,var(--canvas-card))}
+.rank-nm{display:flex;align-items:center;gap:8px;min-width:0;font:700 13px/1.2 var(--font-body);color:var(--text)}
+.rank-idx{font:700 11px/1 var(--font-code);color:var(--text-muted);width:15px;flex:none}
+.rank-ico{width:19px;height:auto;border-radius:4px;flex:none}
+.rank-nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank-track{position:relative;height:18px;background:var(--canvas-warm);border-radius:5px;overflow:hidden}
+.rank-fill{
+  position:absolute;left:0;top:0;bottom:0;border-radius:4px;
+  background:var(--brand-line);transition:width .24s;
+}
+.rank-row.is-top .rank-fill{background:var(--brand)}
+.rank-row.is-pareto .rank-fill{background:var(--brand-mid)}
+.rank-val{font:700 12.5px/1 var(--font-code);text-align:right;color:var(--text)}
+.board-foot{
+  display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;
+  margin-top:13px;padding-top:11px;border-top:1px solid var(--line);
+  font:400 11px/1.4 var(--font-code);color:var(--text-muted);
+}
+.pareto-svg{display:block;width:100%;height:auto;margin-top:auto}
+.pareto-svg text{font-family:var(--font-code);font-size:10.5px;fill:var(--text-muted)}
+.pareto-svg .grid-l{stroke:var(--canvas-warm);stroke-width:1}
+.pareto-svg .axis-l{stroke:var(--line-strong);stroke-width:1.1}
+.pareto-svg .frontier-l{fill:none;stroke:var(--brand);stroke-width:2;stroke-dasharray:5 4}
+.pareto-svg .pt-dom{fill:var(--text-muted);transition:r .15s}
+.pareto-svg .pt-par{fill:var(--brand);stroke:var(--canvas-card);stroke-width:1.8;transition:r .15s}
+.pareto-svg .pt-hi{fill:var(--accent);stroke:var(--canvas-card);stroke-width:2}
+.pareto-svg .pt-lbl{font-family:var(--font-body);font-weight:700;font-size:11.5px;fill:var(--text)}
+.pareto-svg .pt-lbl-par{fill:var(--brand)}
+.leg-dot{width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px;vertical-align:middle}
+.leg-dot.par{background:var(--brand)}
+.leg-dot.dom{background:var(--text-muted)}
+
+/* ─── Act 4: RQ2 Workflows & RQ3 Missing Quality Loop ─── */
+.wf-pair{
+  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);
+  gap:22px;align-items:stretch;
+}
+.wf-takeaways{
+  background:var(--canvas-card);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:14px;
+}
+.wf-takeaways h3{font-size:20px}
+.wf-bullets{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.wf-bullets li{
+  padding-left:14px;border-left:3px solid var(--brand-line);font-size:14.5px;line-height:1.55;color:var(--text-soft);
+}
+.wf-bullets li.warm{border-left-color:var(--accent)}
+.wf-bullets b{color:var(--text)}
+
+.loop-split{
+  display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);
+  gap:24px;align-items:stretch;margin-top:clamp(28px,3.6vw,44px);
+}
+.gap-stack{display:grid;gap:14px}
+.gap-card{
+  background:var(--canvas-card);border:1px solid var(--line);border-left:4px solid var(--brand);
+  border-radius:13px;padding:18px 20px;
+}
+.gap-card.verif{border-left-color:var(--accent)}
+.gap-card.select{border-left-color:var(--ochre)}
+.gap-kicker{font:700 11px/1.2 var(--font-code);text-transform:uppercase;letter-spacing:.08em;color:var(--brand)}
+.gap-card.verif .gap-kicker{color:var(--accent)}
+.gap-card.select .gap-kicker{color:var(--ochre-ink)}
+.gap-card h3{font-size:18px;margin-top:6px}
+.gap-card p{margin-top:7px;font-size:14px;line-height:1.56;color:var(--text-soft)}
+.gap-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
+.gap-chip{
+  padding:4px 9px;border-radius:6px;background:var(--canvas);border:1px solid var(--line);
+  font:700 11.5px/1.2 var(--font-code);color:var(--text);
+}
+.gap-card.verif .gap-chip{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent)}
+
+/* ─── Act 5: 5-Genre Side-by-Side Audiovisual Screening Room ─── */
+.screen-tabs{
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1px;
+  background:var(--booth-line);border-bottom:1px solid var(--booth-line);
+}
+.screen-tab{
+  background:var(--booth-panel);color:var(--booth-soft);border:0;
+  padding:13px 14px;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:4px;
+  transition:background .15s,color .15s;
+}
+.screen-tab:hover{background:var(--booth-card);color:var(--booth-text)}
+.screen-tab[aria-selected=true]{
+  background:var(--booth);color:var(--booth-text);
+  box-shadow:inset 0 3px 0 var(--accent);
+}
+.st-genre{font:700 10px/1.2 var(--font-code);letter-spacing:.08em;text-transform:uppercase;color:var(--ochre-line)}
+.st-name{font:700 14px/1.25 var(--font-body);color:inherit}
+.st-id{font:400 11px/1.2 var(--font-code);color:var(--booth-muted)}
+.screen-panel[hidden]{display:none}
+.screen-body{padding:18px 20px 20px;background:var(--booth)}
+.screen-brief-bar{
+  display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+  padding:13px 16px;border-radius:11px;background:var(--booth-panel);border:1px solid var(--booth-line);
+  margin-bottom:16px;
+}
+.screen-brief-txt{font-size:14.5px;line-height:1.52;color:var(--booth-text);max-width:74ch}
+.screen-brief-txt b{color:var(--ochre-line);font-family:var(--font-code);font-size:12px;margin-right:8px}
+.screen-dur-tag{
+  font:700 11.5px/1 var(--font-code);color:var(--booth-soft);
+  padding:5px 10px;border-radius:999px;background:var(--booth-card);border:1px solid var(--booth-line);white-space:nowrap;
+}
+
+.duel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.film-card{
+  background:var(--booth-panel);border:1px solid var(--booth-line);border-radius:13px;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+.film-card.winner{border-color:var(--brand-mid)}
+.film-hd{
+  display:flex;align-items:center;gap:9px;padding:11px 14px;
+  background:var(--booth-card);border-bottom:1px solid var(--booth-line);
+}
+.film-hd img{width:20px;height:auto;border-radius:4px;flex:none}
+.film-model{font:700 14px/1.2 var(--font-body);color:var(--booth-text)}
+.film-calls{font:400 11px/1 var(--font-code);color:var(--booth-muted);margin-left:4px}
+.film-score{
+  margin-left:auto;padding:4px 10px;border-radius:999px;
+  font:700 12px/1 var(--font-code);background:var(--booth);color:var(--booth-text);border:1px solid var(--booth-line);
+}
+.film-card.winner .film-score{
+  background:color-mix(in srgb,var(--audio-ok) 26%,transparent);
+  border-color:var(--audio-ok);color:var(--audio-soft);
+}
+.film-card.flawed .film-score{
+  background:color-mix(in srgb,var(--accent) 26%,transparent);
+  border-color:var(--accent);color:var(--accent-soft);
+}
+.film-vid-wrap{background:var(--booth)}
+.film-vid{display:block;width:100%;height:auto}
+.film-meta{padding:12px 14px 14px;display:flex;flex-direction:column;gap:9px;flex:1}
+.mini-dims{display:flex;flex-wrap:wrap;gap:6px}
+.md-pill{
+  padding:4px 8px;border-radius:6px;background:var(--booth);border:1px solid var(--booth-line);
+  font:700 11px/1 var(--font-code);color:var(--booth-soft);
+}
+.md-pill.low{border-color:var(--accent);color:var(--accent-soft)}
+.film-diag{font-size:13px;line-height:1.48;color:var(--booth-soft)}
+
+.contact-strip{
+  margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  font-size:13px;color:var(--text-muted);
+}
+
+/* ─── Collapsible Data Drawers (verified paper tables) ─── */
+.fold-stack{display:grid;gap:12px;margin-top:22px}
+details.fold{
+  background:var(--canvas-card);border:1px solid var(--line);border-radius:12px;
+}
+details.fold:not([open])>.fold-body{display:none}
+details.fold>summary{
+  list-style:none;cursor:pointer;padding:13px 18px;border-radius:11px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  font:700 14px/1.35 var(--font-body);color:var(--text);background:var(--canvas);
+  transition:background .14s;
+}
+details.fold>summary::-webkit-details-marker{display:none}
+details.fold>summary:hover{background:var(--brand-soft);color:var(--brand)}
+details.fold[open]>summary{border-bottom:1px solid var(--line);border-radius:11px 11px 0 0}
+.fold-tag{
+  margin-left:auto;font:700 11px/1 var(--font-code);color:var(--brand);
+  padding:4px 9px;border-radius:999px;background:var(--canvas-card);border:1px solid var(--line);white-space:nowrap;
+}
+.fold-body{padding:18px 18px 20px;background:var(--canvas-card);border-radius:0 0 11px 11px}
+
+.data-tbl-wrap+.data-tbl-wrap{margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
+.data-tbl-lead{font:700 16px/1.35 var(--font-head);color:var(--text);margin:0 0 12px}
+.data-tbl{
+  width:100%;border-collapse:collapse;font-size:13px;
+  font-variant-numeric:tabular-nums lining-nums;background:var(--canvas-card);
+}
+.data-tbl.compact{max-width:680px}
+.data-tbl caption{
+  caption-side:bottom;margin-top:11px;font-size:12px;line-height:1.5;color:var(--text-muted);text-align:left;max-width:92ch;
+}
+.data-tbl th,.data-tbl td{padding:7px 7px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+.data-tbl th.l,.data-tbl td.l{text-align:left;white-space:normal}
+.data-tbl thead th{
+  font:700 11.5px/1.3 var(--font-body);color:var(--text);border-bottom:1.5px solid var(--text-soft);
+  vertical-align:bottom;
+}
+.data-tbl tr.sec-row th{
+  text-align:left;font:700 11px/1.3 var(--font-code);text-transform:uppercase;letter-spacing:.06em;
+  color:var(--brand);background:var(--canvas);padding-top:10px;
+}
+.data-tbl tr.hl-row{background:var(--brand-soft)}
+.data-tbl tr.hl-row td,.data-tbl tr.hl-row th{font-weight:700}
+.data-tbl b.hi{color:var(--brand);font-weight:700}
+.fold-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;align-items:stretch}
+
+/* ─── Honest Scope, Citation & Footer ─── */
+.scope-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:22px}
+.scope-card{
+  background:var(--canvas-card);border:1px solid var(--line);border-radius:12px;padding:15px 16px;
+}
+.scope-card h3{font-size:14.5px;color:var(--text)}
+.scope-card p{margin-top:6px;font-size:13px;line-height:1.5;color:var(--text-muted)}
+
+.cite-shell{
+  border:1px solid var(--line);border-radius:14px;background:var(--canvas-card);
+  overflow:hidden;max-width:820px;
+}
+.cite-top{
+  display:flex;align-items:center;gap:12px;padding:10px 16px;
+  border-bottom:1px solid var(--line);background:var(--canvas);
+}
+.cite-top span{font:700 12px/1.2 var(--font-code);color:var(--text-muted)}
+.cite-copy{
+  margin-left:auto;font:700 12.5px/1 var(--font-body);color:var(--brand);
+  background:var(--brand-soft);border:1px solid var(--brand-line);
+  border-radius:8px;padding:8px 14px;cursor:pointer;
+}
+.cite-copy:hover{background:var(--brand);border-color:var(--brand);color:var(--canvas-card)}
+pre.bib-code{margin:0;padding:16px 18px;font:400 13px/1.62 var(--font-code);color:var(--text);overflow-x:auto;white-space:pre}
+.footnote{font-size:12.5px;line-height:1.55;color:var(--text-muted);margin-top:12px;max-width:86ch}
+
+.site-foot{border-top:1px solid var(--line);padding:28px clamp(18px,3.6vw,36px);background:var(--canvas-warm)}
+.foot-row{
+  max-width:1180px;margin:0 auto;display:flex;gap:18px;flex-wrap:wrap;justify-content:space-between;
+  font-size:13px;line-height:1.58;color:var(--text-muted);
+}
+.foot-row p{max-width:68ch}
+
+dialog.lightbox{border:0;padding:0;max-width:96vw;max-height:94vh;background:transparent}
+dialog.lightbox::backdrop{background:color-mix(in srgb,var(--booth) 90%,transparent)}
+dialog.lightbox img{display:block;max-width:96vw;max-height:84vh;width:auto;height:auto;background:var(--canvas-card);border-radius:10px}
+.lb-bar{display:flex;gap:12px;align-items:center;margin-top:10px}
+.lb-bar p{margin:0;font:400 12.5px/1.5 var(--font-code);color:var(--booth-text);flex:1}
+.lb-close{font:700 13px/1 var(--font-body);color:var(--text);background:var(--canvas-card);border:0;border-radius:8px;padding:9px 15px;cursor:pointer}
+
+section[id]{scroll-margin-top:68px}
+
+/* ─── Responsive Breakpoints ─── */
+@media (max-width:1040px){
+  .data-tbl.wide,.data-tbl.wide tbody,.data-tbl.wide tr,.data-tbl.wide td,.data-tbl.wide th{display:block}
+  .data-tbl.wide thead{display:none}
+  .data-tbl.wide caption{display:block;caption-side:bottom}
+  .data-tbl.wide tr{border:1px solid var(--line);border-radius:10px;padding:4px 0;margin-bottom:10px;background:var(--canvas-card)}
+  .data-tbl.wide tr.sec-row{border:0;background:none;margin:12px 0 6px;padding:0}
+  .data-tbl.wide th[scope=row]{font-weight:700;font-size:14px;padding:7px 12px;border-bottom:1px solid var(--line);text-align:left}
+  .data-tbl.wide td{display:flex;justify-content:space-between;gap:10px;padding:5px 12px;border:0;white-space:normal;text-align:right}
+  .data-tbl.wide td::before{content:attr(data-col);font:400 11px/1.35 var(--font-code);color:var(--text-muted);text-align:left}
+}
+
+@media (max-width:960px){
+  .hero-reel-grid,.env-split,.rq1-grid,.wf-pair,.loop-split,.duel-grid,.fold-two{grid-template-columns:minmax(0,1fr)}
+  .reel-player-col{border-right:0;border-bottom:1px solid var(--booth-line)}
+  .stat-row,.genre-grid,.scope-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .screen-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .topbar-in{flex-wrap:wrap;gap:10px}
+  .top-nav{margin-left:0;width:100%}
+  .top-nav a{font-size:12.5px;padding:7px 10px}
+}
+
+@media (max-width:660px){
+  body{font-size:15.5px}
+  .stat-row,.genre-grid,.scope-grid,.rule-pair,.sheet-dims{grid-template-columns:minmax(0,1fr)}
+  .screen-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .rank-row{grid-template-columns:138px 1fr 56px}
+  .data-tbl,.data-tbl tbody,.data-tbl tr,.data-tbl td,.data-tbl th{display:block}
+  .data-tbl thead{display:none}
+  .data-tbl tr{border:1px solid var(--line);border-radius:10px;padding:4px 0;margin-bottom:10px;background:var(--canvas-card)}
+  .data-tbl th[scope=row]{font-weight:700;padding:7px 12px;border-bottom:1px solid var(--line);text-align:left}
+  .data-tbl td{display:flex;justify-content:space-between;gap:10px;padding:5px 12px;border:0;white-space:normal}
+  .data-tbl td::before{content:attr(data-col);font:400 11px/1.35 var(--font-code);color:var(--text-muted);text-align:left}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="studio-brand" href="#hero"><img src="assets/brand/studiobench-mark.svg" alt="" width="28" height="28" aria-hidden="true">StudioBench</a>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#hero">Overview</a>
+      <a href="#environment">Environment</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#workflows">Workflows</a>
+      <a href="#screening">Screening Room</a>
+      <a class="top-cite" href="#citation">BibTeX</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ═══════════════ ACT 1 · HERO & FEATURE FILM SCREENING ═══════════════ -->
+<section class="opening" id="hero" aria-labelledby="hero-h">
+  <div class="opening-in">
+    <div class="opening-head">
+      <span class="slate-tag"><span class="slate-dot" aria-hidden="true"></span>End-to-End Agentic Audiovisual Creation</span>
+      <h1 id="hero-h">
+        <span class="title-display">StudioBench</span>
+        <span class="title-sub">Benchmarking Agentic Multimodal Large Language Models for Productive Audiovisual Creation</span>
+      </h1>
+      <p class="opening-thesis">Video generators render short clips. <b>Complete films demand a director</b> &mdash; planning scenes, generating visuals and sound, inspecting defects, trimming, mixing, and revising across <b>33 atomic tools</b> with zero workflow templates.</p>
+      <div class="opening-cta">
+        <a class="action-pill solid" href="#screening">Watch Multi-Genre Screening Room</a>
+        <a class="action-pill" href="#leaderboard">7-Model Leaderboard</a>
+        <a class="action-pill" href="#workflows">Emergent Workflows</a>
+        <a class="action-pill" href="#citation">Cite</a>
+      </div>
+    </div>
+
+    <div class="booth-shell" id="hero-reel">
+  <div class="booth-chrome">
+    <span class="rec-badge"><i></i>Feature Screening</span>
+    <span class="booth-title">EDU-OPN-045 &middot; Claude Opus 5.5 &middot; Autonomous 153s Animated Short</span>
+    <span class="booth-score-chip">Overall 100.0 &middot; 7/7 Checklist Items Met</span>
+  </div>
+  <div class="hero-reel-grid">
+    <div class="reel-player-col">
+      <div class="reel-frame">
+        <video id="hero-video" class="reel-video" poster="assets/videos/hero-edu-045-claude-poster.jpg" width="768" height="432" controls muted loop playsinline preload="metadata"><source src="assets/videos/hero-edu-045-claude.webm" type="video/webm"><source src="assets/videos/hero-edu-045-claude.mp4" type="video/mp4"></video>
+      </div>
+      <div class="audio-hint">
+        <span>24s highlight excerpt with full voiceover, SFX &amp; score (from 153s film)</span>
+        <button type="button" id="hero-sound-btn" class="sound-toggle" aria-pressed="false">Enable Film Sound</button>
+      </div>
+    </div>
+    <div class="call-sheet">
+      <div class="sheet-box">
+        <p class="sheet-kicker">Production Brief (No Workflow Template Provided)</p>
+        <p class="sheet-brief">&ldquo;Make a foreign-language AI animated short story for young children, in which a reckless little bee and a calm little ant team up on an adventure to find nectar, naturally conveying courage, calm, cooperation and growth.&rdquo; (120&ndash;180s &middot; 16:9)</p>
+      </div>
+      <div class="sheet-dims">
+        <div class="dim-tile sem"><b>100</b><span>SEM</span></div>
+        <div class="dim-tile vis"><b>100</b><span>VIS</span></div>
+        <div class="dim-tile aud"><b>100</b><span>AUD</span></div>
+        <div class="dim-tile av"><b>100</b><span>AV</span></div>
+      </div>
+      <div class="pipe-strip">
+        <span class="pipe-label">Reconstructed Emergent Workflow Graph G(&tau;)</span>
+        <div class="pipe-pills">
+          <span class="pipe-step">Image Keyframes</span>
+          <span class="pipe-step">Video Clips</span>
+          <span class="pipe-step">36 Voice Lines &amp; Music</span>
+          <span class="pipe-step">Edit &amp; Mix</span>
+          <span class="pipe-step">Visual Checks</span>
+          <span class="pipe-step export">Export</span>
+        </div>
+      </div>
+      <div class="sheet-stats">
+        <div class="ss-item"><b>162</b><span>tool calls</span></div>
+        <div class="ss-item"><b>269</b><span>artifact edges</span></div>
+        <div class="ss-item"><b>107 / 162</b><span>reached film</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="stat-row">
+      <div class="stat-tile">
+        <div class="stat-num">160 <span style="font-size:.58em;color:var(--text-muted)">tasks</span></div>
+        <div class="stat-k">8 Genres &middot; 1&ndash;3 Min Films</div>
+        <div class="stat-d">Adapted from published AIGC works with 1,686 verifiable checklist items</div>
+      </div>
+      <div class="stat-tile">
+        <div class="stat-num">33 <span style="font-size:.58em;color:var(--text-muted)">tools</span></div>
+        <div class="stat-k">Atomic Studio Environment</div>
+        <div class="stat-d">Fixed MiniMax-H3 generator &middot; no shell &middot; zero workflow templates</div>
+      </div>
+      <div class="stat-tile emph">
+        <div class="stat-num">98.1% <span style="font-size:.55em;color:var(--text-muted)">vs 33.8pt</span></div>
+        <div class="stat-k">Briefs Saturate; Craft Separates</div>
+        <div class="stat-d">Mean film satisfies 98.1% of requirements, yet visual clarity spans 33.8 points</div>
+      </div>
+      <div class="stat-tile emph">
+        <div class="stat-num">r = 0.997</div>
+        <div class="stat-k">21/21 Human&ndash;Judge Model Order</div>
+        <div class="stat-d">Automated 6-call VLM judge validated against 2,313 human ratings (116 tasks)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 2 · BENCHMARK & 33-TOOL STUDIO ENVIRONMENT ═══════════════ -->
+<section class="chapter" id="environment" aria-labelledby="env-h">
+  <div class="chap-head">
+    <p class="chap-eyebrow">The Benchmark &amp; Studio Sandbox</p>
+    <h2 id="env-h">Eight genres of real audiovisual deliverables, built from atomic tools.</h2>
+    <p class="chap-lede">StudioBench moves beyond isolated clip scoring and fixed-template pipelines. Every task specifies a production brief, duration window (60&ndash;180s), and aspect ratio across five task types &mdash; Open Brief, Constraint, Asset-conditioned, Reference-conditioned, and Audio-led.</p>
+  </div>
+
+  <div class="genre-grid"><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/nar.webp" type="image/webp"><img src="assets/genres/nar.jpg" width="640" height="360" alt="Narrative delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Narrative</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Long-range storytelling &amp; character continuity</p>
+    <div class="genre-leader"><span>Mean 82.8</span><b>Top: Claude 95.3</b></div>
+  </div>
+</article><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/com.webp" type="image/webp"><img src="assets/genres/com.jpg" width="640" height="360" alt="Commercial delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Commercial</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Advertisements under strict brand &amp; pacing constraints</p>
+    <div class="genre-leader"><span>Mean 84.1</span><b>Top: Claude 92.6</b></div>
+  </div>
+</article><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/pro.webp" type="image/webp"><img src="assets/genres/pro.jpg" width="640" height="360" alt="Product delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Product</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Faithful product specs, overlays &amp; 41% code rendering</p>
+    <div class="genre-leader"><span>Mean 88.0</span><b>Top: Gemini 97.8</b></div>
+  </div>
+</article><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/edu.webp" type="image/webp"><img src="assets/genres/edu.jpg" width="640" height="360" alt="Education delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Education</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Explaining knowledge clearly with structured visuals</p>
+    <div class="genre-leader"><span>Mean 86.3</span><b>Top: Gemini 94.7</b></div>
+  </div>
+</article><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/mus.webp" type="image/webp"><img src="assets/genres/mus.jpg" width="640" height="360" alt="Music delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Music</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Music as the timeline, beat cutting &amp; choreography</p>
+    <div class="genre-leader"><span>Mean 82.1</span><b>Top: DeepSeek / GPT-6 88.6</b></div>
+  </div>
+</article><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/doc.webp" type="image/webp"><img src="assets/genres/doc.jpg" width="640" height="360" alt="Documentary delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Documentary</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Organizing cultural facts, narration &amp; archival pace</p>
+    <div class="genre-leader"><span>Mean 89.0</span><b>Top: Gemini 93.6</b></div>
+  </div>
+</article><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/cre.webp" type="image/webp"><img src="assets/genres/cre.jpg" width="640" height="360" alt="Creator delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Creator</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Online-native visual essays &amp; atmospheric CG worlds</p>
+    <div class="genre-leader"><span>Mean 86.7</span><b>Top: Claude 96.6</b></div>
+  </div>
+</article><article class="genre-card">
+  <div class="genre-shot">
+    <picture><source srcset="assets/genres/dia.webp" type="image/webp"><img src="assets/genres/dia.jpg" width="640" height="360" alt="Dialogue delivered film still" loading="lazy" decoding="async"></picture>
+  </div>
+  <div class="genre-info">
+    <div class="genre-top"><h3>Dialogue</h3><span class="genre-count">20 tasks</span></div>
+    <p class="genre-focus">Multi-turn character speech &amp; tight lip synchronization</p>
+    <div class="genre-leader"><span>Mean 81.7</span><b>Top: Claude 95.8</b></div>
+  </div>
+</article></div>
+
+  <div class="env-split">
+    <figure class="plate">
+<a class="plate-link" href="assets/figures/fig2-environment.png" aria-label="Open Figure 2 at full size">
+<picture><source srcset="assets/figures/fig2-environment.webp" type="image/webp"><img src="assets/figures/fig2-environment.png" width="1081" height="1684" alt="StudioBench atomic tool environment, 13 whole-film metrics across SEM, VIS, AUD, AV, and workflow graph attribution diagram." decoding="async" sizes="(max-width:960px) 92vw, 520px"></picture>
+</a>
+<figcaption class="plate-cap"><span class="plate-id">Figure 2</span>Top: the 33 atomic tools across eight groups with a single fixed video backend. Middle: 13 whole-film metrics + checklist + FFmpeg probes form the score. Bottom: reconstructed workflow graph G(τ) explains outcomes without entering the score.</figcaption>
+</figure>
+    <div class="tool-panel" id="tool-explorer" data-tools="[{&quot;name&quot;:&quot;Video Generation&quot;,&quot;tools&quot;:[&quot;t2v&quot;,&quot;i2v&quot;,&quot;ref_video&quot;],&quot;note&quot;:&quot;All video generation routes through one fixed backend (MiniMax-H3, 5s or 8s segments with native audio) so remaining variance reflects directing skill rather than generator swapping.&quot;},{&quot;name&quot;:&quot;Image &amp; Keyframes&quot;,&quot;tools&quot;:[&quot;t2i&quot;,&quot;image_edit&quot;,&quot;remove_bg&quot;],&quot;note&quot;:&quot;Used to build character sheets, lock appearance across shots via editing, and craft starting/ending keyframes before animating video clips.&quot;},{&quot;name&quot;:&quot;Sound &amp; Voice&quot;,&quot;tools&quot;:[&quot;tts&quot;,&quot;music&quot;,&quot;sfx&quot;,&quot;lipsync&quot;],&quot;note&quot;:&quot;Synthesizes voiceover and character dialogue (with optional voice_ref), background scores, video-conditioned sound effects, and talking-head lip sync.&quot;},{&quot;name&quot;:&quot;Code Rendering&quot;,&quot;tools&quot;:[&quot;render_html&quot;,&quot;render_three&quot;,&quot;render_blender&quot;],&quot;note&quot;:&quot;Frame-accurate HTML/CSS/SVG/Canvas/WebGL, Three.js 3D scenes, and Blender 5.2 Python scripts \u2014 supplying up to 41% of delivered shots in Product explainers.&quot;},{&quot;name&quot;:&quot;Video Editing&quot;,&quot;tools&quot;:[&quot;trim&quot;,&quot;concat&quot;,&quot;transition&quot;,&quot;overlay&quot;,&quot;composite&quot;,&quot;reframe&quot;,&quot;speed&quot;,&quot;color&quot;,&quot;ken_burns&quot;],&quot;note&quot;:&quot;Full non-linear assembly without shell access: trimming clip edges, joining transitions, burned-in captions, alpha compositing, aspect reframing, grading, and pan-and-zoom.&quot;},{&quot;name&quot;:&quot;Audio Processing&quot;,&quot;tools&quot;:[&quot;mix_audio&quot;,&quot;audio_mix&quot;,&quot;audio_edit&quot;],&quot;note&quot;:&quot;Multitrack mixing with start offsets, gain, fades, voice ducking, and loudness normalization \u2014 where silent-gain bugs can occur if outputs are never audited.&quot;},{&quot;name&quot;:&quot;Inspection &amp; Search&quot;,&quot;tools&quot;:[&quot;sample_frames&quot;,&quot;inspect&quot;,&quot;asr&quot;,&quot;scene_detect&quot;,&quot;beat_detect&quot;,&quot;search&quot;,&quot;fetch_url&quot;],&quot;note&quot;:&quot;Visual frame sampling, file metadata inspection, self-ASR narration verification, shot/beat detection, and factual web search (with each task&#x27;s source video blocked).&quot;},{&quot;name&quot;:&quot;Delivery&quot;,&quot;tools&quot;:[&quot;export&quot;],&quot;note&quot;:&quot;The sole delivery tool. A run without calling export scores 0 across all dimensions; multiple exports mark post-review revision loops.&quot;}]">
+  <div>
+    <p class="chap-eyebrow" style="margin-bottom:4px">Interactive Tool Deck &middot; 8 Groups</p>
+    <h3 style="font-size:21px">33 Atomic Tools, Zero Shell Access</h3>
+    <p style="font-size:14px;color:var(--text-soft);margin-top:6px">Every model directs through the exact same MCP server and fixed MiniMax-H3 video generator, with a budget of 200 tool calls and 4&ndash;8 wall-clock hours per film.</p>
+  </div>
+  <div class="tool-tabs" role="group" aria-label="Filter atomic tool categories"><button type="button" class="tool-tab" aria-pressed="true">Video Generation</button><button type="button" class="tool-tab" aria-pressed="false">Image &amp; Keyframes</button><button type="button" class="tool-tab" aria-pressed="false">Sound &amp; Voice</button><button type="button" class="tool-tab" aria-pressed="false">Code Rendering</button><button type="button" class="tool-tab" aria-pressed="false">Video Editing</button><button type="button" class="tool-tab" aria-pressed="false">Audio Processing</button><button type="button" class="tool-tab" aria-pressed="false">Inspection &amp; Search</button><button type="button" class="tool-tab" aria-pressed="false">Delivery</button></div>
+  <div class="tool-detail">
+    <div class="tool-detail-hd"><h4>Video Generation</h4><span>3 tools</span></div>
+    <div class="tool-chips"><span class="tool-chip">t2v</span><span class="tool-chip">i2v</span><span class="tool-chip">ref_video</span></div>
+    <p class="tool-note">All video generation routes through one fixed backend (MiniMax-H3, 5s or 8s segments with native audio) so remaining variance reflects directing skill rather than generator swapping.</p>
+  </div>
+  <div class="rule-pair">
+    <div class="rule-box score">
+      <h4>Film Quality = The Score</h4>
+      <p>6 modality-separated VLM judge calls answer 73 time-stamped defect checks + 1,686 brief requirements + FFmpeg audio/frame probes.</p>
+    </div>
+    <div class="rule-box attr">
+      <h4>Workflow Graph G(&tau;) = Attribution Only</h4>
+      <p>File read/write edges reconstruct exact tool dependencies to diagnose <i>why</i> films succeed or fail &mdash; never entering the score.</p>
+    </div>
+  </div>
+</div>
+  </div>
+
+  <h3 class="sub-title">Balanced Coverage &amp; Verifiable Checklists</h3>
+  <p class="sub-copy">160 tasks are sampled from 1,275 screened public AIGC works (20 per genre). Each brief is split into atomic, exact-quote requirements (median 10 items, 545 critical) never shown to the director model.</p>
+  <figure class="plate">
+<a class="plate-link" href="assets/figures/fig3-dataset.png" aria-label="Open Figure 3 at full size">
+<picture><source srcset="assets/figures/fig3-dataset.webp" type="image/webp"><img src="assets/figures/fig3-dataset.png" width="2501" height="1048" alt="Dataset statistics matrix across 8 genres and 5 task types, duration and sound distributions, and the EDU-OPN-045 checklist." decoding="async" sizes="(max-width:1180px) 92vw, 1120px"></picture>
+</a>
+<figcaption class="plate-cap"><span class="plate-id">Figure 3</span>Left: genre-by-task-type matrix across 160 tasks. Middle: target durations (60–180s), multi-label sound requirements (157 music, 128 SFX, 89 speech, 55 dialogue), and 1,686 checklist item types. Right: full brief and checklist for EDU-OPN-045.</figcaption>
+</figure>
+
+  <div class="fold-stack">
+    <details class="fold">
+      <summary><span>Compare StudioBench Against Existing Video &amp; Agent Benchmarks (Table 1)</span><span class="fold-tag">Table 1</span></summary>
+      <div class="fold-body"><div class="data-tbl-wrap">
+<p class="data-tbl-lead">StudioBench uniquely evaluates general MLLMs on minute-scale audiovisual creation with atomic tools and zero workflow prior.</p>
+<table class="data-tbl wide">
+<caption><b>Table 1.</b> Comparison with existing video and audiovisual benchmarks. *Model-dependent.</caption>
+<thead><tr><th class="l">Work</th><th class="l">Evaluates</th><th>Length</th><th class="l">Production Interface</th><th class="l">Audio</th><th class="l">Workflow Prior</th></tr></thead>
+<tbody><tr><th scope="row" class="l">VBench</th><td class="l" data-col="Evaluates">Generator</td><td data-col="Length">~2 s</td><td class="l" data-col="Production Interface">Generator</td><td class="l" data-col="Audio">None</td><td class="l" data-col="Workflow Prior">—</td></tr><tr><th scope="row" class="l">VBench-2.0</th><td class="l" data-col="Evaluates">Generator</td><td data-col="Length">5–10 s*</td><td class="l" data-col="Production Interface">Generator</td><td class="l" data-col="Audio">None</td><td class="l" data-col="Workflow Prior">—</td></tr><tr><th scope="row" class="l">LongAV-Compass</th><td class="l" data-col="Evaluates">Generator</td><td data-col="Length">1–2 min</td><td class="l" data-col="Production Interface">Generator</td><td class="l" data-col="Audio">Generated audio</td><td class="l" data-col="Workflow Prior">—</td></tr><tr><th scope="row" class="l">VideoGen-Agent</th><td class="l" data-col="Evaluates">Agent</td><td data-col="Length">≤15 s</td><td class="l" data-col="Production Interface">Generator</td><td class="l" data-col="Audio">None</td><td class="l" data-col="Workflow Prior">Fixed template</td></tr><tr><th scope="row" class="l">VideoWeaver</th><td class="l" data-col="Evaluates">Agent</td><td data-col="Length">~1 min</td><td class="l" data-col="Production Interface">Generator + Skills</td><td class="l" data-col="Audio">Speech only</td><td class="l" data-col="Workflow Prior">Fixed skills</td></tr><tr><th scope="row" class="l">VibeVideoBench</th><td class="l" data-col="Evaluates">Agent</td><td data-col="Length">8 s–15 min</td><td class="l" data-col="Production Interface">Code rendering</td><td class="l" data-col="Audio">Speech + code synth</td><td class="l" data-col="Workflow Prior">None</td></tr><tr class="hl-row"><th scope="row" class="l">StudioBench (Ours)</th><td class="l" data-col="Evaluates">Agent</td><td data-col="Length">1–3 min</td><td class="l" data-col="Production Interface">Generator + Code + 33 Atomic Tools</td><td class="l" data-col="Audio">Speech / Music / SFX</td><td class="l" data-col="Workflow Prior">None (emergent)</td></tr></tbody>
+</table></div></div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 3 · RQ1: PRODUCT QUALITY & COST PARETO ═══════════════ -->
+<div class="band-warm">
+<section class="chapter" id="leaderboard" aria-labelledby="rq1-h">
+  <div class="chap-head">
+    <p class="chap-eyebrow">RQ1 &middot; Product Quality &amp; Cost</p>
+    <h2 id="rq1-h">Explicit requirements are saturated; audiovisual craft separates the models.</h2>
+    <p class="chap-lede">Across 1,120 runs (7 MLLMs &times; 160 tasks, 1,063 delivered films), four performance tiers emerge. Claude Opus 5.5 (92.2) and Gemini 4 Argon (92.0) lead statistically tied at the top, while Gemini and Doubao define strong cost&ndash;quality operating points.</p>
+  </div>
+
+  <div class="rq1-grid">
+  <div class="board-card" id="sb-leaderboard" data-models="[{&quot;slug&quot;:&quot;claude&quot;,&quot;name&quot;:&quot;Claude Opus 5.5&quot;,&quot;short&quot;:&quot;Claude&quot;,&quot;logo&quot;:&quot;claude.png&quot;,&quot;overall&quot;:92.2,&quot;SEM&quot;:96.6,&quot;VIS&quot;:86.3,&quot;AUD&quot;:95.0,&quot;AV&quot;:89.4,&quot;done&quot;:97.5,&quot;cost&quot;:8.8,&quot;pareto&quot;:true,&quot;nodes&quot;:160,&quot;depth&quot;:11,&quot;used&quot;:0.75,&quot;mins&quot;:125,&quot;tokens&quot;:&quot;6.39M / 149k&quot;,&quot;human&quot;:88.0,&quot;judge116&quot;:92.8},{&quot;slug&quot;:&quot;gemini&quot;,&quot;name&quot;:&quot;Gemini 4 Argon&quot;,&quot;short&quot;:&quot;Gemini&quot;,&quot;logo&quot;:&quot;gemini.png&quot;,&quot;overall&quot;:92.0,&quot;SEM&quot;:97.6,&quot;VIS&quot;:83.8,&quot;AUD&quot;:95.4,&quot;AV&quot;:88.9,&quot;done&quot;:99.38,&quot;cost&quot;:2.86,&quot;pareto&quot;:true,&quot;nodes&quot;:140,&quot;depth&quot;:9,&quot;used&quot;:0.84,&quot;mins&quot;:79,&quot;tokens&quot;:&quot;1.73M / 47k&quot;,&quot;human&quot;:84.9,&quot;judge116&quot;:91.4},{&quot;slug&quot;:&quot;gpt6&quot;,&quot;name&quot;:&quot;GPT-6 Astra&quot;,&quot;short&quot;:&quot;GPT-6&quot;,&quot;logo&quot;:&quot;gpt6.png&quot;,&quot;overall&quot;:88.8,&quot;SEM&quot;:97.6,&quot;VIS&quot;:72.7,&quot;AUD&quot;:93.7,&quot;AV&quot;:87.0,&quot;done&quot;:100.0,&quot;cost&quot;:2.57,&quot;pareto&quot;:true,&quot;nodes&quot;:127,&quot;depth&quot;:10,&quot;used&quot;:0.88,&quot;mins&quot;:56,&quot;tokens&quot;:&quot;0.57M / 16k&quot;,&quot;human&quot;:83.6,&quot;judge116&quot;:88.3},{&quot;slug&quot;:&quot;deepseek&quot;,&quot;name&quot;:&quot;DeepSeek V4.1 Flash&quot;,&quot;short&quot;:&quot;DeepSeek&quot;,&quot;logo&quot;:&quot;deepseek.png&quot;,&quot;overall&quot;:88.3,&quot;SEM&quot;:95.1,&quot;VIS&quot;:76.5,&quot;AUD&quot;:91.8,&quot;AV&quot;:86.5,&quot;done&quot;:97.5,&quot;cost&quot;:3.29,&quot;pareto&quot;:false,&quot;nodes&quot;:150,&quot;depth&quot;:10,&quot;used&quot;:0.72,&quot;mins&quot;:81,&quot;tokens&quot;:&quot;4.21M / 82k&quot;,&quot;human&quot;:81.8,&quot;judge116&quot;:87.6},{&quot;slug&quot;:&quot;doubao&quot;,&quot;name&quot;:&quot;Doubao Seed 2.1 Pro&quot;,&quot;short&quot;:&quot;Doubao&quot;,&quot;logo&quot;:&quot;doubao.png&quot;,&quot;overall&quot;:86.9,&quot;SEM&quot;:94.2,&quot;VIS&quot;:71.6,&quot;AUD&quot;:92.8,&quot;AV&quot;:85.0,&quot;done&quot;:100.0,&quot;cost&quot;:0.75,&quot;pareto&quot;:true,&quot;nodes&quot;:54,&quot;depth&quot;:7,&quot;used&quot;:0.93,&quot;mins&quot;:47,&quot;tokens&quot;:&quot;0.58M / 18k&quot;,&quot;human&quot;:81.3,&quot;judge116&quot;:87.2},{&quot;slug&quot;:&quot;qwen&quot;,&quot;name&quot;:&quot;Qwen3.8 Max&quot;,&quot;short&quot;:&quot;Qwen&quot;,&quot;logo&quot;:&quot;qwen.png&quot;,&quot;overall&quot;:83.9,&quot;SEM&quot;:92.5,&quot;VIS&quot;:69.6,&quot;AUD&quot;:87.0,&quot;AV&quot;:83.0,&quot;done&quot;:95.0,&quot;cost&quot;:2.59,&quot;pareto&quot;:false,&quot;nodes&quot;:97,&quot;depth&quot;:9,&quot;used&quot;:0.85,&quot;mins&quot;:79,&quot;tokens&quot;:&quot;1.65M / 47k&quot;,&quot;human&quot;:77.0,&quot;judge116&quot;:83.3},{&quot;slug&quot;:&quot;mimo&quot;,&quot;name&quot;:&quot;MiMo v2.6 Pro&quot;,&quot;short&quot;:&quot;MiMo&quot;,&quot;logo&quot;:&quot;mimo.png&quot;,&quot;overall&quot;:63.4,&quot;SEM&quot;:71.0,&quot;VIS&quot;:51.8,&quot;AUD&quot;:67.3,&quot;AV&quot;:60.9,&quot;done&quot;:75.0,&quot;cost&quot;:3.01,&quot;pareto&quot;:false,&quot;nodes&quot;:76,&quot;depth&quot;:7,&quot;used&quot;:0.95,&quot;mins&quot;:66,&quot;tokens&quot;:&quot;0.51M / 54k&quot;,&quot;human&quot;:60.1,&quot;judge116&quot;:64.9}]" data-metrics="[{&quot;key&quot;:&quot;overall&quot;,&quot;label&quot;:&quot;Overall&quot;,&quot;better&quot;:&quot;higher&quot;,&quot;floor&quot;:55,&quot;fmt&quot;:&quot;num&quot;,&quot;blurb&quot;:&quot;Genre-weighted overall score (0\u2013100) averaged across all 160 tasks; undelivered runs score 0.&quot;},{&quot;key&quot;:&quot;SEM&quot;,&quot;label&quot;:&quot;Semantics&quot;,&quot;better&quot;:&quot;higher&quot;,&quot;floor&quot;:60,&quot;fmt&quot;:&quot;num&quot;,&quot;blurb&quot;:&quot;Requirement checklist completion and narrative expression (weighted 2:1); mean film meets 98.1% of items.&quot;},{&quot;key&quot;:&quot;VIS&quot;,&quot;label&quot;:&quot;Visual Craft&quot;,&quot;better&quot;:&quot;higher&quot;,&quot;floor&quot;:40,&quot;fmt&quot;:&quot;num&quot;,&quot;blurb&quot;:&quot;Clarity &amp; composition, body/object structure, motion, and cross-shot consistency \u2014 largest inter-model gap.&quot;},{&quot;key&quot;:&quot;AUD&quot;,&quot;label&quot;:&quot;Audio Quality&quot;,&quot;better&quot;:&quot;higher&quot;,&quot;floor&quot;:55,&quot;fmt&quot;:&quot;num&quot;,&quot;blurb&quot;:&quot;Speech intelligibility, voice naturalness, background sound, and loudness/mix balance.&quot;},{&quot;key&quot;:&quot;AV&quot;,&quot;label&quot;:&quot;AV Alignment&quot;,&quot;better&quot;:&quot;higher&quot;,&quot;floor&quot;:50,&quot;fmt&quot;:&quot;num&quot;,&quot;blurb&quot;:&quot;Lip sync, sound-event synchronization, and voiceover/music-to-picture fit.&quot;},{&quot;key&quot;:&quot;done&quot;,&quot;label&quot;:&quot;Delivered %&quot;,&quot;better&quot;:&quot;higher&quot;,&quot;floor&quot;:60,&quot;fmt&quot;:&quot;pct&quot;,&quot;blurb&quot;:&quot;Share of 160 tasks resulting in an exported film. MiMo v2.6 Pro stops before calling export on 36 runs.&quot;},{&quot;key&quot;:&quot;cost&quot;,&quot;label&quot;:&quot;Cost / Task \u2193&quot;,&quot;better&quot;:&quot;lower&quot;,&quot;floor&quot;:0,&quot;fmt&quot;:&quot;usd&quot;,&quot;blurb&quot;:&quot;Median LLM API cost per task. Gemini (92.0 at $2.86) and Doubao (86.9 at $0.75) anchor the Pareto frontier.&quot;}]">
+    <h3>Seven-Model Studio Leaderboard</h3>
+    <p class="board-sub">Switch dimensions to inspect where models converge and diverge. Hover any row to highlight it on the Pareto curve.</p>
+    <div class="metric-sw" role="group" aria-label="Select StudioBench metric"><button type="button" data-k="overall" aria-pressed="true">Overall</button><button type="button" data-k="SEM" aria-pressed="false">Semantics</button><button type="button" data-k="VIS" aria-pressed="false">Visual Craft</button><button type="button" data-k="AUD" aria-pressed="false">Audio Quality</button><button type="button" data-k="AV" aria-pressed="false">AV Alignment</button><button type="button" data-k="done" aria-pressed="false">Delivered %</button><button type="button" data-k="cost" aria-pressed="false">Cost / Task ↓</button></div>
+    <p class="metric-blurb">Genre-weighted overall score (0–100) averaged across all 160 tasks; undelivered runs score 0.</p>
+    <div class="rank-list"><div class="rank-row is-top is-pareto" data-model="claude"><div class="rank-nm"><span class="rank-idx">1</span><img class="rank-ico" src="assets/logos/claude.png" alt="" width="19" height="19" aria-hidden="true"><span>Claude Opus 5.5</span></div><div class="rank-track"><div class="rank-fill" style="width:100.0%"></div></div><div class="rank-val">92.2</div></div><div class="rank-row is-pareto" data-model="gemini"><div class="rank-nm"><span class="rank-idx">2</span><img class="rank-ico" src="assets/logos/gemini.png" alt="" width="19" height="19" aria-hidden="true"><span>Gemini 4 Argon</span></div><div class="rank-track"><div class="rank-fill" style="width:99.5%"></div></div><div class="rank-val">92.0</div></div><div class="rank-row is-pareto" data-model="gpt6"><div class="rank-nm"><span class="rank-idx">3</span><img class="rank-ico" src="assets/logos/gpt6.png" alt="" width="19" height="19" aria-hidden="true"><span>GPT-6 Astra</span></div><div class="rank-track"><div class="rank-fill" style="width:90.9%"></div></div><div class="rank-val">88.8</div></div><div class="rank-row" data-model="deepseek"><div class="rank-nm"><span class="rank-idx">4</span><img class="rank-ico" src="assets/logos/deepseek.png" alt="" width="19" height="19" aria-hidden="true"><span>DeepSeek V4.1 Flash</span></div><div class="rank-track"><div class="rank-fill" style="width:89.5%"></div></div><div class="rank-val">88.3</div></div><div class="rank-row is-pareto" data-model="doubao"><div class="rank-nm"><span class="rank-idx">5</span><img class="rank-ico" src="assets/logos/doubao.png" alt="" width="19" height="19" aria-hidden="true"><span>Doubao Seed 2.1 Pro</span></div><div class="rank-track"><div class="rank-fill" style="width:85.8%"></div></div><div class="rank-val">86.9</div></div><div class="rank-row" data-model="qwen"><div class="rank-nm"><span class="rank-idx">6</span><img class="rank-ico" src="assets/logos/qwen.png" alt="" width="19" height="19" aria-hidden="true"><span>Qwen3.8 Max</span></div><div class="rank-track"><div class="rank-fill" style="width:77.7%"></div></div><div class="rank-val">83.9</div></div><div class="rank-row" data-model="mimo"><div class="rank-nm"><span class="rank-idx">7</span><img class="rank-ico" src="assets/logos/mimo.png" alt="" width="19" height="19" aria-hidden="true"><span>MiMo v2.6 Pro</span></div><div class="rank-track"><div class="rank-fill" style="width:22.6%"></div></div><div class="rank-val">63.4</div></div></div>
+    <div class="board-foot">
+      <span class="rank-dir">higher is better &middot; 160 tasks</span>
+      <span>undelivered film = 0</span>
+    </div>
+  </div>
+  <div class="board-card">
+    <h3>Quality&ndash;Cost Pareto Frontier</h3>
+    <p class="board-sub">Higher expenditure does not yield proportional gains: Gemini reaches 92.0 at $2.86 vs. Claude's 92.2 at $8.80; Doubao scores 86.9 at $0.75.</p>
+    <svg class="pareto-svg" viewBox="0 0 540 325" role="img" aria-label="Quality versus median LLM cost per task across seven MLLMs, with dashed Pareto frontier connecting Doubao, GPT-6, Gemini, and Claude.">
+      <line class="grid-l" x1="44" y1="283.0" x2="516" y2="283.0"></line><text x="37" y="286.5" text-anchor="end">60</text><line class="grid-l" x1="44" y1="246.2" x2="516" y2="246.2"></line><text x="37" y="249.7" text-anchor="end">65</text><line class="grid-l" x1="44" y1="209.4" x2="516" y2="209.4"></line><text x="37" y="212.9" text-anchor="end">70</text><line class="grid-l" x1="44" y1="172.6" x2="516" y2="172.6"></line><text x="37" y="176.1" text-anchor="end">75</text><line class="grid-l" x1="44" y1="135.8" x2="516" y2="135.8"></line><text x="37" y="139.3" text-anchor="end">80</text><line class="grid-l" x1="44" y1="99.0" x2="516" y2="99.0"></line><text x="37" y="102.5" text-anchor="end">85</text><line class="grid-l" x1="44" y1="62.2" x2="516" y2="62.2"></line><text x="37" y="65.7" text-anchor="end">90</text><line class="grid-l" x1="44" y1="25.4" x2="516" y2="25.4"></line><text x="37" y="28.9" text-anchor="end">95</text><line class="grid-l" x1="44.0" y1="18" x2="44.0" y2="283"></line><text x="44.0" y="299" text-anchor="middle">$0</text><line class="grid-l" x1="138.4" y1="18" x2="138.4" y2="283"></line><text x="138.4" y="299" text-anchor="middle">$2</text><line class="grid-l" x1="232.8" y1="18" x2="232.8" y2="283"></line><text x="232.8" y="299" text-anchor="middle">$4</text><line class="grid-l" x1="327.2" y1="18" x2="327.2" y2="283"></line><text x="327.2" y="299" text-anchor="middle">$6</text><line class="grid-l" x1="421.6" y1="18" x2="421.6" y2="283"></line><text x="421.6" y="299" text-anchor="middle">$8</text><line class="grid-l" x1="516.0" y1="18" x2="516.0" y2="283"></line><text x="516.0" y="299" text-anchor="middle">$10</text><line class="axis-l" x1="44" y1="283" x2="516" y2="283"></line><line class="axis-l" x1="44" y1="18" x2="44" y2="283"></line><polyline class="frontier-l" points="79.4,85.0 165.3,71.0 179.0,47.4 459.4,46.0"></polyline><circle class="pt-par" data-pareto-model="claude" data-pareto="1" cx="459.4" cy="46.0" r="6.2"><title>Claude Opus 5.5: 92.2 at $8.80</title></circle><text class="pt-lbl pt-lbl-par" x="393.4" y="34.0">Claude (92.2)</text><circle class="pt-par" data-pareto-model="gemini" data-pareto="1" cx="179.0" cy="47.4" r="6.2"><title>Gemini 4 Argon: 92.0 at $2.86</title></circle><text class="pt-lbl pt-lbl-par" x="151.0" y="34.4">Gemini (92.0)</text><circle class="pt-par" data-pareto-model="gpt6" data-pareto="1" cx="165.3" cy="71.0" r="6.2"><title>GPT-6 Astra: 88.8 at $2.57</title></circle><text class="pt-lbl pt-lbl-par" x="89.3" y="62.0">GPT-6 (88.8)</text><circle class="pt-dom" data-pareto-model="deepseek" data-pareto="0" cx="199.3" cy="74.7" r="5.2"><title>DeepSeek V4.1 Flash: 88.3 at $3.29</title></circle><text class="pt-lbl" x="209.3" y="78.7">DeepSeek (88.3)</text><circle class="pt-par" data-pareto-model="doubao" data-pareto="1" cx="79.4" cy="85.0" r="6.2"><title>Doubao Seed 2.1 Pro: 86.9 at $0.75</title></circle><text class="pt-lbl pt-lbl-par" x="75.4" y="103.0">Doubao (86.9)</text><circle class="pt-dom" data-pareto-model="qwen" data-pareto="0" cx="166.2" cy="107.1" r="5.2"><title>Qwen3.8 Max: 83.9 at $2.59</title></circle><text class="pt-lbl" x="176.2" y="112.1">Qwen (83.9)</text><circle class="pt-dom" data-pareto-model="mimo" data-pareto="0" cx="186.1" cy="258.0" r="5.2"><title>MiMo v2.6 Pro: 63.4 at $3.01</title></circle><text class="pt-lbl" x="196.1" y="262.0">MiMo (63.4)</text>
+      <text x="280" y="320" text-anchor="middle">Median LLM Cost per Task (USD)</text>
+      <text x="12" y="24" transform="rotate(-90 12 24)" text-anchor="end">Overall Score</text>
+    </svg>
+    <div class="board-foot">
+      <span><span class="leg-dot par"></span>Pareto Frontier (4 models)</span>
+      <span><span class="leg-dot dom"></span>Dominated (3 models)</span>
+    </div>
+  </div>
+</div>
+
+  <h3 class="sub-title">Where Directors Actually Diverge</h3>
+  <p class="sub-copy">81% of delivered films satisfy every single checklist requirement, and mix balance averages 99. The real separation lies in five craft metrics &mdash; led by <b>Clarity &amp; Composition (33.8 pt spread)</b>, <b>Object Structure (18.5 pt)</b>, <b>Motion (14.5 pt)</b>, <b>Background Audio (14.5 pt)</b>, and <b>Cross-Shot Consistency (14.2 pt)</b>.</p>
+  <figure class="plate">
+<a class="plate-link" href="assets/figures/fig5-where-differ.png" aria-label="Open Figure 4 at full size">
+<picture><source srcset="assets/figures/fig5-where-differ.webp" type="image/webp"><img src="assets/figures/fig5-where-differ.png" width="1892" height="608" alt="Mean and inter-model spread across 13 StudioBench metrics alongside cross-shot character consistency examples on NAR-AST-004 and DIA-CON-104." decoding="async" sizes="(max-width:1180px) 92vw, 1120px"></picture>
+</a>
+<figcaption class="plate-cap"><span class="plate-id">Figure 4</span>(a) Mean score and inter-model spread across all 13 whole-film metrics; the five shaded craft metrics differ by ≥14 points. (b) Same-task consistency contrast: Claude preserves character identity across shots while Doubao and MiMo drift.</figcaption>
+</figure>
+
+  <div class="fold-stack">
+    <details class="fold">
+      <summary><span>Full Breakdown by 8 Genres, 5 Task Types &amp; 4 Sound Labels (Table 13)</span><span class="fold-tag">Table 13</span></summary>
+      <div class="fold-body"><div class="data-tbl-wrap">
+<p class="data-tbl-lead">Claude Opus 5.5 leads Narrative, Commercial, Creator, and Dialogue; Gemini 4 Argon leads Product, Education, and Documentary; DeepSeek &amp; GPT-6 tie in Music.</p>
+<table class="data-tbl wide">
+<caption><b>Table 13.</b> Mean overall score (0–100) across all 160 tasks by genre, task type, and required sound label; 0 for undelivered runs. Best per row highlighted.</caption>
+<thead><tr><th class="l">Slice</th><th>n</th><th>Claude</th><th>Gemini</th><th>DeepSeek</th><th>Qwen</th><th>GPT-6</th><th>MiMo</th><th>Doubao</th><th>All</th></tr></thead>
+<tbody><tr class="sec-row"><th colspan="10">By Genre (20 tasks each)</th></tr><tr><th scope="row" class="l">Narrative</th><td data-col="n">20</td><td data-col="Claude"><b class="hi">95.3</b></td><td data-col="Gemini">90.7</td><td data-col="DeepSeek">91.1</td><td data-col="Qwen">80.5</td><td data-col="GPT-6">83.8</td><td data-col="MiMo">57.1</td><td data-col="Doubao">81.0</td><td data-col="All">82.8</td></tr><tr><th scope="row" class="l">Commercial</th><td data-col="n">20</td><td data-col="Claude"><b class="hi">92.6</b></td><td data-col="Gemini">91.6</td><td data-col="DeepSeek">88.4</td><td data-col="Qwen">82.8</td><td data-col="GPT-6">86.2</td><td data-col="MiMo">56.1</td><td data-col="Doubao">90.7</td><td data-col="All">84.1</td></tr><tr><th scope="row" class="l">Product</th><td data-col="n">20</td><td data-col="Claude">86.8</td><td data-col="Gemini"><b class="hi">97.8</b></td><td data-col="DeepSeek">95.5</td><td data-col="Qwen">91.3</td><td data-col="GPT-6">93.3</td><td data-col="MiMo">62.2</td><td data-col="Doubao">88.6</td><td data-col="All">88.0</td></tr><tr><th scope="row" class="l">Education</th><td data-col="n">20</td><td data-col="Claude">90.2</td><td data-col="Gemini"><b class="hi">94.7</b></td><td data-col="DeepSeek">87.7</td><td data-col="Qwen">85.2</td><td data-col="GPT-6">93.1</td><td data-col="MiMo">64.8</td><td data-col="Doubao">88.3</td><td data-col="All">86.3</td></tr><tr><th scope="row" class="l">Music</th><td data-col="n">20</td><td data-col="Claude">87.0</td><td data-col="Gemini">85.4</td><td data-col="DeepSeek"><b class="hi">88.6</b></td><td data-col="Qwen">81.7</td><td data-col="GPT-6"><b class="hi">88.6</b></td><td data-col="MiMo">61.1</td><td data-col="Doubao">82.0</td><td data-col="All">82.1</td></tr><tr><th scope="row" class="l">Documentary</th><td data-col="n">20</td><td data-col="Claude">93.5</td><td data-col="Gemini"><b class="hi">93.6</b></td><td data-col="DeepSeek">88.0</td><td data-col="Qwen">84.4</td><td data-col="GPT-6">90.8</td><td data-col="MiMo">79.9</td><td data-col="Doubao">92.7</td><td data-col="All">89.0</td></tr><tr><th scope="row" class="l">Creator</th><td data-col="n">20</td><td data-col="Claude"><b class="hi">96.6</b></td><td data-col="Gemini">93.2</td><td data-col="DeepSeek">86.8</td><td data-col="Qwen">84.1</td><td data-col="GPT-6">84.6</td><td data-col="MiMo">73.5</td><td data-col="Doubao">88.3</td><td data-col="All">86.7</td></tr><tr><th scope="row" class="l">Dialogue</th><td data-col="n">20</td><td data-col="Claude"><b class="hi">95.8</b></td><td data-col="Gemini">89.0</td><td data-col="DeepSeek">80.7</td><td data-col="Qwen">81.3</td><td data-col="GPT-6">89.6</td><td data-col="MiMo">52.1</td><td data-col="Doubao">83.3</td><td data-col="All">81.7</td></tr><tr class="sec-row"><th colspan="10">By Task Type</th></tr><tr><th scope="row" class="l">Open Brief</th><td data-col="n">32</td><td data-col="Claude"><b class="hi">95.2</b></td><td data-col="Gemini">93.6</td><td data-col="DeepSeek">91.0</td><td data-col="Qwen">85.2</td><td data-col="GPT-6">92.1</td><td data-col="MiMo">69.2</td><td data-col="Doubao">89.1</td><td data-col="All">87.9</td></tr><tr><th scope="row" class="l">Constraint</th><td data-col="n">59</td><td data-col="Claude">89.8</td><td data-col="Gemini"><b class="hi">91.0</b></td><td data-col="DeepSeek">86.4</td><td data-col="Qwen">85.3</td><td data-col="GPT-6">87.6</td><td data-col="MiMo">59.0</td><td data-col="Doubao">85.5</td><td data-col="All">83.5</td></tr><tr><th scope="row" class="l">Asset-cond.</th><td data-col="n">34</td><td data-col="Claude">92.7</td><td data-col="Gemini"><b class="hi">94.4</b></td><td data-col="DeepSeek">90.4</td><td data-col="Qwen">84.2</td><td data-col="GPT-6">91.2</td><td data-col="MiMo">61.7</td><td data-col="Doubao">86.7</td><td data-col="All">85.9</td></tr><tr><th scope="row" class="l">Reference-cond.</th><td data-col="n">15</td><td data-col="Claude"><b class="hi">94.9</b></td><td data-col="Gemini">89.1</td><td data-col="DeepSeek">87.5</td><td data-col="Qwen">85.3</td><td data-col="GPT-6">77.4</td><td data-col="MiMo">56.3</td><td data-col="Doubao">84.0</td><td data-col="All">82.1</td></tr><tr><th scope="row" class="l">Audio-led</th><td data-col="n">20</td><td data-col="Claude"><b class="hi">91.8</b></td><td data-col="Gemini">90.6</td><td data-col="DeepSeek">86.9</td><td data-col="Qwen">76.3</td><td data-col="GPT-6">91.3</td><td data-col="MiMo">74.7</td><td data-col="Doubao">89.8</td><td data-col="All">85.9</td></tr><tr class="sec-row"><th colspan="10">By Required Sound (multi-label)</th></tr><tr><th scope="row" class="l">Speech</th><td data-col="n">89</td><td data-col="Claude"><b class="hi">94.3</b></td><td data-col="Gemini">93.2</td><td data-col="DeepSeek">89.8</td><td data-col="Qwen">83.7</td><td data-col="GPT-6">89.7</td><td data-col="MiMo">65.1</td><td data-col="Doubao">88.4</td><td data-col="All">86.3</td></tr><tr><th scope="row" class="l">Dialogue</th><td data-col="n">55</td><td data-col="Claude"><b class="hi">94.4</b></td><td data-col="Gemini">89.2</td><td data-col="DeepSeek">86.6</td><td data-col="Qwen">82.5</td><td data-col="GPT-6">85.2</td><td data-col="MiMo">60.0</td><td data-col="Doubao">83.1</td><td data-col="All">83.0</td></tr><tr><th scope="row" class="l">Music</th><td data-col="n">157</td><td data-col="Claude"><b class="hi">92.2</b></td><td data-col="Gemini">92.0</td><td data-col="DeepSeek">88.7</td><td data-col="Qwen">84.0</td><td data-col="GPT-6">88.7</td><td data-col="MiMo">64.0</td><td data-col="Doubao">87.3</td><td data-col="All">85.3</td></tr><tr><th scope="row" class="l">Sound effects</th><td data-col="n">128</td><td data-col="Claude"><b class="hi">92.1</b></td><td data-col="Gemini">92.0</td><td data-col="DeepSeek">88.5</td><td data-col="Qwen">83.4</td><td data-col="GPT-6">88.0</td><td data-col="MiMo">62.9</td><td data-col="Doubao">86.4</td><td data-col="All">84.8</td></tr></tbody>
+</table></div></div>
+    </details>
+    <details class="fold">
+      <summary><span>Human Validation on 116 Rated Tasks &mdash; 2,313 Ratings, Pearson r = 0.997 (Table 11)</span><span class="fold-tag">Table 11</span></summary>
+      <div class="fold-body"><div class="data-tbl-wrap">
+<p class="data-tbl-lead">Perfect 21/21 pairwise model agreement between the automated judge and 3 human raters (Pearson r = 0.997).</p>
+<table class="data-tbl compact">
+<caption><b>Table 11.</b> Mean overall scores and ranks across 116 human-rated tasks (771 delivered films, 2,313 human ratings).</caption>
+<thead><tr><th class="l">Model</th><th>Human Raters (Rank)</th><th>VLM Judge (Rank)</th></tr></thead>
+<tbody><tr><th scope="row" class="l">Claude Opus 5.5</th><td data-col="Human Raters">88.0 (1)</td><td data-col="VLM Judge">92.8 (1)</td></tr><tr><th scope="row" class="l">Gemini 4 Argon</th><td data-col="Human Raters">84.9 (2)</td><td data-col="VLM Judge">91.4 (2)</td></tr><tr><th scope="row" class="l">GPT-6 Astra</th><td data-col="Human Raters">83.6 (3)</td><td data-col="VLM Judge">88.3 (3)</td></tr><tr><th scope="row" class="l">DeepSeek V4.1 Flash</th><td data-col="Human Raters">81.8 (4)</td><td data-col="VLM Judge">87.6 (4)</td></tr><tr><th scope="row" class="l">Doubao Seed 2.1 Pro</th><td data-col="Human Raters">81.3 (5)</td><td data-col="VLM Judge">87.2 (5)</td></tr><tr><th scope="row" class="l">Qwen3.8 Max</th><td data-col="Human Raters">77.0 (6)</td><td data-col="VLM Judge">83.3 (6)</td></tr><tr><th scope="row" class="l">MiMo v2.6 Pro</th><td data-col="Human Raters">60.1 (7)</td><td data-col="VLM Judge">64.9 (7)</td></tr></tbody>
+</table></div></div>
+    </details>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════ ACT 4 · RQ2 WORKFLOWS & RQ3 MISSING QUALITY LOOP ═══════════════ -->
+<section class="chapter" id="workflows" aria-labelledby="wf-h">
+  <div class="chap-head">
+    <p class="chap-eyebrow warm">RQ2 &amp; RQ3 &middot; Emergent Workflows &amp; Capability Bottlenecks</p>
+    <h2 id="wf-h">Workflows emerge without templates &mdash; but the quality loop is missing.</h2>
+    <p class="chap-lede">Every tested MLLM spontaneously organizes multi-stage production pipelines (median 121 tool calls, 131 edges, depth 9). Yet finishing a film reliably is not the same as making it good: models recover from 80&ndash;90% of explicit tool errors, but fail to notice silent perceptual defects.</p>
+  </div>
+
+  <div class="wf-pair">
+    <figure class="plate">
+<a class="plate-link" href="assets/figures/fig4-workflow.png" aria-label="Open Figure 5 at full size">
+<picture><source srcset="assets/figures/fig4-workflow.webp" type="image/webp"><img src="assets/figures/fig4-workflow.png" width="914" height="403" alt="Heatmap of 8 emergent production workflow steps across 7 MLLMs." decoding="async" sizes="(max-width:960px) 92vw, 600px"></picture>
+</a>
+<figcaption class="plate-cap"><span class="plate-id">Figure 5</span>Share of delivered runs (%) containing each production step. Keyframes, review, audio mixing, and inspection emerge universally; upfront scripting, character locking, trimming, and re-exporting separate directing styles.</figcaption>
+</figure>
+    <div class="wf-takeaways">
+      <h3>Universal Spine, Divergent Directing Styles</h3>
+      <ul class="wf-bullets">
+        <li><b>Spontaneous pipeline:</b> Without a template, models generate keyframes before video in <b>70&ndash;97%</b> of runs, review frames in <b>83&ndash;97%</b>, mix audio in <b>99&ndash;100%</b>, and inspect before export in <b>96&ndash;100%</b>.</li>
+        <li><b>Two planning schools:</b> Qwen (99%), Doubao (97%), and GPT-6 (86%) draft full scripts upfront before calling tools; Claude (13%), Gemini (10%), and DeepSeek (20%) plan iteratively during production.</li>
+        <li class="warm"><b>Selective revision separates leaders:</b> Claude locks characters in <b>90%</b> of runs, trims clips in <b>77%</b>, and re-exports after review in <b>77%</b> (vs. 0&ndash;5% for GPT-6, Doubao, MiMo, Qwen, and Gemini).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:22px">
+    <figure class="plate">
+<a class="plate-link" href="assets/figures/workflow-case.png" aria-label="Open Figure 6 at full size">
+<picture><source srcset="assets/figures/workflow-case.webp" type="image/webp"><img src="assets/figures/workflow-case.png" width="2700" height="1945" alt="Paired reconstructed workflow DAGs comparing Claude Opus 5.5 against Doubao Seed 2.1 Pro on PRO-AST-002 and MiMo v2.6 Pro on NAR-AST-004." decoding="async" sizes="(max-width:1180px) 92vw, 1120px"></picture>
+</a>
+<figcaption class="plate-cap"><span class="plate-id">Figure 6</span>Side-by-side reconstructed workflow graphs on identical briefs. Filled dots reach the final export; open dots are discarded takes; red arcs mark post-check redos. Claude discards 27–36 takes while Doubao and MiMo keep 93–100%.</figcaption>
+</figure>
+  </div>
+
+  <div class="loop-split">
+    <div class="gap-stack">
+      <div class="gap-card">
+        <span class="gap-kicker">Capability Gap 01 &middot; Keeping State</span>
+        <h3>Identity &amp; Sync Drift Across Stages</h3>
+        <p>Preserving a character's face, wardrobe, and voice timing across sequential image edits, 5&ndash;8s video clips, and audio mixes remains fragile across long dependency chains.</p>
+        <div class="gap-chips">
+          <span class="gap-chip">19.1% character drift</span>
+          <span class="gap-chip">32.9% AV misalignment</span>
+        </div>
+      </div>
+      <div class="gap-card verif">
+        <span class="gap-kicker">Capability Gap 02 &middot; Verifying Beyond Tool Success</span>
+        <h3>Silent Failures Raise Zero Errors</h3>
+        <p>In four traced silent films (e.g., MiMo on COM-AUD-001), <code>mix_audio</code> sets gain to zero; subsequent <code>inspect</code> and <code>sample_frames</code> calls confirm file existence and visuals without ever checking audio content.</p>
+        <div class="gap-chips">
+          <span class="gap-chip">65.5% unverified defects</span>
+          <span class="gap-chip">57.8% checked but missed</span>
+        </div>
+      </div>
+      <div class="gap-card select">
+        <span class="gap-kicker">Capability Gap 03 &middot; Selecting by Observed Effect</span>
+        <h3>Selectivity Beats Raw Effort</h3>
+        <p>Simply issuing more tool calls barely improves quality within a model (<b>&rho; = +0.13</b>). Across models, discarding weaker takes (retention <b>&rho; = &minus;0.64</b>) and building deeper graphs (<b>&rho; = +0.75</b>) track quality closely, while 42.1% of films still cut at raw 5s/8s generator lengths.</p>
+        <div class="gap-chips">
+          <span class="gap-chip">Retention &rho; = &minus;0.64</span>
+          <span class="gap-chip">Depth &rho; = +0.75</span>
+          <span class="gap-chip">Calls &rho; = +0.13</span>
+        </div>
+      </div>
+    </div>
+    <figure class="plate">
+<a class="plate-link" href="assets/figures/fig7-effort.png" aria-label="Open Figure 7 at full size">
+<picture><source srcset="assets/figures/fig7-effort.webp" type="image/webp"><img src="assets/figures/fig7-effort.png" width="1017" height="1581" alt="Four-part diagnostic figure: silent-film workflow graph, retention selectivity scatter, within-model effort curve, and judge-human Pearson r=0.997 correlation." decoding="async" sizes="(max-width:960px) 92vw, 540px"></picture>
+</a>
+<figcaption class="plate-cap"><span class="plate-id">Figure 7</span>(a) Traced silent-film DAG where mix_audio gain=0 slips past frame/file checks. (b) More selective node retention correlates with higher scores (ρ = −0.64). (c) Raw tool-call effort within a model barely moves quality (ρ = +0.13). (d) Judge vs. 3-human mean across 116 tasks (r = 0.997).</figcaption>
+</figure>
+  </div>
+
+  <div class="fold-stack">
+    <details class="fold">
+      <summary><span>Workflow Graph &amp; Process Medians by Model (Table 2)</span><span class="fold-tag">Table 2</span></summary>
+      <div class="fold-body"><div class="data-tbl-wrap">
+<p class="data-tbl-lead">Top models build deeper, more selective workflows (72%–84% kept) while weaker models retain 93%–95% of every take.</p>
+<table class="data-tbl">
+<caption><b>Table 2.</b> Median workflow graph and execution effort statistics per task, used for behavioral attribution only.</caption>
+<thead><tr><th class="l">Model</th><th>Nodes</th><th>Depth</th><th>Used</th><th>Min.</th><th>Tokens (in / out)</th></tr></thead>
+<tbody><tr><th scope="row" class="l">Claude Opus 5.5</th><td data-col="Nodes">160</td><td data-col="Depth">11</td><td data-col="Used">0.75</td><td data-col="Minutes">125</td><td data-col="Tokens (in/out)">6.39M / 149k</td></tr><tr><th scope="row" class="l">Gemini 4 Argon</th><td data-col="Nodes">140</td><td data-col="Depth">9</td><td data-col="Used">0.84</td><td data-col="Minutes">79</td><td data-col="Tokens (in/out)">1.73M / 47k</td></tr><tr><th scope="row" class="l">GPT-6 Astra</th><td data-col="Nodes">127</td><td data-col="Depth">10</td><td data-col="Used">0.88</td><td data-col="Minutes">56</td><td data-col="Tokens (in/out)">0.57M / 16k</td></tr><tr><th scope="row" class="l">DeepSeek V4.1 Flash</th><td data-col="Nodes">150</td><td data-col="Depth">10</td><td data-col="Used">0.72</td><td data-col="Minutes">81</td><td data-col="Tokens (in/out)">4.21M / 82k</td></tr><tr><th scope="row" class="l">Doubao Seed 2.1 Pro</th><td data-col="Nodes">54</td><td data-col="Depth">7</td><td data-col="Used">0.93</td><td data-col="Minutes">47</td><td data-col="Tokens (in/out)">0.58M / 18k</td></tr><tr><th scope="row" class="l">Qwen3.8 Max</th><td data-col="Nodes">97</td><td data-col="Depth">9</td><td data-col="Used">0.85</td><td data-col="Minutes">79</td><td data-col="Tokens (in/out)">1.65M / 47k</td></tr><tr><th scope="row" class="l">MiMo v2.6 Pro</th><td data-col="Nodes">76</td><td data-col="Depth">7</td><td data-col="Used">0.95</td><td data-col="Minutes">66</td><td data-col="Tokens (in/out)">0.51M / 54k</td></tr></tbody>
+</table></div></div>
+    </details>
+    <details class="fold">
+      <summary><span>Error Modes &amp; 142-Pair Quality Loss Attribution (Tables 3 &amp; 16)</span><span class="fold-tag">Tables 3 &amp; 16</span></summary>
+      <div class="fold-body"><div class="fold-two">
+<div class="data-tbl-wrap">
+<p class="data-tbl-lead">Rule-based error modes across 1,063 delivered films (Table 3).</p>
+<table class="data-tbl">
+<caption><b>Table 3.</b> Prevalence (%) of four capability-related error proxies.</caption>
+<thead><tr><th class="l">Error mode</th><th class="l">Ability</th><th>All</th><th class="l">Lowest</th><th class="l">Highest</th></tr></thead>
+<tbody><tr><th scope="row" class="l">Character drift</th><td class="l" data-col="Ability">Keeping state</td><td data-col="All">19.1%</td><td class="l" data-col="Lowest">10.9% Claude</td><td class="l" data-col="Highest">27.5% Doubao</td></tr><tr><th scope="row" class="l">AV misalignment</th><td class="l" data-col="Ability">Keeping state</td><td data-col="All">32.9%</td><td class="l" data-col="Lowest">28.2% Claude</td><td class="l" data-col="Highest">37.5% Qwen</td></tr><tr><th scope="row" class="l">Silent damage</th><td class="l" data-col="Ability">Verifying outputs</td><td data-col="All">3.5%</td><td class="l" data-col="Lowest">0.6% Gemini</td><td class="l" data-col="Highest">5.8% MiMo</td></tr><tr><th scope="row" class="l">Tool-length pacing</th><td class="l" data-col="Ability">Deciding by effect</td><td data-col="All">42.1%</td><td class="l" data-col="Lowest">25.6% Claude</td><td class="l" data-col="Highest">59.4% Doubao</td></tr></tbody>
+</table></div>
+<div class="data-tbl-wrap">
+<p class="data-tbl-lead">Paired loss attribution on 142 tasks / 415 losses (Table 16).</p>
+<table class="data-tbl compact">
+<caption><b>Table 16.</b> Share (%) of quality losses in weaker films by capability gap and check outcome.</caption>
+<thead><tr><th class="l">Category</th><th>All pairs</th><th>Audible B</th></tr></thead>
+<tbody><tr><th scope="row" class="l">Unverified perceptual defect</th><td data-col="All 142 pairs">65.5%</td><td data-col="Audible B (136)">65.3%</td></tr><tr><th scope="row" class="l">Tool default over effect</th><td data-col="All 142 pairs">16.6%</td><td data-col="Audible B (136)">16.5%</td></tr><tr><th scope="row" class="l">Cross-step state drift</th><td data-col="All 142 pairs">15.4%</td><td data-col="Audible B (136)">15.7%</td></tr><tr><th scope="row" class="l">Unrecovered tool error</th><td data-col="All 142 pairs">1.4%</td><td data-col="Audible B (136)">1.5%</td></tr><tr><th scope="row" class="l">Misread brief</th><td data-col="All 142 pairs">1.0%</td><td data-col="Audible B (136)">1.0%</td></tr><tr><th scope="row" class="l">Checked but missed</th><td data-col="All 142 pairs">57.8%</td><td data-col="Audible B (136)">57.1%</td></tr><tr><th scope="row" class="l">Never checked</th><td data-col="All 142 pairs">33.5%</td><td data-col="Audible B (136)">34.4%</td></tr><tr><th scope="row" class="l">Noticed, not fixed</th><td data-col="All 142 pairs">7.2%</td><td data-col="Audible B (136)">7.2%</td></tr></tbody>
+</table></div>
+</div></div>
+    </details>
+    <details class="fold">
+      <summary><span>Objective FFmpeg Audio/Frame Defects &amp; Human Cut-Rate Ratios (Table 15)</span><span class="fold-tag">Table 15</span></summary>
+      <div class="fold-body"><div class="data-tbl-wrap">
+<p class="data-tbl-lead">All models cut far slower than human source films (0.21–0.46× human cut rate).</p>
+<table class="data-tbl">
+<caption><b>Table 15.</b> Objective FFmpeg defect rates (%) across delivered films and paired cut-rate ratio vs. human source videos (median 12.0 cuts/min).</caption>
+<thead><tr><th class="l">Model</th><th>Silent</th><th>Sil. &gt;10s</th><th>Black</th><th>Frozen</th><th>Washed</th><th>Cuts / human</th></tr></thead>
+<tbody><tr><th scope="row" class="l">Claude Opus 5.5</th><td data-col="Silent (%)">0.0</td><td data-col="Silence >10s">0.6</td><td data-col="Black >2s">9.6</td><td data-col="Frozen >10s">5.8</td><td data-col="Washed out">2.6</td><td data-col="Cuts / human">0.46</td></tr><tr><th scope="row" class="l">Gemini 4 Argon</th><td data-col="Silent (%)">0.0</td><td data-col="Silence >10s">1.3</td><td data-col="Black >2s">1.3</td><td data-col="Frozen >10s">10.1</td><td data-col="Washed out">0.6</td><td data-col="Cuts / human">0.29</td></tr><tr><th scope="row" class="l">DeepSeek V4.1 Flash</th><td data-col="Silent (%)">1.9</td><td data-col="Silence >10s">3.2</td><td data-col="Black >2s">18.6</td><td data-col="Frozen >10s">16.7</td><td data-col="Washed out">3.3</td><td data-col="Cuts / human">0.46</td></tr><tr><th scope="row" class="l">Qwen3.8 Max</th><td data-col="Silent (%)">0.0</td><td data-col="Silence >10s">5.9</td><td data-col="Black >2s">19.1</td><td data-col="Frozen >10s">19.1</td><td data-col="Washed out">2.6</td><td data-col="Cuts / human">0.29</td></tr><tr><th scope="row" class="l">GPT-6 Astra</th><td data-col="Silent (%)">0.0</td><td data-col="Silence >10s">2.5</td><td data-col="Black >2s">2.5</td><td data-col="Frozen >10s">14.4</td><td data-col="Washed out">4.4</td><td data-col="Cuts / human">0.35</td></tr><tr><th scope="row" class="l">MiMo v2.6 Pro</th><td data-col="Silent (%)">4.2</td><td data-col="Silence >10s">9.2</td><td data-col="Black >2s">4.2</td><td data-col="Frozen >10s">25.0</td><td data-col="Washed out">1.7</td><td data-col="Cuts / human">0.21</td></tr><tr><th scope="row" class="l">Doubao Seed 2.1 Pro</th><td data-col="Silent (%)">0.0</td><td data-col="Silence >10s">8.8</td><td data-col="Black >2s">14.4</td><td data-col="Frozen >10s">20.6</td><td data-col="Washed out">3.8</td><td data-col="Cuts / human">0.35</td></tr></tbody>
+</table></div></div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════ ACT 5 · MULTI-GENRE SCREENING ROOM & CITATION ═══════════════ -->
+<div class="band-tint">
+<section class="chapter" id="screening" aria-labelledby="scr-h">
+  <div class="chap-head">
+    <p class="chap-eyebrow">Side-by-Side Audiovisual Screening Room</p>
+    <h2 id="scr-h">Same production brief, same 33 tools &mdash; watch and hear the craft gap.</h2>
+    <p class="chap-lede">Switch across five distinct genres from StudioBench. Each pairing plays 20-second audiovisual excerpts directly from delivered 720p films (playing one automatically pauses the other) so you can compare pacing, consistency, voice, and sound design firsthand.</p>
+  </div>
+
+  <div class="booth-shell" id="screening-booth" style="margin-top:0"><div class="screen-tabs" role="tablist" aria-label="Five multi-genre side-by-side film comparisons"><button type="button" role="tab" class="screen-tab" id="stab-0" aria-controls="span-0" aria-selected="true" tabindex="0"><span class="st-genre">Product</span><span class="st-name">AI Badge Unboxing</span><span class="st-id">PRO-AST-002</span></button><button type="button" role="tab" class="screen-tab" id="stab-1" aria-controls="span-1" aria-selected="false" tabindex="-1"><span class="st-genre">Dialogue</span><span class="st-name">Renaissance Balcony</span><span class="st-id">DIA-AUD-001</span></button><button type="button" role="tab" class="screen-tab" id="stab-2" aria-controls="span-2" aria-selected="false" tabindex="-1"><span class="st-genre">Music</span><span class="st-name">Surreal K-Pop MV</span><span class="st-id">MUS-CON-003</span></button><button type="button" role="tab" class="screen-tab" id="stab-3" aria-controls="span-3" aria-selected="false" tabindex="-1"><span class="st-genre">Documentary</span><span class="st-name">Dragon-Boat Rituals</span><span class="st-id">DOC-OPN-013</span></button><button type="button" role="tab" class="screen-tab" id="stab-4" aria-controls="span-4" aria-selected="false" tabindex="-1"><span class="st-genre">Narrative</span><span class="st-name">Prince &amp; Dragon Comedy</span><span class="st-id">NAR-AST-004</span></button></div><div class="screen-panel" role="tabpanel" id="span-0" aria-labelledby="stab-0">
+  <div class="screen-body">
+    <div class="screen-brief-bar">
+      <p class="screen-brief-txt"><b>PRO-AST-002</b>A 150s unboxing review of a toy AI badge featuring narration, interactive AI voice responses, and feature callouts.</p>
+      <span class="screen-dur-tag">150s brief · 20s highlight</span>
+    </div>
+    <div class="duel-grid"><div class="film-card winner">
+  <div class="film-hd">
+    <img src="assets/logos/claude.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">Claude Opus 5.5</span>
+    <span class="film-calls">&middot; 159 calls</span>
+    <span class="film-score">100.0</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/pro-002-claude-poster.jpg" width="640" height="360" controls playsinline preload="metadata"><source src="assets/videos/pro-002-claude.webm" type="video/webm"><source src="assets/videos/pro-002-claude.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill">VIS 100</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 100</span></div>
+    <p class="film-diag">Plans iteratively with 159 tool calls, 2 redone edits after review, and 27 discarded takes — achieving clean product continuity and 100/100 across all four dimensions.</p>
+  </div>
+</div><div class="film-card flawed">
+  <div class="film-hd">
+    <img src="assets/logos/doubao.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">Doubao Seed 2.1 Pro</span>
+    <span class="film-calls">&middot; 59 calls</span>
+    <span class="film-score">86.9</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/pro-002-doubao-poster.jpg" width="640" height="360" controls playsinline preload="metadata"><source src="assets/videos/pro-002-doubao.webm" type="video/webm"><source src="assets/videos/pro-002-doubao.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill low">VIS 62.5</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 100</span></div>
+    <p class="film-diag">Scripts upfront and finishes in 59 calls with zero redos and 93% node retention; meets every explicit requirement (SEM 100) but drops to VIS 62.5 on visual polish.</p>
+  </div>
+</div></div>
+  </div>
+</div><div class="screen-panel" role="tabpanel" id="span-1" aria-labelledby="stab-1" hidden>
+  <div class="screen-body">
+    <div class="screen-brief-bar">
+      <p class="screen-brief-txt"><b>DIA-AUD-001</b>A Renaissance balcony love scene in English dialogue: the young man climbs to the balcony, the lovers pledge themselves and part.</p>
+      <span class="screen-dur-tag">101–111s brief · English dialogue</span>
+    </div>
+    <div class="duel-grid"><div class="film-card winner">
+  <div class="film-hd">
+    <img src="assets/logos/claude.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">Claude Opus 5.5</span>
+    <span class="film-calls">&middot; 157 calls</span>
+    <span class="film-score">98.1</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/dia-001-claude-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/dia-001-claude.webm" type="video/webm"><source src="assets/videos/dia-001-claude.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill">VIS 87.5</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 100</span></div>
+    <p class="film-diag">Preserves both actors and moonlit balcony staging across shots (consistency 3/3) while holding tight English dialogue lip sync (AV 100).</p>
+  </div>
+</div><div class="film-card flawed">
+  <div class="film-hd">
+    <img src="assets/logos/gpt6.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">GPT-6 Astra</span>
+    <span class="film-calls">&middot; 136 calls</span>
+    <span class="film-score">82.1</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/dia-001-gpt6-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/dia-001-gpt6.webm" type="video/webm"><source src="assets/videos/dia-001-gpt6.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill low">VIS 25</span><span class="md-pill">AUD 100</span><span class="md-pill low">AV 66.7</span></div>
+    <p class="film-diag">Satisfies the checklist (SEM 100) and audio clarity, yet visual structure/clarity drops sharply (VIS 25.0) alongside noticeably looser lip sync.</p>
+  </div>
+</div></div>
+  </div>
+</div><div class="screen-panel" role="tabpanel" id="span-2" aria-labelledby="stab-2" hidden>
+  <div class="screen-body">
+    <div class="screen-brief-bar">
+      <p class="screen-brief-txt"><b>MUS-CON-003</b>A 132s surreal K-pop music video in which a former idol is coaxed back to the stage by his grandmother, a girl, and his manager, with Korean lyrics and Chinese subtitles.</p>
+      <span class="screen-dur-tag">127–137s brief · Beat-led MV</span>
+    </div>
+    <div class="duel-grid"><div class="film-card winner">
+  <div class="film-hd">
+    <img src="assets/logos/deepseek.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">DeepSeek V4.1 Flash</span>
+    <span class="film-calls">&middot; 173 calls</span>
+    <span class="film-score">95.0</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/mus-003-deepseek-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/mus-003-deepseek.webm" type="video/webm"><source src="assets/videos/mus-003-deepseek.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill">VIS 100</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 83.3</span></div>
+    <p class="film-diag">DeepSeek ties for #1 in the Music genre: explores 173 calls to sustain energetic stage lighting, Korean vocals, and clean visual transitions.</p>
+  </div>
+</div><div class="film-card flawed">
+  <div class="film-hd">
+    <img src="assets/logos/gemini.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">Gemini 4 Argon</span>
+    <span class="film-calls">&middot; 92 calls</span>
+    <span class="film-score">59.2</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/mus-003-gemini-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/mus-003-gemini.webm" type="video/webm"><source src="assets/videos/mus-003-gemini.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill low">SEM 66.7</span><span class="md-pill low">VIS 62.5</span><span class="md-pill low">AUD 50</span><span class="md-pill low">AV 66.7</span></div>
+    <p class="film-diag">Despite ranking #2 overall across StudioBench, Music exposes pacing and soundtrack coherence breakdowns (AUD 50.0) on this multi-constraint MV.</p>
+  </div>
+</div></div>
+  </div>
+</div><div class="screen-panel" role="tabpanel" id="span-3" aria-labelledby="stab-3" hidden>
+  <div class="screen-body">
+    <div class="screen-brief-bar">
+      <p class="screen-brief-txt"><b>DOC-OPN-013</b>A 154s documentary on the dragon-boat tradition, following one boat through five rituals from awakening to burial, with male narration and folk percussion.</p>
+      <span class="screen-dur-tag">149–159s brief · Narration &amp; percussion</span>
+    </div>
+    <div class="duel-grid"><div class="film-card winner">
+  <div class="film-hd">
+    <img src="assets/logos/doubao.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">Doubao Seed 2.1 Pro</span>
+    <span class="film-calls">&middot; 40 calls</span>
+    <span class="film-score">100.0</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/doc-013-doubao-poster.jpg" width="640" height="366" controls playsinline preload="none"><source src="assets/videos/doc-013-doubao.webm" type="video/webm"><source src="assets/videos/doc-013-doubao.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill">VIS 100</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 100</span></div>
+    <p class="film-diag">Cost-Pareto standout ($0.75 median): delivers a cohesive 100/100 documentary in just 40 tool calls with atmospheric visuals, narration, and percussion.</p>
+  </div>
+</div><div class="film-card flawed">
+  <div class="film-hd">
+    <img src="assets/logos/mimo.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">MiMo v2.6 Pro</span>
+    <span class="film-calls">&middot; 120 calls</span>
+    <span class="film-score">47.5</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/doc-013-mimo-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/doc-013-mimo.webm" type="video/webm"><source src="assets/videos/doc-013-mimo.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill low">VIS 50</span><span class="md-pill low">AUD 0</span><span class="md-pill low">AV 0</span></div>
+    <p class="film-diag">Uses 3× more tool calls (120) than Doubao yet suffers total audio/AV collapse (AUD 0, AV 0) — illustrating why more tool calls without perceptual checks fail.</p>
+  </div>
+</div></div>
+  </div>
+</div><div class="screen-panel" role="tabpanel" id="span-4" aria-labelledby="stab-4" hidden>
+  <div class="screen-body">
+    <div class="screen-brief-bar">
+      <p class="screen-brief-txt"><b>NAR-AST-004</b>A fantasy comedy: a prince trying on his sister&#x27;s pink gown is carried off by a dragon by mistake; the dragon turns into a silver-haired nobleman and the rescuing knight mistakes him.</p>
+      <span class="screen-dur-tag">125–135s brief · 3D Fantasy Comedy</span>
+    </div>
+    <div class="duel-grid"><div class="film-card winner">
+  <div class="film-hd">
+    <img src="assets/logos/claude.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">Claude Opus 5.5</span>
+    <span class="film-calls">&middot; 171 calls</span>
+    <span class="film-score">90.6</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/nar-004-claude-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/nar-004-claude.webm" type="video/webm"><source src="assets/videos/nar-004-claude.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 100</span><span class="md-pill low">VIS 62.5</span><span class="md-pill">AUD 100</span><span class="md-pill">AV 100</span></div>
+    <p class="film-diag">Discards 36 candidate takes (73% kept) and edits keyframes to keep the prince recognizable across the narrative arc with sharp comedic pacing.</p>
+  </div>
+</div><div class="film-card flawed">
+  <div class="film-hd">
+    <img src="assets/logos/gpt6.png" alt="" width="20" height="20" aria-hidden="true">
+    <span class="film-model">GPT-6 Astra</span>
+    <span class="film-calls">&middot; 110 calls</span>
+    <span class="film-score">56.7</span>
+  </div>
+  <div class="film-vid-wrap">
+    <video class="film-vid" poster="assets/videos/nar-004-gpt6-poster.jpg" width="640" height="360" controls playsinline preload="none"><source src="assets/videos/nar-004-gpt6.webm" type="video/webm"><source src="assets/videos/nar-004-gpt6.mp4" type="video/mp4"></video>
+  </div>
+  <div class="film-meta">
+    <div class="mini-dims"><span class="md-pill">SEM 83.3</span><span class="md-pill low">VIS 50</span><span class="md-pill">AUD 75</span><span class="md-pill low">AV 16.7</span></div>
+    <p class="film-diag">Loses audiovisual alignment (AV 16.7, lip sync 1/3) and narrative polish despite executing 110 tool calls.</p>
+  </div>
+</div></div>
+  </div>
+</div></div>
+
+  <div class="contact-strip">
+    <span>Want all 7 models across all 8 genres at a glance? Open full paper contact sheets:</span>
+    <a class="action-pill sheet-zoom" href="assets/figures/figqual1.png" data-cap="Figure 12: Qualitative 7-model comparison across Narrative (NAR-AST-004), Commercial (COM-OPN-021), Product (PRO-AST-003), and Education (EDU-AST-001).">Narrative &ndash; Education Sheet</a>
+    <a class="action-pill sheet-zoom" href="assets/figures/figqual2.png" data-cap="Figure 13: Qualitative 7-model comparison across Music (MUS-CON-003), Documentary (DOC-OPN-013), Creator (CRE-OPN-010), and Dialogue (DIA-AUD-001).">Music &ndash; Dialogue Sheet</a>
+  </div>
+
+  <div class="scope-grid">
+    <div class="scope-card">
+      <h3>Fixed Video Backend</h3>
+      <p>Fixing MiniMax-H3 isolates agentic directing skill, though future generators with stronger native consistency may shift absolute ceilings.</p>
+    </div>
+    <div class="scope-card">
+      <h3>57 Undelivered Runs</h3>
+      <p>40 runs ended without calling <code>export</code> (36 by MiMo); 13 hit API or wall-clock limits. Excluding those 13 raises Claude to 94.6 while keeping top tiers stable.</p>
+    </div>
+    <div class="scope-card">
+      <h3>Human Calibration Scope</h3>
+      <p>Thresholds were tuned on 27 dev tasks included inside the 116 human-rated tasks; within-task judge&ndash;human r is 0.656 vs. rater&ndash;rater 0.692.</p>
+    </div>
+    <div class="scope-card">
+      <h3>Text-Only Briefs in Release</h3>
+      <p>Asset- and Reference-conditioned tasks state conditions inside the brief without attached input files; audio/visual perception loops remain open work.</p>
+    </div>
+  </div>
+</section>
+</div>
+
+<section class="chapter" id="citation" aria-labelledby="cite-h">
+  <div class="chap-head" style="margin-bottom:20px">
+    <p class="chap-eyebrow">Citation</p>
+    <h2 id="cite-h">Cite StudioBench</h2>
+  </div>
+  <div class="cite-shell">
+    <div class="cite-top"><span>BibTeX</span><button class="cite-copy" id="copy-bib" type="button">Copy BibTeX</button></div>
+    <pre class="bib-code" id="bib">@article{studiobench2026,
+  title  = {{StudioBench: Benchmarking Agentic Multimodal Large Language Models for Productive Audiovisual Creation}},
+  author = {Anonymous},
+  year   = {2026}
+}</pre>
+  </div>
+  <p class="footnote">Anonymous manuscript under review; author list, affiliations, and public release links are pending.</p>
+</section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="foot-row">
+    <p>All scores, workflow statistics, and tables are verified directly against the manuscript and shipped evaluation artifacts. Screening clips are direct excerpts of delivered model outputs.</p>
+    <p>Typeset in Bricolage Grotesque, Work Sans, and JetBrains Mono (open licences in <code>assets/fonts/</code>).</p>
+  </div>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Enlarged figure">
+  <img id="lb-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Enlarged figure">
+  <div class="lb-bar"><p id="lb-cap"></p><button class="lb-close" id="lb-close" type="button">Close</button></div>
+</dialog>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ── Audio mutual exclusion across all video players ── */
+  var allVideos = [].slice.call(document.querySelectorAll('video'));
+  allVideos.forEach(function(v){
+    v.addEventListener('play', function(){
+      allVideos.forEach(function(other){
+        if(other !== v && !other.paused){
+          other.pause();
+        }
+      });
+    });
+  });
+
+  /* ── Hero Feature Reel unmute button ── */
+  (function(){
+    var hv = document.getElementById('hero-video');
+    var btn = document.getElementById('hero-sound-btn');
+    if(!hv || !btn) return;
+    function syncBtn(){
+      var unmuted = !hv.muted;
+      btn.setAttribute('aria-pressed', String(unmuted));
+      btn.textContent = unmuted ? 'Sound On (Click to Mute)' : 'Enable Film Sound';
+    }
+    btn.addEventListener('click', function(){
+      hv.muted = !hv.muted;
+      if(!hv.muted && hv.paused){
+        hv.play().catch(function(){});
+      }
+      syncBtn();
+    });
+    hv.addEventListener('volumechange', syncBtn);
+    syncBtn();
+  })();
+
+  /* ── 33 Atomic Tools 8-group Explorer ── */
+  (function(){
+    var root = document.getElementById('tool-explorer');
+    if(!root) return;
+    var groups;
+    try { groups = JSON.parse(root.getAttribute('data-tools')); } catch(e){ return; }
+    var btns = [].slice.call(root.querySelectorAll('.tool-tab'));
+    var titleEl = root.querySelector('.tool-detail-hd h4');
+    var countEl = root.querySelector('.tool-detail-hd span');
+    var chipsEl = root.querySelector('.tool-chips');
+    var noteEl = root.querySelector('.tool-note');
+
+    function show(idx){
+      var g = groups[idx];
+      if(!g) return;
+      titleEl.textContent = g.name;
+      countEl.textContent = g.tools.length + (g.tools.length === 1 ? ' tool' : ' tools');
+      chipsEl.textContent = '';
+      g.tools.forEach(function(t){
+        var sp = document.createElement('span');
+        sp.className = 'tool-chip';
+        sp.textContent = t;
+        chipsEl.appendChild(sp);
+      });
+      noteEl.textContent = g.note;
+      btns.forEach(function(b, i){ b.setAttribute('aria-pressed', String(i === idx)); });
+    }
+    btns.forEach(function(b, i){ b.addEventListener('click', function(){ show(i); }); });
+    show(0);
+  })();
+
+  /* ── 7-Model Leaderboard + Synced Quality-Cost Pareto Highlight ── */
+  (function(){
+    var root = document.getElementById('sb-leaderboard');
+    if(!root) return;
+    var models, metrics;
+    try {
+      models = JSON.parse(root.getAttribute('data-models'));
+      metrics = JSON.parse(root.getAttribute('data-metrics'));
+    } catch(e){ return; }
+
+    var plot = root.querySelector('.rank-list');
+    var blurb = root.querySelector('.metric-blurb');
+    var dirEl = root.querySelector('.rank-dir');
+    var btns = [].slice.call(root.querySelectorAll('.metric-sw button'));
+    var paretoDots = [].slice.call(document.querySelectorAll('[data-pareto-model]'));
+
+    function highlightModel(slug){
+      [].forEach.call(plot.querySelectorAll('.rank-row'), function(r){
+        r.classList.toggle('is-active', r.getAttribute('data-model') === slug);
+      });
+      paretoDots.forEach(function(el){
+        var on = el.getAttribute('data-pareto-model') === slug;
+        el.setAttribute('r', on ? '8.5' : (el.getAttribute('data-pareto') === '1' ? '6.2' : '5.2'));
+        el.classList.toggle('pt-hi', on);
+      });
+    }
+
+    function draw(key){
+      var m = metrics.filter(function(x){ return x.key === key; })[0];
+      if(!m) return;
+      var sorted = models.slice().sort(function(a, b){
+        return m.better === 'higher' ? b[key] - a[key] : a[key] - b[key];
+      });
+      var maxVal = Math.max.apply(null, sorted.map(function(x){ return x[key]; }));
+      var minVal = m.floor || 0;
+      plot.textContent = '';
+
+      sorted.forEach(function(r, idx){
+        var row = document.createElement('div');
+        row.className = 'rank-row' + (idx === 0 ? ' is-top' : '') + (r.pareto ? ' is-pareto' : '');
+        row.setAttribute('data-model', r.slug);
+
+        var nm = document.createElement('div');
+        nm.className = 'rank-nm';
+        var num = document.createElement('span');
+        num.className = 'rank-idx';
+        num.textContent = String(idx + 1);
+        var img = document.createElement('img');
+        img.className = 'rank-ico';
+        img.src = 'assets/logos/' + r.logo;
+        img.alt = '';
+        img.width = 19;
+        img.height = 19;
+        img.setAttribute('aria-hidden', 'true');
+        var sp = document.createElement('span');
+        sp.textContent = r.name;
+        nm.appendChild(num);
+        nm.appendChild(img);
+        nm.appendChild(sp);
+
+        var tr = document.createElement('div');
+        tr.className = 'rank-track';
+        var fill = document.createElement('div');
+        fill.className = 'rank-fill';
+        var pct = ((r[key] - minVal) / Math.max(0.01, maxVal - minVal)) * 100;
+        fill.style.width = Math.max(6, Math.min(100, pct)).toFixed(1) + '%';
+        tr.appendChild(fill);
+
+        var val = document.createElement('div');
+        val.className = 'rank-val';
+        if(m.fmt === 'usd') val.textContent = '$' + r[key].toFixed(2);
+        else if(m.fmt === 'pct') val.textContent = r[key].toFixed(1) + '%';
+        else val.textContent = r[key].toFixed(1);
+
+        row.appendChild(nm);
+        row.appendChild(tr);
+        row.appendChild(val);
+        row.addEventListener('mouseenter', function(){ highlightModel(r.slug); });
+        row.addEventListener('mouseleave', function(){ highlightModel(''); });
+        plot.appendChild(row);
+      });
+
+      if(blurb) blurb.textContent = m.blurb;
+      if(dirEl) dirEl.textContent = m.better === 'higher' ? 'higher is better · 160 tasks' : 'lower median LLM cost per task';
+      btns.forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-k') === key)); });
+    }
+
+    btns.forEach(function(b){ b.addEventListener('click', function(){ draw(b.getAttribute('data-k')); }); });
+    draw('overall');
+  })();
+
+  /* ── 5-Genre Side-by-Side Screening Room Tabs ── */
+  (function(){
+    var root = document.getElementById('screening-booth');
+    if(!root) return;
+    var tabs = [].slice.call(root.querySelectorAll('.screen-tab'));
+    var panels = [].slice.call(root.querySelectorAll('.screen-panel'));
+
+    function activate(idx){
+      tabs.forEach(function(t, i){
+        var on = i === idx;
+        t.setAttribute('aria-selected', String(on));
+        t.tabIndex = on ? 0 : -1;
+      });
+      panels.forEach(function(p, i){
+        var on = i === idx;
+        p.hidden = !on;
+        if(!on){
+          [].forEach.call(p.querySelectorAll('video'), function(v){
+            if(!v.paused) v.pause();
+          });
+        }
+      });
+    }
+
+    tabs.forEach(function(t, i){
+      t.addEventListener('click', function(){ activate(i); });
+      t.addEventListener('keydown', function(e){
+        var n = null;
+        if(e.key === 'ArrowRight') n = (i + 1) % tabs.length;
+        if(e.key === 'ArrowLeft') n = (i - 1 + tabs.length) % tabs.length;
+        if(e.key === 'Home') n = 0;
+        if(e.key === 'End') n = tabs.length - 1;
+        if(n === null) return;
+        e.preventDefault();
+        activate(n);
+        tabs[n].focus();
+      });
+    });
+    activate(0);
+  })();
+
+  /* ── Lightbox Zoom for Paper Figures & Contact Sheets ── */
+  (function(){
+    var dlg = document.getElementById('lightbox');
+    var img = document.getElementById('lb-img');
+    var cap = document.getElementById('lb-cap');
+    var closeBtn = document.getElementById('lb-close');
+    if(!dlg || !dlg.showModal) return;
+
+    [].forEach.call(document.querySelectorAll('a.plate-link, a.sheet-zoom'), function(a){
+      a.addEventListener('click', function(e){
+        if(e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        var fig = a.closest('figure');
+        var c = fig && fig.querySelector('figcaption');
+        var im = a.querySelector('img');
+        img.src = a.getAttribute('href');
+        img.alt = im ? im.alt : (a.getAttribute('data-cap') || 'Enlarged figure');
+        cap.textContent = c ? c.textContent : (a.getAttribute('data-cap') || '');
+        dlg.showModal();
+      });
+    });
+    closeBtn.addEventListener('click', function(){ dlg.close(); });
+    dlg.addEventListener('click', function(e){ if(e.target === dlg) dlg.close(); });
+  })();
+
+  /* ── Copy BibTeX ── */
+  (function(){
+    var btn = document.getElementById('copy-bib');
+    var pre = document.getElementById('bib');
+    if(!btn || !pre || !navigator.clipboard) return;
+    var orig = btn.textContent, timer = null;
+    btn.addEventListener('click', function(){
+      navigator.clipboard.writeText(pre.textContent).then(function(){
+        btn.textContent = 'Copied!';
+        clearTimeout(timer);
+        timer = setTimeout(function(){ btn.textContent = orig; }, 1600);
+      });
+    });
+  })();
+
+  /* ── Scroll-Spy Navigation ── */
+  (function(){
+    if(!('IntersectionObserver' in window)) return;
+    var map = {};
+    [].forEach.call(document.querySelectorAll('.top-nav a[href^="#"]'), function(a){
+      map[a.getAttribute('href').slice(1)] = a;
+    });
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(!en.isIntersecting) return;
+        var id = en.target.id;
+        if(id === 'citation') return;
+        Object.keys(map).forEach(function(k){
+          if(k === 'citation') return;
+          if(k === id) map[k].setAttribute('aria-current', 'true');
+          else map[k].removeAttribute('aria-current');
+        });
+      });
+    }, {rootMargin: '-28% 0px -62% 0px'});
+    Object.keys(map).forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) io.observe(el);
+    });
+  })();
+})();
+</script>
+</body>
+</html>

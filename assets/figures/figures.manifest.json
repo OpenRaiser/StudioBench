@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "directory": ".",
+  "assets": [
+    {
+      "source": "fig2_environment.pdf",
+      "output": "fig2-environment.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 1081,
+      "height": 1684,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 0.6419,
+      "webp": "fig2-environment.webp"
+    },
+    {
+      "source": "fig3_dataset.pdf",
+      "output": "fig3-dataset.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 2501,
+      "height": 1048,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 2.3865,
+      "webp": "fig3-dataset.webp"
+    },
+    {
+      "source": "fig4_workflow.pdf",
+      "output": "fig4-workflow.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 914,
+      "height": 403,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 2.268,
+      "webp": "fig4-workflow.webp"
+    },
+    {
+      "source": "fig5_where_differ.pdf",
+      "output": "fig5-where-differ.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 1892,
+      "height": 608,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 3.1118,
+      "webp": "fig5-where-differ.webp"
+    },
+    {
+      "source": "fig7_effort.pdf",
+      "output": "fig7-effort.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 1017,
+      "height": 1581,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 0.6433,
+      "webp": "fig7-effort.webp"
+    },
+    {
+      "source": "figqual1.pdf",
+      "output": "figqual1.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 1892,
+      "height": 1664,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 1.137,
+      "webp": "figqual1.webp"
+    },
+    {
+      "source": "figqual2.pdf",
+      "output": "figqual2.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 1892,
+      "height": 1664,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 1.137,
+      "webp": "figqual2.webp"
+    },
+    {
+      "source": "workflow_case.pdf",
+      "output": "workflow-case.png",
+      "kind": "raster-from-pdf",
+      "page": null,
+      "width": 2700,
+      "height": 1945,
+      "alt": "",
+      "notes": [],
+      "aspect_ratio": 1.3882,
+      "webp": "workflow-case.webp"
+    }
+  ]
+}
